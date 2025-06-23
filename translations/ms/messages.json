@@ -128,7 +128,7 @@
       ],
       [
         "components/wegic/hero.tsx",
-        92
+        95
       ]
     ]
   },
@@ -224,47 +224,14 @@
       ]
     ]
   },
-  "jaB///": {
-    "translation": "Galeri Lukisan Luar AI",
-    "message": "AI Outpainting Gallery",
+  "Oiqc2y": {
+    "translation": "",
+    "message": "AI Outpainting Examples: Democratize Creative Expansion Ideas",
     "comments": [],
     "origin": [
       [
         "components/wegic/gallery.tsx",
-        40
-      ]
-    ]
-  },
-  "ZyBhxg": {
-    "translation": "Imej Lukisan Luar AI",
-    "message": "AIMEGApro",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(public)/playgroundv1/[[...slug]]/views.tsx",
-        166
-      ]
-    ]
-  },
-  "+dagcs": {
-    "translation": "Pos Blog Gambar AI Outpainting",
-    "message": "AIMEGApro Blogs Post",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(public)/(blogs)/blogs/blogs-page-client.tsx",
-        34
-      ]
-    ]
-  },
-  "GhDmK8": {
-    "translation": "Gambar AI Outpainting: Perluaskan Horizons Anda dengan Sambungan Gambar Kreatif",
-    "message": "AIMEGApro: Expand Your Horizons with Creative Image Extensions",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/hero.tsx",
-        39
+        42
       ]
     ]
   },
@@ -356,6 +323,50 @@
       ]
     ]
   },
+  "bxL1Ly": {
+    "translation": "",
+    "message": "AI Understands Your Vision",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/features.tsx",
+        23
+      ]
+    ]
+  },
+  "otAoKl": {
+    "translation": "",
+    "message": "AIMEGApro",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(public)/playgroundv1/[[...slug]]/views.tsx",
+        166
+      ]
+    ]
+  },
+  "Nurtof": {
+    "translation": "",
+    "message": "AIMEGApro Blogs Post",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(public)/(blogs)/blogs/blogs-page-client.tsx",
+        34
+      ]
+    ]
+  },
+  "qRUxD6": {
+    "translation": "",
+    "message": "AIMEGApro: Democratize AI Image Expansion—Power for All, No Expertise Needed",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/hero.tsx",
+        40
+      ]
+    ]
+  },
   "lxentK": {
     "translation": "",
     "message": "An unexpected error occurred",
@@ -411,7 +422,7 @@
       ],
       [
         "components/wegic/hero.tsx",
-        79
+        81
       ]
     ]
   },
@@ -464,6 +475,17 @@
       ]
     ]
   },
+  "nLMtvY": {
+    "translation": "",
+    "message": "Break AI Barriers with Effortless Outpainting: Expand photos online in clicks, not code. Our generative AI adapts to any style, ratio, or scene—so creators, hobbyists, and businesses alike unlock pro-level visuals, no design degree required.",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/hero.tsx",
+        43
+      ]
+    ]
+  },
   "xzHB2Z": {
     "translation": "Lihat contoh-contoh luar biasa dari AI image extender, menunjukkan kemungkinan memperluas karya seni.",
     "message": "Browse\nthrough stunning examples of AI image extender, showcasing the limitless possibilities of extending\nartworks.",
@@ -471,17 +493,6 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/gallery.tsx",
-        45
-      ]
-    ]
-  },
-  "QgF6mS": {
-    "translation": "Lihatilah contoh yang mengagumkan dari lukisan luar AI, yang memperlihatkan kemungkinan tanpa batas dalam memperluaskan karya seni.",
-    "message": "Browse\nthrough stunning examples of AI outpainting, showcasing the limitless possibilities of extending\nartworks.",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/gallery.tsx",
         45
       ]
     ]
@@ -505,6 +516,17 @@
       [
         "app/[lang]/(public)/generative-fill-ai/views/gallery.tsx",
         45
+      ]
+    ]
+  },
+  "UmZaQ3": {
+    "translation": "",
+    "message": "Browse Democratized AI Outpainting Magic—No Expertise Required.\nSee how everyday creators (not just pros) stretch artworks into new worlds. Every example proves AI’s power to unlock limitless expansion—no design degree needed.",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/gallery.tsx",
+        47
       ]
     ]
   },
@@ -649,10 +671,6 @@
       [
         "app/[lang]/(public)/generative-fill-ai/views/features.tsx",
         23
-      ],
-      [
-        "components/wegic/features.tsx",
-        23
       ]
     ]
   },
@@ -698,6 +716,17 @@
       [
         "components/wegic/navbar.tsx",
         188
+      ]
+    ]
+  },
+  "nMuTxY": {
+    "translation": "",
+    "message": "Democratize your creativity—start with 3 free image expansions, no credit card or expertise needed.",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/features.tsx",
+        14
       ]
     ]
   },
@@ -761,10 +790,6 @@
       [
         "app/[lang]/(public)/generative-fill-ai/views/gallery.tsx",
         50
-      ],
-      [
-        "components/wegic/gallery.tsx",
-        50
       ]
     ]
   },
@@ -776,6 +801,17 @@
       [
         "app/[lang]/(editor)/editor/view.tsx",
         460
+      ]
+    ]
+  },
+  "JMIMa3": {
+    "translation": "",
+    "message": "Every Gallery Piece Proves AI’s Democratizing Power.\nWatch how AI reshapes photos into polished projects—for bloggers, small biz, and hobbyists alike. No “pro tools” barriers—just creativity, amplified.",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/gallery.tsx",
+        51
       ]
     ]
   },
@@ -823,8 +859,8 @@
       ]
     ]
   },
-  "EaUzDm": {
-    "translation": "Terokai Gambar AI Outpainting, Alat Dalam Talian Percuma Untuk Memperluas dan Meningkatkan Gambar Tanpa Usaha",
+  "8Wv2hB": {
+    "translation": "",
     "message": "Explore AIMEGApro, A Free Online Tool For Expanding and Enhancing Images Effortlessly",
     "comments": [],
     "origin": [
@@ -842,17 +878,6 @@
       [
         "app/[lang]/(public)/ai-image-extender/views/hero.tsx",
         38
-      ]
-    ]
-  },
-  "ucTv1Q": {
-    "translation": "Terokai Lebih Lanjut dengan Gambar AI Outpainting: Memperluas foto anda secara online dengan AI generatif tercanggih, memastikan visual berkualiti tinggi dipelihara pada semua nisbah imej.",
-    "message": "Explore Beyond the Frame with AIMEGApro: Seamlessly expand your photos online using advanced generative AI, ensuring high-quality visuals are maintained across all image ratios.",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/hero.tsx",
-        42
       ]
     ]
   },
@@ -894,7 +919,14 @@
       [
         "app/[lang]/(public)/generative-fill-ai/views/features.tsx",
         32
-      ],
+      ]
+    ]
+  },
+  "g/JO+h": {
+    "translation": "",
+    "message": "Extend, Refine, Repeat—No Limits",
+    "comments": [],
+    "origin": [
       [
         "components/wegic/features.tsx",
         32
@@ -916,10 +948,6 @@
       ],
       [
         "app/[lang]/(public)/generative-fill-ai/views/features.tsx",
-        34
-      ],
-      [
-        "components/wegic/features.tsx",
         34
       ]
     ]
@@ -968,17 +996,6 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/features.tsx",
-        12
-      ]
-    ]
-  },
-  "6lvumm": {
-    "translation": "Lukisan Luar AI Percuma",
-    "message": "Free AI Outpainting",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/features.tsx",
         12
       ]
     ]
@@ -1102,7 +1119,7 @@
       ],
       [
         "components/wegic/hero.tsx",
-        53
+        54
       ],
       [
         "components/wegic/index-uploader.tsx",
@@ -1295,7 +1312,7 @@
       ],
       [
         "components/wegic/hero.tsx",
-        65
+        66
       ]
     ]
   },
@@ -1428,6 +1445,17 @@
       ]
     ]
   },
+  "Hg/3rC": {
+    "translation": "",
+    "message": "No-Cost AI Outpainting",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/features.tsx",
+        12
+      ]
+    ]
+  },
   "8HI10O": {
     "translation": "Gambar Asli",
     "message": "Original Image",
@@ -1458,6 +1486,17 @@
       [
         "app/[lang]/(editor)/editor/view.tsx",
         620
+      ]
+    ]
+  },
+  "qCCbK/": {
+    "translation": "",
+    "message": "Our AI analyzes image context—lighting, style, even hidden details—automatically. Get pro-level expansions, no design skills required.",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/features.tsx",
+        25
       ]
     ]
   },
@@ -1766,10 +1805,6 @@
       [
         "app/[lang]/(public)/ai-photo-extender/views/features.tsx",
         14
-      ],
-      [
-        "components/wegic/features.tsx",
-        14
       ]
     ]
   },
@@ -1825,10 +1860,6 @@
       ],
       [
         "app/[lang]/(public)/generative-fill-ai/views/features.tsx",
-        25
-      ],
-      [
-        "components/wegic/features.tsx",
         25
       ]
     ]
@@ -1981,7 +2012,7 @@
       ],
       [
         "components/wegic/hero.tsx",
-        60
+        61
       ]
     ]
   },
@@ -2096,6 +2127,17 @@
       [
         "app/[lang]/(public)/generative-fill-ai/views/faqs.tsx",
         38
+      ]
+    ]
+  },
+  "79fdpj": {
+    "translation": "",
+    "message": "Your creative process, democratized: Expand results again and again, tweaking details until it’s perfect. No “pro mode” barriers—just keep creating.",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/features.tsx",
+        34
       ]
     ]
   },
