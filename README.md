@@ -15,6 +15,7 @@
 - 图片编辑
 ![img4.png](./doc/img4.png)
 
+
 ## 项目介绍
 - 1.基于nextjs 14 和 tailwindcss3 开发的AI扩图网站，网站地址：https://www.ai-outpainting.com/
 - 2.网站需要配合后端AI模型使用。后端模型需要自行搭建。
