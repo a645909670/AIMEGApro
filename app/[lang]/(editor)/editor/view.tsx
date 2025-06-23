@@ -24,7 +24,7 @@ import {
   Spinner,
   useDisclosure,
 } from '@nextui-org/react'
-import { $Enums } from '@prisma/client'
+// import { $Enums } from '@prisma/client'
 import { message, Spin } from 'antd'
 import { FcGoogle } from 'react-icons/fc'
 import { FaAngleRight, FaArrowUpFromBracket } from 'react-icons/fa6'
@@ -41,7 +41,7 @@ import { useRouter } from 'next/navigation'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { AiOutlineCloudUpload } from 'react-icons/ai'
 import { Image as KonvaImage, Layer, Stage } from 'react-konva'
-import runpodSdk from 'runpod-sdk'
+// import runpodSdk from 'runpod-sdk'
 import { siteConfig } from '@/config/site'
 import { motion } from 'framer-motion'
 import {
