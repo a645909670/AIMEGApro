@@ -15,7 +15,6 @@
 - 图片编辑
 ![img4.png](./doc/img4.png)
 
-
 ## 项目介绍
 - 1.基于nextjs 14 和 tailwindcss3 开发的AI扩图网站，网站地址：https://www.ai-outpainting.com/
 - 2.网站需要配合后端AI模型使用。后端模型需要自行搭建。
@@ -73,7 +72,7 @@ async function fetchProcessByRunPod(data: any): Promise<EndpointIncompleteOutput
   // 网站关键词
   const keyword = 'extend image ai'
   // 网站该要描述
-  const description = '利用AI技术实现对图片进行扩展，在保证原始图片不变的前提下，扩展四周的内容，且能与原图片保持内容延续性
+  const description = '利用AI技术实现对图片进行扩展，在保证原始图片不变的前提下，扩展四周的内容，且能与原图片保持内容延续性'
 
 ```
 

@@ -31,7 +31,7 @@ export default function BlogsPageClient({blogs,params}:{params: { lang: AVAILABL
         <div className="grid grid-cols-12 justify-center">
           <div className="col-span-12 lg:col-span-8 lg:col-start-3 lg:col-end-11 text-center">
             <h2 className="text-[32px] lg:text-[45px] leading-none font-bold mb-4">
-              {t`AI Outpainting Image Blogs Post`}
+              {t`AIMEGApro Blogs Post`}
             </h2>
             <p className="text-lg font-medium opacity-80 lg:px-12 mb-9">
               {t`"Discover the Magic of Expanding Your Photos with AI"`}

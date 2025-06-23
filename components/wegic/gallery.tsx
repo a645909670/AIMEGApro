@@ -9,8 +9,10 @@ export default function Gallery() {
     {
       name: 'Arts',
       images: [
-        'https://public-image.fafafa.ai/fa-image/2024/06/dc94c298dbb6498d38ed5a8fc3fb9293.jpeg',
-        'https://public-image.fafafa.ai/fa-image/2024/06/28cf8159d8a7aeb370296993ec380797.png'
+        // 'https://public-image.fafafa.ai/fa-image/2024/06/dc94c298dbb6498d38ed5a8fc3fb9293.jpeg',
+        // 'https://public-image.fafafa.ai/fa-image/2024/06/28cf8159d8a7aeb370296993ec380797.png'
+        '/dimg.jpg',
+        '/ximg.jpg'
       ]
     },
   /*  {
@@ -37,18 +39,17 @@ export default function Gallery() {
           <div className="max-w-lg mx-auto text-center lg:text-left lg:max-w-none lg:mx-0">
             <h2 className="TITLE-PRIMARY text-5xl font-semibold text-slate-900 dark:text-slate-50">
               <div className="_editable_jwu41_1 undefined"
-                   data-link="link=&amp;target=_blank&amp;text=AI%20Outpainting%20Gallery">{t`AI Outpainting Gallery`}
+                   data-link="link=&amp;target=_blank&amp;text=AI%20Outpainting%20Gallery">{t`AI Outpainting Examples: Democratize Creative Expansion Ideas`}
               </div>
             </h2>
             <div className="mt-4 lg:mt-6 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-8">
               <p className="DESC text-base font-normal text-slate-700 dark:text-slate-300 mt-4 lg:mt-0">
-                {t`Browse
-                through stunning examples of AI outpainting, showcasing the limitless possibilities of extending
-                artworks.`}
+                {t`Browse Democratized AI Outpainting Magic—No Expertise Required.
+See how everyday creators (not just pros) stretch artworks into new worlds. Every example proves AI’s power to unlock limitless expansion—no design degree needed.`}
               </p>
               <p className="DESC text-base font-normal text-slate-700 dark:text-slate-300 mt-4 lg:mt-0">
-                {t`Each
-                piece in our gallery demonstrates the power of AI in transforming and enhancing creative projects.`}
+                {t`Every Gallery Piece Proves AI’s Democratizing Power.
+Watch how AI reshapes photos into polished projects—for bloggers, small biz, and hobbyists alike. No “pro tools” barriers—just creativity, amplified.`}
               </p>
             </div>
           </div>

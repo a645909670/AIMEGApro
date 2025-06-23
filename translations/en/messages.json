@@ -47,7 +47,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        747
+        827
       ]
     ]
   },
@@ -202,9 +202,9 @@
       ]
     ]
   },
-  "4u94S+": {
-    "translation": "AI Outpainting allows users to simultaneously expand up to tow images. This multi-image expansion feature enables users to conveniently enhance multiple images in a time-efficient manner.",
-    "message": "AI Outpainting allows users to simultaneously expand up to tow images. This multi-image expansion feature enables users to conveniently enhance multiple images in a time-efficient manner.",
+  "zHYI2s": {
+    "translation": "AI Outpainting allows users to simultaneously expand up to five images. This multi-image expansion feature enables users to conveniently enhance multiple images in a time-efficient manner.",
+    "message": "AI Outpainting allows users to simultaneously expand up to five images. This multi-image expansion feature enables users to conveniently enhance multiple images in a time-efficient manner.",
     "comments": [],
     "origin": [
       [
@@ -236,8 +236,8 @@
     ]
   },
   "ZyBhxg": {
-    "translation": "AI Outpainting Image",
-    "message": "AI Outpainting Image",
+    "translation": "AIMEGApro",
+    "message": "AIMEGApro",
     "comments": [],
     "origin": [
       [
@@ -247,8 +247,8 @@
     ]
   },
   "+dagcs": {
-    "translation": "AI Outpainting Image Blogs Post",
-    "message": "AI Outpainting Image Blogs Post",
+    "translation": "AIMEGApro Blogs Post",
+    "message": "AIMEGApro Blogs Post",
     "comments": [],
     "origin": [
       [
@@ -258,8 +258,8 @@
     ]
   },
   "GhDmK8": {
-    "translation": "AI Outpainting Image: Expand Your Horizons with Creative Image Extensions",
-    "message": "AI Outpainting Image: Expand Your Horizons with Creative Image Extensions",
+    "translation": "AIMEGApro: Expand Your Horizons with Creative Image Extensions",
+    "message": "AIMEGApro: Expand Your Horizons with Creative Image Extensions",
     "comments": [],
     "origin": [
       [
@@ -356,6 +356,17 @@
       ]
     ]
   },
+  "lxentK": {
+    "translation": "An unexpected error occurred",
+    "message": "An unexpected error occurred",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        468
+      ]
+    ]
+  },
   "4WPYPJ": {
     "translation": "Are you sure you want to clear the current canvas? This will delete all generated images and the current editing state.",
     "message": "Are you sure you want to clear the current canvas? This will delete all generated images and the current editing state.",
@@ -363,7 +374,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        807
+        895
       ]
     ]
   },
@@ -374,7 +385,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        540
+        605
       ]
     ]
   },
@@ -449,7 +460,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        521
+        586
       ]
     ]
   },
@@ -570,7 +581,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        811
+        899
       ]
     ]
   },
@@ -581,7 +592,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        720
+        796
       ]
     ]
   },
@@ -592,7 +603,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        828
+        926
       ],
       [
         "framework/components/login/GoogleLogin.tsx",
@@ -607,7 +618,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        814
+        902
       ]
     ]
   },
@@ -618,7 +629,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        805
+        893
       ]
     ]
   },
@@ -652,7 +663,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        743
+        822
       ]
     ]
   },
@@ -674,11 +685,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        594
+        660
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        610
+        677
       ],
       [
         "components/wegic/navbar.tsx",
@@ -719,7 +730,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        756
+        836
       ]
     ]
   },
@@ -757,6 +768,17 @@
       ]
     ]
   },
+  "qBX4sV": {
+    "translation": "Error occurred while processing the image",
+    "message": "Error occurred while processing the image",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        460
+      ]
+    ]
+  },
   "CajufG": {
     "translation": "Expand Your Image, Reshape Your Image",
     "message": "Expand Your Image, Reshape Your Image",
@@ -775,7 +797,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        743
+        820
       ]
     ]
   },
@@ -786,7 +808,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        637
+        709
       ]
     ]
   },
@@ -797,13 +819,13 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        546
+        611
       ]
     ]
   },
   "EaUzDm": {
-    "translation": "Explore AI Outpainting Image, A Free Online Tool For Expanding and Enhancing Images Effortlessly",
-    "message": "Explore AI Outpainting Image, A Free Online Tool For Expanding and Enhancing Images Effortlessly",
+    "translation": "Explore AIMEGApro, A Free Online Tool For Expanding and Enhancing Images Effortlessly",
+    "message": "Explore AIMEGApro, A Free Online Tool For Expanding and Enhancing Images Effortlessly",
     "comments": [],
     "origin": [
       [
@@ -824,8 +846,8 @@
     ]
   },
   "ucTv1Q": {
-    "translation": "Explore Beyond the Frame with AI Outpainting Image: Seamlessly expand your photos online using advanced generative AI, ensuring high-quality visuals are maintained across all image ratios.",
-    "message": "Explore Beyond the Frame with AI Outpainting Image: Seamlessly expand your photos online using advanced generative AI, ensuring high-quality visuals are maintained across all image ratios.",
+    "translation": "Explore Beyond the Frame with AIMEGApro: Seamlessly expand your photos online using advanced generative AI, ensuring high-quality visuals are maintained across all image ratios.",
+    "message": "Explore Beyond the Frame with AIMEGApro: Seamlessly expand your photos online using advanced generative AI, ensuring high-quality visuals are maintained across all image ratios.",
     "comments": [],
     "origin": [
       [
@@ -931,7 +953,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        183
+        193
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -1147,11 +1169,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        548
+        613
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        639
+        711
       ]
     ]
   },
@@ -1306,7 +1328,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        516
+        581
       ]
     ]
   },
@@ -1317,7 +1339,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        679
+        755
       ]
     ]
   },
@@ -1343,7 +1365,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        600
+        667
       ],
       [
         "components/wegic/navbar.tsx",
@@ -1358,7 +1380,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        514
+        579
       ]
     ]
   },
@@ -1413,7 +1435,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        823
+        915
       ]
     ]
   },
@@ -1424,7 +1446,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        645
+        717
       ]
     ]
   },
@@ -1435,7 +1457,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        555
+        620
       ]
     ]
   },
@@ -1490,7 +1512,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        698
+        774
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -1505,7 +1527,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        377
+        391
       ],
       [
         "framework/components/login/GoogleLogin.tsx",
@@ -1572,7 +1594,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        527
+        592
       ]
     ]
   },
@@ -1594,7 +1616,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        625
+        697
       ]
     ]
   },
@@ -1627,11 +1649,22 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        731
+        807
       ],
       [
         "app/[lang]/(public)/playgroundv1/[[...slug]]/views.tsx",
         208
+      ]
+    ]
+  },
+  "xSxPvs": {
+    "translation": "Request timed out. Please try again later.",
+    "message": "Request timed out. Please try again later.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        431
       ]
     ]
   },
@@ -1653,7 +1686,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        518
+        583
       ]
     ]
   },
@@ -1664,7 +1697,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        582
+        646
       ],
       [
         "components/wegic/navbar.tsx",
@@ -1679,7 +1712,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        574
+        638
       ],
       [
         "components/wegic/navbar.tsx",
@@ -1702,11 +1735,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        550
+        615
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        641
+        713
       ]
     ]
   },
@@ -1717,7 +1750,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        743
+        823
       ]
     ]
   },
@@ -1751,15 +1784,26 @@
       ]
     ]
   },
-  "ywdZxq": {
-    "translation": "System Error,Please retry or contract website admin",
-    "message": "System Error,Please retry or contract website admin",
+  "1gi2aF": {
+    "translation": "System Error, Please retry or contact website admin",
+    "message": "System Error, Please retry or contact website admin",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
         421
       ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        448
+      ]
+    ]
+  },
+  "ywdZxq": {
+    "translation": "System Error,Please retry or contract website admin",
+    "message": "System Error,Please retry or contract website admin",
+    "comments": [],
+    "origin": [
       [
         "components/wegic/painting-uploader.tsx",
         78
@@ -1807,7 +1851,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        520
+        585
       ]
     ]
   },
@@ -1910,7 +1954,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        679
+        755
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -1948,11 +1992,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        549
+        614
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        640
+        712
       ]
     ]
   },
@@ -2062,7 +2106,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        379
+        394
       ]
     ]
   },
