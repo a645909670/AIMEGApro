@@ -8,7 +8,7 @@ type FAQItem = {
 
 
 const FaqItem = ({ faq }: { faq: FAQItem }) => (
-  <div className="bg-gray-100 dark:bg-[#1E2735] mb-[1px]">
+  <div className="bg-gray-100 dark:bg-[#1E2735] mb-[1px]" style={{background: '#E8EEFF'}}>
     <h5 className="p-4 lg:p-6 mb-0 w-full text-start flex justify-between items-center text-xl font-medium">
       <span>{faq.question}</span>
     </h5>
@@ -75,7 +75,7 @@ Absolutely! In addition to expanding the content of the image, AI Outpainting al
               className="bg-center bg-no-repeat bg-cover min-h-[150px] w-full rounded-2xl h-full"
               style={{
                 backgroundImage:
-                  'url(https://public-image.fafafa.ai/fa-image/2024/05/7258f277dfa7c92eb74c196f08e87ca8.jpg)'
+                  'url(/problem.jpg)'
               }}
             ></div>
           </div>

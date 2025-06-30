@@ -16,8 +16,8 @@ const getNavigation = () => {
 
 const Footer = ({ params }: { params?: { lang: AVAILABLE_LOCALES } }) => (
   <>
-    <footer className="md:pt-22 pt-10 mt-8 bg-black px-4 md:px-0">
-      <div className="text-white bg-black w-full max-w-7xl mx-auto  items-center gap-16 md:grid-cols-2 md:gap-24">
+    <footer className="md:pt-22 pt-10 mt-8 bg-black px-4 md:px-0" style={{background: '#061630'}}>
+      <div className="text-white bg-black w-full max-w-7xl mx-auto  items-center gap-16 md:grid-cols-2 md:gap-24" style={{background: '#061630'}}>
         <div className="flex flex-wrap gap-y-10 items-center justify-between">
           <div className="space-y-4">
             <Link href="/" className="inline-block">
@@ -88,7 +88,7 @@ const Footer = ({ params }: { params?: { lang: AVAILABLE_LOCALES } }) => (
         </div>
         <div></div>
         <div className="mt-8">
-          <I18nLink params={params} />
+          {/* <I18nLink params={params} /> */}
         </div>
         <div className="mt-2 py-10 border-t flex-row-reverse items-center justify-between sm:flex">
           <ul className="flex flex-wrap items-center gap-4 sm:text-sm">

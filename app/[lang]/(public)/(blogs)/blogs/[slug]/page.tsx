@@ -47,6 +47,20 @@ export default async function Page({
         <Link href={`/${params.lang}/blogs`} className="mb-2 text-gray-500">{t`<< Return Blogs List`}</Link>
         <h1>{post.title}</h1>
         <CustomMDX source={post.content} />
+        {/* <div>{post.description}</div>
+        {post.contentList.map((item, i) => (
+          <div key={i}>
+            <h3>{item.title}</h3>
+            {item.content.map((item2, j) => (
+              item.link ? (
+                <a key={j} href={item.link}>{item.linkContent}</a>
+              ) : (
+                <div key={j}>{item2}</div>
+              )
+            ))}
+          <img src={item.image} alt="" />
+          </div>
+        ))} */}
       </article>
     </>
 

@@ -27,7 +27,7 @@ export async function generateMetadata({
   const title = t`Free Online Tool For AI Image Expanding `+`-${siteConfig.name}`
   return {
     title,
-    description:t`Explore AI Outpainting Image, A Free Online Tool For Expanding and Enhancing Images Effortlessly`,
+    description:t`Explore AIMEGApro, A Free Online Tool For Expanding and Enhancing Images Effortlessly`,
     alternates: {
       languages:metadataLanguages('/')
     },

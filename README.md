@@ -72,7 +72,7 @@ async function fetchProcessByRunPod(data: any): Promise<EndpointIncompleteOutput
   // 网站关键词
   const keyword = 'extend image ai'
   // 网站该要描述
-  const description = '利用AI技术实现对图片进行扩展，在保证原始图片不变的前提下，扩展四周的内容，且能与原图片保持内容延续性
+  const description = '利用AI技术实现对图片进行扩展，在保证原始图片不变的前提下，扩展四周的内容，且能与原图片保持内容延续性'
 
 ```
 
