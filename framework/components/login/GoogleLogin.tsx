@@ -32,7 +32,7 @@ const GoogleLogin = forwardRef<GoogleLoginRef, any>((props, ref) => {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">AIMEGApro</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">AI Outpainting Image</ModalHeader>
               <ModalBody>
                 <div className="flex flex-col items-center">
                   <h2 className="md:text-4xl text-2xl font-bold text-center py-6">{t`Please Sign In To Continue`}</h2>

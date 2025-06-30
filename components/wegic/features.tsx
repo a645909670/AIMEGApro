@@ -9,9 +9,9 @@ export default function Component() {
             <div className="p-4 bg-gray-100 rounded-full">
               <DollarSignIcon className="h-6 w-6 text-gray-600" />
             </div>
-            <h2 className="mt-4 font-semibold text-gray-900">{t`No-Cost AI Outpainting`}</h2>
+            <h2 className="mt-4 font-semibold text-gray-900">{t`Free AI Outpainting`}</h2>
             <p className="mt-2 text-sm text-gray-500 max-w-[500px]">
-              {t`Democratize your creativity—start with 3 free image expansions, no credit card or expertise needed.`}
+              {t`Start for free with the AI extender. Expand your first 3 images at no charge.`}
             </p>
           </div>
         </div>
@@ -20,18 +20,18 @@ export default function Component() {
           <div className="p-4 bg-gray-100 rounded-full">
             <BrainIcon className="h-6 w-6 text-gray-600" />
           </div>
-          <h2 className="mt-4 font-semibold text-gray-900">{t`AI Understands Your Vision`}</h2>
+          <h2 className="mt-4 font-semibold text-gray-900">{t`Context-aware AI`}</h2>
           <p className="mt-2 text-sm text-gray-500 max-w-[500px]">
-            {t`Our AI analyzes image context—lighting, style, even hidden details—automatically. Get pro-level expansions, no design skills required.`}
+            {t`The AI analyzes your image's context and extends it for consistently realistic outcomes.`}
           </p>
         </div>
         <div className="flex flex-col items-center text-center">
           <div className="p-4 bg-gray-100 rounded-full">
             <RatioIcon className="h-6 w-6 text-gray-600" />
           </div>
-          <h2 className="mt-4 font-semibold text-gray-900">{t`Extend, Refine, Repeat—No Limits`}</h2>
+          <h2 className="mt-4 font-semibold text-gray-900">{t`Extend Again`}</h2>
           <p className="mt-2 text-sm text-gray-500 max-w-[500px]">
-            {t`Your creative process, democratized: Expand results again and again, tweaking details until it’s perfect. No “pro mode” barriers—just keep creating.`}
+            {t`Extended results can be expanded repeatedly,allowing for continuous enhancements`}
           </p>
         </div>
       </div>

@@ -1,16 +1,9 @@
 /** @type {import('next').NextConfig} */
-// import { fileURLToPath } from 'url';
-// import { dirname, resolve } from 'path';
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
 const nextConfig = {
-  // output: 'standalone',
   reactStrictMode: true,
   compress: true,
   optimizeFonts: true,
   experimental: {
-    // serverActions: true,
-    // incrementalCacheHandlerPath: resolve(__dirname, 'cache-handler.js'),
     swcPlugins: [
       [
         '@lingui/swc-plugin', {}

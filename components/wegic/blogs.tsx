@@ -15,7 +15,7 @@ export default  function BlogsPage({
   // 7) Sort the blogs by createdAt in descending order
 
   return (
-    <section className="relative px-6 bg-gray-100 py-20 md:px-8 md:py-10" style={{background: '#E8EEFF'}}>
+    <section className="relative px-6 bg-gray-100 py-20 md:px-8 md:py-10">
       <div className="w-full max-w-7xl mx-auto  items-center gap-16 md:grid-cols-2 md:gap-24">
         <h2 className="text-3xl font-bold text-center">{t`Blogs`}</h2>
         <section className="py-10">

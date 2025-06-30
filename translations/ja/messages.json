@@ -47,7 +47,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        827
+        747
       ]
     ]
   },
@@ -128,7 +128,7 @@
       ],
       [
         "components/wegic/hero.tsx",
-        95
+        92
       ]
     ]
   },
@@ -202,9 +202,9 @@
       ]
     ]
   },
-  "zHYI2s": {
-    "translation": "",
-    "message": "AI Outpainting allows users to simultaneously expand up to five images. This multi-image expansion feature enables users to conveniently enhance multiple images in a time-efficient manner.",
+  "4u94S+": {
+    "translation": "AI Outpaintingにより、ユーザーは最大2つの画像を同時に拡大することができます。この複数画像拡張機能により、ユーザーは時間効率的に複数の画像を便利に向上させることができます。",
+    "message": "AI Outpainting allows users to simultaneously expand up to tow images. This multi-image expansion feature enables users to conveniently enhance multiple images in a time-efficient manner.",
     "comments": [],
     "origin": [
       [
@@ -224,14 +224,47 @@
       ]
     ]
   },
-  "Oiqc2y": {
-    "translation": "",
-    "message": "AI Outpainting Examples: Democratize Creative Expansion Ideas",
+  "jaB///": {
+    "translation": "AIアウトペインティングギャラリー",
+    "message": "AI Outpainting Gallery",
     "comments": [],
     "origin": [
       [
         "components/wegic/gallery.tsx",
-        42
+        40
+      ]
+    ]
+  },
+  "ZyBhxg": {
+    "translation": "AIアウトペインティング画像",
+    "message": "AI Outpainting Image",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(public)/playgroundv1/[[...slug]]/views.tsx",
+        166
+      ]
+    ]
+  },
+  "+dagcs": {
+    "translation": "AI Outpainting画像ブログ投稿",
+    "message": "AI Outpainting Image Blogs Post",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(public)/(blogs)/blogs/blogs-page-client.tsx",
+        34
+      ]
+    ]
+  },
+  "GhDmK8": {
+    "translation": "AI Outpainting画像：創造的な画像拡張で視野を広げる",
+    "message": "AI Outpainting Image: Expand Your Horizons with Creative Image Extensions",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/hero.tsx",
+        39
       ]
     ]
   },
@@ -323,61 +356,6 @@
       ]
     ]
   },
-  "bxL1Ly": {
-    "translation": "",
-    "message": "AI Understands Your Vision",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/features.tsx",
-        23
-      ]
-    ]
-  },
-  "otAoKl": {
-    "translation": "",
-    "message": "AIMEGApro",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(public)/playgroundv1/[[...slug]]/views.tsx",
-        166
-      ]
-    ]
-  },
-  "Nurtof": {
-    "translation": "",
-    "message": "AIMEGApro Blogs Post",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(public)/(blogs)/blogs/blogs-page-client.tsx",
-        34
-      ]
-    ]
-  },
-  "qRUxD6": {
-    "translation": "",
-    "message": "AIMEGApro: Democratize AI Image Expansion—Power for All, No Expertise Needed",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/hero.tsx",
-        40
-      ]
-    ]
-  },
-  "lxentK": {
-    "translation": "",
-    "message": "An unexpected error occurred",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        468
-      ]
-    ]
-  },
   "4WPYPJ": {
     "translation": "現在のキャンバスをクリアしてもよろしいですか？これにより、すべての生成された画像と現在の編集状態が削除されます。",
     "message": "Are you sure you want to clear the current canvas? This will delete all generated images and the current editing state.",
@@ -385,7 +363,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        895
+        807
       ]
     ]
   },
@@ -396,7 +374,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        605
+        540
       ]
     ]
   },
@@ -422,7 +400,7 @@
       ],
       [
         "components/wegic/hero.tsx",
-        81
+        79
       ]
     ]
   },
@@ -471,18 +449,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        586
-      ]
-    ]
-  },
-  "nLMtvY": {
-    "translation": "",
-    "message": "Break AI Barriers with Effortless Outpainting: Expand photos online in clicks, not code. Our generative AI adapts to any style, ratio, or scene—so creators, hobbyists, and businesses alike unlock pro-level visuals, no design degree required.",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/hero.tsx",
-        43
+        521
       ]
     ]
   },
@@ -493,6 +460,17 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/gallery.tsx",
+        45
+      ]
+    ]
+  },
+  "QgF6mS": {
+    "translation": "驚くべきAIアウトペインティングの例をブラウズして、作品を拡張する無限の可能性を紹介します。",
+    "message": "Browse\nthrough stunning examples of AI outpainting, showcasing the limitless possibilities of extending\nartworks.",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/gallery.tsx",
         45
       ]
     ]
@@ -516,17 +494,6 @@
       [
         "app/[lang]/(public)/generative-fill-ai/views/gallery.tsx",
         45
-      ]
-    ]
-  },
-  "UmZaQ3": {
-    "translation": "",
-    "message": "Browse Democratized AI Outpainting Magic—No Expertise Required.\nSee how everyday creators (not just pros) stretch artworks into new worlds. Every example proves AI’s power to unlock limitless expansion—no design degree needed.",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/gallery.tsx",
-        47
       ]
     ]
   },
@@ -603,7 +570,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        899
+        811
       ]
     ]
   },
@@ -614,7 +581,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        796
+        720
       ]
     ]
   },
@@ -625,7 +592,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        926
+        828
       ],
       [
         "framework/components/login/GoogleLogin.tsx",
@@ -640,7 +607,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        902
+        814
       ]
     ]
   },
@@ -651,7 +618,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        893
+        805
       ]
     ]
   },
@@ -671,6 +638,10 @@
       [
         "app/[lang]/(public)/generative-fill-ai/views/features.tsx",
         23
+      ],
+      [
+        "components/wegic/features.tsx",
+        23
       ]
     ]
   },
@@ -681,7 +652,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        822
+        743
       ]
     ]
   },
@@ -703,11 +674,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        660
+        594
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        677
+        610
       ],
       [
         "components/wegic/navbar.tsx",
@@ -716,17 +687,6 @@
       [
         "components/wegic/navbar.tsx",
         188
-      ]
-    ]
-  },
-  "nMuTxY": {
-    "translation": "",
-    "message": "Democratize your creativity—start with 3 free image expansions, no credit card or expertise needed.",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/features.tsx",
-        14
       ]
     ]
   },
@@ -759,7 +719,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        836
+        756
       ]
     ]
   },
@@ -790,28 +750,10 @@
       [
         "app/[lang]/(public)/generative-fill-ai/views/gallery.tsx",
         50
-      ]
-    ]
-  },
-  "qBX4sV": {
-    "translation": "",
-    "message": "Error occurred while processing the image",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        460
-      ]
-    ]
-  },
-  "JMIMa3": {
-    "translation": "",
-    "message": "Every Gallery Piece Proves AI’s Democratizing Power.\nWatch how AI reshapes photos into polished projects—for bloggers, small biz, and hobbyists alike. No “pro tools” barriers—just creativity, amplified.",
-    "comments": [],
-    "origin": [
+      ],
       [
         "components/wegic/gallery.tsx",
-        51
+        50
       ]
     ]
   },
@@ -833,7 +775,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        820
+        743
       ]
     ]
   },
@@ -844,7 +786,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        709
+        637
       ]
     ]
   },
@@ -855,13 +797,13 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        611
+        546
       ]
     ]
   },
-  "8Wv2hB": {
-    "translation": "",
-    "message": "Explore AIMEGApro, A Free Online Tool For Expanding and Enhancing Images Effortlessly",
+  "EaUzDm": {
+    "translation": "AI Outpainting Imageを探索し、簡単に画像を拡張して向上させるための無料オンラインツールを利用しましょう",
+    "message": "Explore AI Outpainting Image, A Free Online Tool For Expanding and Enhancing Images Effortlessly",
     "comments": [],
     "origin": [
       [
@@ -878,6 +820,17 @@
       [
         "app/[lang]/(public)/ai-image-extender/views/hero.tsx",
         38
+      ]
+    ]
+  },
+  "ucTv1Q": {
+    "translation": "AI Outpainting Imageを使ってフレームを超えて探索し、高品質の視覚効果を全ての画像比率で維持しながら、オンラインでスムーズに写真を拡張しましょう。",
+    "message": "Explore Beyond the Frame with AI Outpainting Image: Seamlessly expand your photos online using advanced generative AI, ensuring high-quality visuals are maintained across all image ratios.",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/hero.tsx",
+        42
       ]
     ]
   },
@@ -919,14 +872,7 @@
       [
         "app/[lang]/(public)/generative-fill-ai/views/features.tsx",
         32
-      ]
-    ]
-  },
-  "g/JO+h": {
-    "translation": "",
-    "message": "Extend, Refine, Repeat—No Limits",
-    "comments": [],
-    "origin": [
+      ],
       [
         "components/wegic/features.tsx",
         32
@@ -948,6 +894,10 @@
       ],
       [
         "app/[lang]/(public)/generative-fill-ai/views/features.tsx",
+        34
+      ],
+      [
+        "components/wegic/features.tsx",
         34
       ]
     ]
@@ -981,7 +931,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        193
+        183
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -996,6 +946,17 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/features.tsx",
+        12
+      ]
+    ]
+  },
+  "6lvumm": {
+    "translation": "無料AIアウトペインティング",
+    "message": "Free AI Outpainting",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/features.tsx",
         12
       ]
     ]
@@ -1119,7 +1080,7 @@
       ],
       [
         "components/wegic/hero.tsx",
-        54
+        53
       ],
       [
         "components/wegic/index-uploader.tsx",
@@ -1186,11 +1147,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        613
+        548
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        711
+        639
       ]
     ]
   },
@@ -1312,7 +1273,7 @@
       ],
       [
         "components/wegic/hero.tsx",
-        66
+        65
       ]
     ]
   },
@@ -1345,7 +1306,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        581
+        516
       ]
     ]
   },
@@ -1356,7 +1317,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        755
+        679
       ]
     ]
   },
@@ -1382,7 +1343,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        667
+        600
       ],
       [
         "components/wegic/navbar.tsx",
@@ -1397,7 +1358,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        579
+        514
       ]
     ]
   },
@@ -1445,17 +1406,6 @@
       ]
     ]
   },
-  "Hg/3rC": {
-    "translation": "",
-    "message": "No-Cost AI Outpainting",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/features.tsx",
-        12
-      ]
-    ]
-  },
   "8HI10O": {
     "translation": "元の画像",
     "message": "Original Image",
@@ -1463,7 +1413,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        915
+        823
       ]
     ]
   },
@@ -1474,7 +1424,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        717
+        645
       ]
     ]
   },
@@ -1485,18 +1435,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        620
-      ]
-    ]
-  },
-  "qCCbK/": {
-    "translation": "",
-    "message": "Our AI analyzes image context—lighting, style, even hidden details—automatically. Get pro-level expansions, no design skills required.",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/features.tsx",
-        25
+        555
       ]
     ]
   },
@@ -1551,7 +1490,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        774
+        698
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -1566,7 +1505,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        391
+        377
       ],
       [
         "framework/components/login/GoogleLogin.tsx",
@@ -1633,7 +1572,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        592
+        527
       ]
     ]
   },
@@ -1655,7 +1594,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        697
+        625
       ]
     ]
   },
@@ -1688,22 +1627,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        807
+        731
       ],
       [
         "app/[lang]/(public)/playgroundv1/[[...slug]]/views.tsx",
         208
-      ]
-    ]
-  },
-  "xSxPvs": {
-    "translation": "",
-    "message": "Request timed out. Please try again later.",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        431
       ]
     ]
   },
@@ -1725,7 +1653,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        583
+        518
       ]
     ]
   },
@@ -1736,7 +1664,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        646
+        582
       ],
       [
         "components/wegic/navbar.tsx",
@@ -1751,7 +1679,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        638
+        574
       ],
       [
         "components/wegic/navbar.tsx",
@@ -1774,11 +1702,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        615
+        550
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        713
+        641
       ]
     ]
   },
@@ -1789,7 +1717,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        823
+        743
       ]
     ]
   },
@@ -1805,6 +1733,10 @@
       [
         "app/[lang]/(public)/ai-photo-extender/views/features.tsx",
         14
+      ],
+      [
+        "components/wegic/features.tsx",
+        14
       ]
     ]
   },
@@ -1819,26 +1751,15 @@
       ]
     ]
   },
-  "1gi2aF": {
-    "translation": "",
-    "message": "System Error, Please retry or contact website admin",
+  "ywdZxq": {
+    "translation": "システムエラー、再試行するか、ウェブサイト管理者に連絡してください",
+    "message": "System Error,Please retry or contract website admin",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
         421
       ],
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        448
-      ]
-    ]
-  },
-  "ywdZxq": {
-    "translation": "システムエラー、再試行するか、ウェブサイト管理者に連絡してください",
-    "message": "System Error,Please retry or contract website admin",
-    "comments": [],
-    "origin": [
       [
         "components/wegic/painting-uploader.tsx",
         78
@@ -1861,6 +1782,10 @@
       [
         "app/[lang]/(public)/generative-fill-ai/views/features.tsx",
         25
+      ],
+      [
+        "components/wegic/features.tsx",
+        25
       ]
     ]
   },
@@ -1882,7 +1807,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        585
+        520
       ]
     ]
   },
@@ -1985,7 +1910,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        755
+        679
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -2012,7 +1937,7 @@
       ],
       [
         "components/wegic/hero.tsx",
-        61
+        60
       ]
     ]
   },
@@ -2023,11 +1948,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        614
+        549
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        712
+        640
       ]
     ]
   },
@@ -2130,17 +2055,6 @@
       ]
     ]
   },
-  "79fdpj": {
-    "translation": "",
-    "message": "Your creative process, democratized: Expand results again and again, tweaking details until it’s perfect. No “pro mode” barriers—just keep creating.",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/features.tsx",
-        34
-      ]
-    ]
-  },
   "WCkkI4": {
     "translation": "クレジットポイントが不足しています。まずチャージしてください。",
     "message": "Your credit points are insufficient, please recharge first.",
@@ -2148,7 +2062,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        394
+        379
       ]
     ]
   },

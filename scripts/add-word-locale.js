@@ -72,5 +72,3 @@ async function main(language, word) {
 main('it', 'espandi immagine ai gratis');
 // 英语
 main('en', 'outpainting');
-// 中文
-// main('zh-TW', '中文');

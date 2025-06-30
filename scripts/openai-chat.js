@@ -4,8 +4,6 @@ const doubao = openai.createOpenAI({
   baseURL: "https://ark.cn-beijing.volces.com/api/v3",
   apiKey: "7da1e475-xxxxxxx",
   compatibility: 'compatible',
-  // compatibility: 'strict',
-  // apiKey: process.env.OPENAI_API_KEY,
 })
 const MODEL_DOUBAO_LITE_4K = "ep-20240906111329-q22z4"
 async function doubaoTranslate(prompt) {

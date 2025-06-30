@@ -163,7 +163,7 @@ export function GenerationSection({ data, onUpdateData, params }: {
         </ModalContent>
       </Modal>
       <div className="w-full flex items-center justify-between pb-5">
-        <h1 className="text-xl md:text-2xl">{t`AIMEGApro`}</h1>
+        <h1 className="text-xl md:text-2xl">{t`AI Outpainting Image`}</h1>
         <Button color="primary"
                 startContent={<FaArrowUpRightFromSquare />}
                 size="sm"
@@ -220,7 +220,7 @@ export function GenerationSection({ data, onUpdateData, params }: {
                 </div>
                 <div className="bg-[#f5f5f5] flex justify-center items-center rounded-2xl h-96 w-full">
                   <Image
-                    alt="AIMEGApro"
+                    alt="AI Outpainting Image"
                     height={360} // 高度调整为 288
                     src={data.outputImagePublicPath}
                     style={{ objectFit: 'contain', maxHeight: '100%', maxWidth: '100%' }} // 确保按比例显示
