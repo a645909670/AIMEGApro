@@ -60,7 +60,7 @@ const FAQs = () => {
               className="bg-center bg-no-repeat bg-cover min-h-[150px] w-full rounded-2xl h-full"
               style={{
                 backgroundImage:
-                  'url(../images/problem.jpg)'
+                  'url(https://public-image.fafafa.ai/fa-image/2024/05/7258f277dfa7c92eb74c196f08e87ca8.jpg)'
               }}
             ></div>
           </div>
