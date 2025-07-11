@@ -18,7 +18,7 @@ export const getBlogPosts = ():Blog[]=> {
       let slug = file.replace('.mdx', '')
       slug = decodeURIComponent(slug)
       const { data: frontMatter,content } = matter(markdownFile)
-      allBlogs.push({ slug,lang:langDir, content,title:frontMatter.title,description:frontMatter.description,createdAt:frontMatter.createdAt,image:frontMatter.image,contentList:frontMatter.contentList })
+      allBlogs.push({ slug,lang:langDir, content,title:frontMatter.title,description:frontMatter.description,createdAt:frontMatter.createdAt,image:frontMatter.image,name:frontMatter.name,linkName:frontMatter.linkName,link:frontMatter.link})
     })
   }
   return allBlogs
@@ -32,6 +32,8 @@ export type Blog = {
   slug: string
   content:any,
   lang:string,
-  contentList: string,
+  name:string,
+  linkName:string,
+  link:string
 }
 

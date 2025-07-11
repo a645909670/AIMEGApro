@@ -43,25 +43,36 @@ export default async function Page({
   return (
     <>
       <article
-        className="prose prose-sm md:prose-base lg:prose-lg  rounded-2xl max-w-3xl mx-auto py-10 px-4">
+        className="prose prose-sm md:prose-base lg:prose-lg  rounded-2xl max-w-5xl mx-auto py-10 px-4">
         {/* <Link href={`/${params.lang}/blogs`} className="mb-2 text-gray-500">{t`<< Return Blogs List`}</Link> */}
         <Link href={`/${params.lang}/blogs`} className="mb-2 text-gray-500">&lt;&lt; Return Blogs List</Link>
-        <h1>{post.title}</h1>
-        <CustomMDX source={post.content} />
-        {/* <div>{post.description}</div>
-        {post.contentList.map((item, i) => (
-          <div key={i}>
-            <h3>{item.title}</h3>
-            {item.content.map((item2, j) => (
-              item.link ? (
-                <a key={j} href={item.link}>{item.linkContent}</a>
-              ) : (
-                <div key={j}>{item2}</div>
-              )
-            ))}
-          <img src={item.image} alt="" />
-          </div>
-        ))} */}
+        <div style={{marginTop: '16px',boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.1)',padding: '24px',borderRadius: '8px'}}>
+          {/* <h1>{post.title}</h1>
+          <div style={{marginBottom: '40px',fontSize: '12px',color: '#6A8193'}}>Publish Date · {post.createdAt}</div>
+          <div style={{marginBottom: '24px',fontSize: '23px',textAlign: 'center', color: '#767676'}}>{post.description}</div>
+          <div style={{fontSize: '0px',textAlign: 'center'}}>
+            <img style={{display: 'block',margin: '0 auto',width: '327px'}} src={post.image} alt="" />
+          </div> */}
+          {/* <div style={{color: '#6A8193'}}> */}
+            <CustomMDX source={post.content} />
+          {/* </div> */}
+          {/* <div style={{marginBottom: '12px',textAlign: 'right'}}>{post.name}</div>
+          <div style={{textAlign: 'right'}}><a style={{ color: '#2F9FF8' }} href={post.link}>{post.linkName}</a></div> */}
+          {/* <div>{post.description}</div>
+          {post.contentList.map((item, i) => (
+            <div key={i}>
+              <h3>{item.title}</h3>
+              {item.content.map((item2, j) => (
+                item.link ? (
+                  <a key={j} href={item.link}>{item.linkContent}</a>
+                ) : (
+                  <div key={j}>{item2}</div>
+                )
+              ))}
+            <img src={item.image} alt="" />
+            </div>
+          ))} */}
+        </div>
       </article>
     </>
 

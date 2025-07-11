@@ -11,8 +11,8 @@ export default function Gallery() {
       images: [
         // 'https://public-image.fafafa.ai/fa-image/2024/06/dc94c298dbb6498d38ed5a8fc3fb9293.jpeg',
         // 'https://public-image.fafafa.ai/fa-image/2024/06/28cf8159d8a7aeb370296993ec380797.png'
-        '/dimg.jpg',
-        '/ximg.jpg'
+        '../images/dimg.jpg',
+        '../images/ximg.jpg'
       ]
     },
   /*  {
