@@ -75,7 +75,7 @@ Absolutely! In addition to expanding the content of the image, AI Outpainting al
               className="bg-center bg-no-repeat bg-cover min-h-[150px] w-full rounded-2xl h-full"
               style={{
                 backgroundImage:
-                  'url(../images/problem.jpg)'
+                  'url(/problem.jpg)'
               }}
             ></div>
           </div>
