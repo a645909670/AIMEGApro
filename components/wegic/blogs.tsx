@@ -26,14 +26,14 @@ export default  function BlogsPage({
                 passHref
                 key={blog.slug}
               >
-                <div style={{margin: '0 auto', width: '780px'}}>
+                <div style={{padding: '0 0.5rem',margin: '0 auto',marginBottom: '16px',borderRadius: '8px',backgroundColor: '#fff'}}>
                   <div className="py-2 flex justify-between align-middle gap-2">
                     <div className="flex-1 mx-2">
                       <h3 className="text-lg font-bold hover:underline">{blog.title}</h3>
                       <p className="text-gray-500 hover:underline">{blog.description}</p>
                       <p  className="hidden md:block  w-64  text-gray-300 text-sm mr-2">{t`Publish Date:`}{blog.createdAt}</p>
                     </div>
-                    <div className="flex-1 mx-2" style={{display: 'flex',justifyContent: 'center',alignItems: 'center',fontSize: '0px',textAlign: 'center'}}>
+                    <div style={{display: 'flex',width: '300px',justifyContent: 'center',alignItems: 'center',fontSize: '0px',textAlign: 'center'}}>
                       <img style={{display: 'block',margin: '0 auto'}} src={blog.image} alt="" />
                     </div>
                   </div>
