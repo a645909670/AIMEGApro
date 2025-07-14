@@ -29,17 +29,6 @@
       ]
     ]
   },
-  "GkCoYT": {
-    "translation": "<< Kembali Senarai Blog",
-    "message": "<< Return Blogs List",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(public)/(blogs)/blogs/[slug]/page.tsx",
-        47
-      ]
-    ]
-  },
   "heWVMD": {
     "translation": "1 Credit/use, {0} left",
     "message": "1 Credit/use, {0} left",
@@ -102,7 +91,7 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/hero.tsx",
-        88
+        90
       ]
     ]
   },
@@ -113,7 +102,7 @@
     "origin": [
       [
         "components/wegic/index-uploader.tsx",
-        33
+        36
       ]
     ]
   },
@@ -128,7 +117,7 @@
       ],
       [
         "components/wegic/hero.tsx",
-        95
+        97
       ]
     ]
   },
@@ -139,11 +128,11 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-photo-extender/views/hero.tsx",
-        88
+        90
       ],
       [
         "app/[lang]/(public)/generative-fill-ai/views/hero.tsx",
-        88
+        90
       ]
     ]
   },
@@ -198,7 +187,7 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/hero.tsx",
-        35
+        37
       ]
     ]
   },
@@ -319,7 +308,7 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-photo-extender/views/hero.tsx",
-        35
+        37
       ]
     ]
   },
@@ -363,7 +352,7 @@
     "origin": [
       [
         "components/wegic/hero.tsx",
-        40
+        42
       ]
     ]
   },
@@ -407,7 +396,7 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/hero.tsx",
-        75
+        77
       ]
     ]
   },
@@ -422,7 +411,7 @@
       ],
       [
         "components/wegic/hero.tsx",
-        81
+        83
       ]
     ]
   },
@@ -433,11 +422,11 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-photo-extender/views/hero.tsx",
-        75
+        77
       ],
       [
         "app/[lang]/(public)/generative-fill-ai/views/hero.tsx",
-        75
+        77
       ]
     ]
   },
@@ -482,7 +471,7 @@
     "origin": [
       [
         "components/wegic/hero.tsx",
-        43
+        45
       ]
     ]
   },
@@ -877,7 +866,7 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/hero.tsx",
-        38
+        40
       ]
     ]
   },
@@ -888,7 +877,7 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-photo-extender/views/hero.tsx",
-        38
+        40
       ]
     ]
   },
@@ -899,7 +888,7 @@
     "origin": [
       [
         "app/[lang]/(public)/generative-fill-ai/views/hero.tsx",
-        38
+        40
       ]
     ]
   },
@@ -1096,7 +1085,7 @@
     "origin": [
       [
         "app/[lang]/(public)/generative-fill-ai/views/hero.tsx",
-        35
+        37
       ]
     ]
   },
@@ -1107,23 +1096,23 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/hero.tsx",
-        49
+        51
       ],
       [
         "app/[lang]/(public)/ai-photo-extender/views/hero.tsx",
-        49
+        51
       ],
       [
         "app/[lang]/(public)/generative-fill-ai/views/hero.tsx",
-        49
+        51
       ],
       [
         "components/wegic/hero.tsx",
-        54
+        56
       ],
       [
         "components/wegic/index-uploader.tsx",
-        44
+        47
       ],
       [
         "components/wegic/pricing.tsx",
@@ -1300,19 +1289,19 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/hero.tsx",
-        61
+        63
       ],
       [
         "app/[lang]/(public)/ai-photo-extender/views/hero.tsx",
-        61
+        63
       ],
       [
         "app/[lang]/(public)/generative-fill-ai/views/hero.tsx",
-        61
+        63
       ],
       [
         "components/wegic/hero.tsx",
-        66
+        68
       ]
     ]
   },
@@ -1644,7 +1633,7 @@
     "origin": [
       [
         "components/wegic/blogs.tsx",
-        33
+        34
       ]
     ]
   },
@@ -1904,7 +1893,7 @@
     "origin": [
       [
         "components/wegic/index-uploader.tsx",
-        29
+        32
       ]
     ]
   },
@@ -2000,19 +1989,19 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/hero.tsx",
-        56
+        58
       ],
       [
         "app/[lang]/(public)/ai-photo-extender/views/hero.tsx",
-        56
+        58
       ],
       [
         "app/[lang]/(public)/generative-fill-ai/views/hero.tsx",
-        56
+        58
       ],
       [
         "components/wegic/hero.tsx",
-        61
+        63
       ]
     ]
   },

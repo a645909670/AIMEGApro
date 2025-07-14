@@ -87,9 +87,9 @@ const Footer = ({ params }: { params?: { lang: AVAILABLE_LOCALES } }) => (
           </div>
         </div>
         <div></div>
-        <div className="mt-8">
-          {/* <I18nLink params={params} /> */}
-        </div>
+        {/* <div className="mt-8">
+          <I18nLink params={params} />
+        </div> */}
         <div className="mt-2 py-10 border-t flex-row-reverse items-center justify-between sm:flex">
           <ul className="flex flex-wrap items-center gap-4 sm:text-sm">
             {getNavigation().map((item, idx) => (

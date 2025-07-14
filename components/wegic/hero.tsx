@@ -25,7 +25,9 @@ export default function Hero({params,}: {
       return false
     }else{
  // 用户已登录，直接跳转到编辑器页面
-      window.location.href = `/${params.lang}/editor`
+      // window.location.href = `/${params.lang}/editor`
+      // window.location.href = 'https://creatra.art/ai-outpainting'
+      window.open('https://creatra.art/ai-outpainting', '_blank');
     }
    
   }
