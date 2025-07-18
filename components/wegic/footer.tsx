@@ -30,7 +30,7 @@ const Footer = ({ params }: { params?: { lang: AVAILABLE_LOCALES } }) => (
               </div>
             </Link>
             <h2 className="text-gray-300 text-lg font-semibold sm:text-2xl">
-              AI Outpainting Online
+              AIMEGApro Online
             </h2>
             <p className="max-2xl">
               {t`Expand Your Image, Reshape Your Image`}
@@ -125,7 +125,7 @@ const Footer = ({ params }: { params?: { lang: AVAILABLE_LOCALES } }) => (
             </li>
           </ul>
           <p className="mt-6 sm:mt-0">
-            © 2024 AI-Outpainting.com All rights reserved.
+            © 2024 AIMEGApro.com All rights reserved.
           </p>
         </div>
       </div>
