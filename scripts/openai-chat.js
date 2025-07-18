@@ -2,7 +2,8 @@ const openai  = require("@ai-sdk/openai")
 const { generateText } = require('ai');
 const doubao = openai.createOpenAI({
   baseURL: "https://ark.cn-beijing.volces.com/api/v3",
-  apiKey: "7da1e475-xxxxxxx",
+  // apiKey: "7da1e475-xxxxxxx",
+  apiKey: "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",
   compatibility: 'compatible',
   // compatibility: 'strict',
   // apiKey: process.env.OPENAI_API_KEY,
