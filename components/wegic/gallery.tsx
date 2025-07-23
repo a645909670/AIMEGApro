@@ -44,12 +44,10 @@ export default function Gallery() {
             </h2>
             <div className="mt-4 lg:mt-6 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-8">
               <p className="DESC text-base font-normal text-slate-700 dark:text-slate-300 mt-4 lg:mt-0">
-                {t`Browse Democratized AI Outpainting Magic—No Expertise Required.
-See how everyday creators (not just pros) stretch artworks into new worlds. Every example proves AI’s power to unlock limitless expansion—no design degree needed.`}
+                {t`Browse Democratized AI Outpainting Magic—No Expertise Required.See how everyday creators (not just pros) stretch artworks into new worlds. Every example proves AI’s power to unlock limitless expansion—no design degree needed.`}
               </p>
               <p className="DESC text-base font-normal text-slate-700 dark:text-slate-300 mt-4 lg:mt-0">
-                {t`Every Gallery Piece Proves AI’s Democratizing Power.
-Watch how AI reshapes photos into polished projects—for bloggers, small biz, and hobbyists alike. No “pro tools” barriers—just creativity, amplified.`}
+                {t`Every Gallery Piece Proves AI’s Democratizing Power.Watch how AI reshapes photos into polished projects—for bloggers, small biz, and hobbyists alike. No “pro tools” barriers—just creativity, amplified.`}
               </p>
             </div>
           </div>

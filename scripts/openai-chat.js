@@ -1,52 +1,52 @@
-const openai  = require("@ai-sdk/openai")
+// const openai  = require("@ai-sdk/openai")
 const { generateText } = require('ai');
-const doubao = openai.createOpenAI({
-  baseURL: "https://ark.cn-beijing.volces.com/api/v3",
-  // apiKey: "7da1e475-xxxxxxx",
-  apiKey: "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",
-  compatibility: 'compatible',
-  // compatibility: 'strict',
-  // apiKey: process.env.OPENAI_API_KEY,
-})
-const MODEL_DOUBAO_LITE_4K = "ep-20240906111329-q22z4"
-async function doubaoTranslate(prompt) {
-  const { text } = await generateText({
-    model: doubao(MODEL_DOUBAO_LITE_4K),
-    prompt: prompt,
-  });
-  return {
-    choices: [
-      {
-        message: {
-          content: text
-        }
-      }
-    ]
-  };
-}
+// const doubao = openai.createOpenAI({
+//   baseURL: "https://ark.cn-beijing.volces.com/api/v3",
+//   // apiKey: "7da1e475-xxxxxxx",
+//   apiKey: "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",
+//   compatibility: 'compatible',
+//   // compatibility: 'strict',
+//   // apiKey: process.env.OPENAI_API_KEY,
+// })
+// const MODEL_DOUBAO_LITE_4K = "ep-20240906111329-q22z4"
+// async function doubaoTranslate(prompt) {
+//   const { text } = await generateText({
+//     model: doubao(MODEL_DOUBAO_LITE_4K),
+//     prompt: prompt,
+//   });
+//   return {
+//     choices: [
+//       {
+//         message: {
+//           content: text
+//         }
+//       }
+//     ]
+//   };
+// }
 async function translate(prompt) {
   return await  openAIChat(prompt)
 }
 
-function kimiAIChat(prompt) {
-  const requestData = {
-    model: 'moonshot-v1-8k',
-    messages: [{ role: 'user', content: prompt }]
-  }
-  const requestStr = JSON.stringify(requestData)
-  // console.log('openai request:', requestStr)
-  const url = 'https://api.moonshot.cn/v1/chat/completions'
-  // 翻译专用 key
-  const key = 'sk-svcp0mYFph83hbgaPUD8a1wkuWAL6wXpkFR8ITrxJgcVglD8'
-  return fetch(url, {
-    method: 'POST', // Assuming it's a POST request
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': key
-    },
-    body: requestStr
-  }).then((response) => response.json())
-}
+// function kimiAIChat(prompt) {
+//   const requestData = {
+//     model: 'moonshot-v1-8k',
+//     messages: [{ role: 'user', content: prompt }]
+//   }
+//   const requestStr = JSON.stringify(requestData)
+//   // console.log('openai request:', requestStr)
+//   const url = 'https://api.moonshot.cn/v1/chat/completions'
+//   // 翻译专用 key
+//   const key = 'sk-svcp0mYFph83hbgaPUD8a1wkuWAL6wXpkFR8ITrxJgcVglD8'
+//   return fetch(url, {
+//     method: 'POST', // Assuming it's a POST request
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': key
+//     },
+//     body: requestStr
+//   }).then((response) => response.json())
+// }
 
 function openAIChat(prompt, model = 'gpt-3.5-turbo-0125') {
   const requestData = {
@@ -55,8 +55,11 @@ function openAIChat(prompt, model = 'gpt-3.5-turbo-0125') {
   }
   const requestStr = JSON.stringify(requestData)
   // console.log('openai request:', requestStr)
-  const url = 'https://api.inferkit.ai/v1/chat/completions'
-  const key = 'Bearer sk-xxxxxxx'
+  // const url = 'https://api.inferkit.ai/v1/chat/completions'
+  const url = 'https://api.openai.com/v1/chat/completions'
+  
+  // const key = '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'
+  const key = process.env.OPENAI_API_KEY;
   return fetch(url, {
     method: 'POST', // Assuming it's a POST request
     headers: {
@@ -68,7 +71,7 @@ function openAIChat(prompt, model = 'gpt-3.5-turbo-0125') {
 }
 
 async function openAIChat4(prompt, model = 'gpt-4-1106-preview') {
-  const result = await openAIChat(prompt)
+  const result = await openAIChat(prompt, 'gpt-4-turbo')
   if(result.choices.length > 0){
     return result.choices[0].message.content
   }else{
@@ -77,49 +80,49 @@ async function openAIChat4(prompt, model = 'gpt-4-1106-preview') {
   }
 }
 
-function qroqChat(prompt) {
-  const requestData = {
-    model: 'mixtral-8x7b-32768',
-    messages: [{ role: 'user', content: prompt }]
-  }
-  const requestStr = JSON.stringify(requestData)
-  // console.log('openai request:', requestStr)
-  const url = 'https://api.groq.com/openai/v1/chat/completions'
-  const key = 'Bearer gsk_xxxxx'
-  return fetch(url, {
-    method: 'POST', // Assuming it's a POST request
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': key
-    },
-    body: requestStr
-  }).then((response) => response.json())
-}
+// function qroqChat(prompt) {
+//   const requestData = {
+//     model: 'mixtral-8x7b-32768',
+//     messages: [{ role: 'user', content: prompt }]
+//   }
+//   const requestStr = JSON.stringify(requestData)
+//   // console.log('openai request:', requestStr)
+//   const url = 'https://api.groq.com/openai/v1/chat/completions'
+//   const key = 'Bearer gsk_xxxxx'
+//   return fetch(url, {
+//     method: 'POST', // Assuming it's a POST request
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': key
+//     },
+//     body: requestStr
+//   }).then((response) => response.json())
+// }
 
-async function qWenOpenAIChat(prompt) {
-  const GENERATION_URL =
-    'https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation'
-  const API_KEY = 'sk-xxxxxx'
+// async function qWenOpenAIChat(prompt) {
+//   const GENERATION_URL =
+//     'https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation'
+//   const API_KEY = 'sk-xxxxxx'
 
-  const requestData = {
-    model: 'qwen-turbo',
-    input: { messages: [{ role: 'user', content: prompt }] },
-    parameters: {}
-  }
-  const requestStr = JSON.stringify(requestData)
-  const result = await fetch(GENERATION_URL, {
-    method: 'POST', // Assuming it's a POST request
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${API_KEY}`
-    },
-    body: requestStr
-  }).then((response) => response.json())
-  // 构造成openai返回的格式
-  return { choices: [{ message: { content: result.output.text } }] }
-}
+//   const requestData = {
+//     model: 'qwen-turbo',
+//     input: { messages: [{ role: 'user', content: prompt }] },
+//     parameters: {}
+//   }
+//   const requestStr = JSON.stringify(requestData)
+//   const result = await fetch(GENERATION_URL, {
+//     method: 'POST', // Assuming it's a POST request
+//     headers: {
+//       'Content-Type': 'application/json',
+//       Authorization: `Bearer ${API_KEY}`
+//     },
+//     body: requestStr
+//   }).then((response) => response.json())
+//   // 构造成openai返回的格式
+//   return { choices: [{ message: { content: result.output.text } }] }
+// }
 
-qWenOpenAIChat('翻译这一句：hello world 为中文')
+// qWenOpenAIChat('翻译这一句：hello world 为中文')
 
 module.exports = {
   translate,

@@ -1,15 +1,4 @@
 {
-  "/HNf1t": {
-    "translation": "\"Scopri la magia di espandere le tue foto con l'IA\"",
-    "message": "\"Discover the Magic of Expanding Your Photos with AI\"",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(public)/(blogs)/blogs/blogs-page-client.tsx",
-        37
-      ]
-    ]
-  },
   "J/hVSQ": {
     "translation": "{0}",
     "message": "{0}",
@@ -334,17 +323,6 @@
       ]
     ]
   },
-  "Nurtof": {
-    "translation": "",
-    "message": "AIMEGApro Blogs Post",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(public)/(blogs)/blogs/blogs-page-client.tsx",
-        34
-      ]
-    ]
-  },
   "qRUxD6": {
     "translation": "",
     "message": "AIMEGApro: Democratize AI Image Expansion—Power for All, No Expertise Needed",
@@ -508,9 +486,9 @@
       ]
     ]
   },
-  "UmZaQ3": {
+  "68P0qo": {
     "translation": "",
-    "message": "Browse Democratized AI Outpainting Magic—No Expertise Required.\nSee how everyday creators (not just pros) stretch artworks into new worlds. Every example proves AI’s power to unlock limitless expansion—no design degree needed.",
+    "message": "Browse Democratized AI Outpainting Magic—No Expertise Required.See how everyday creators (not just pros) stretch artworks into new worlds. Every example proves AI’s power to unlock limitless expansion—no design degree needed.",
     "comments": [],
     "origin": [
       [
@@ -793,14 +771,14 @@
       ]
     ]
   },
-  "JMIMa3": {
+  "i0wn8o": {
     "translation": "",
-    "message": "Every Gallery Piece Proves AI’s Democratizing Power.\nWatch how AI reshapes photos into polished projects—for bloggers, small biz, and hobbyists alike. No “pro tools” barriers—just creativity, amplified.",
+    "message": "Every Gallery Piece Proves AI’s Democratizing Power.Watch how AI reshapes photos into polished projects—for bloggers, small biz, and hobbyists alike. No “pro tools” barriers—just creativity, amplified.",
     "comments": [],
     "origin": [
       [
         "components/wegic/gallery.tsx",
-        51
+        50
       ]
     ]
   },
