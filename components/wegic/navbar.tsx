@@ -197,11 +197,11 @@ export default function Nav({ items, locale }: NavbarProps) {
             </AntDropDown>)
         }
 
-        <div className="hidden sm:block">
+        {/* <div className="hidden sm:block">
           {
             localDropdown
           }
-        </div>
+        </div> */}
       </NavbarContent>
     </Navbar>
   )
