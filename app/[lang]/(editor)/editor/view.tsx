@@ -365,113 +365,184 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     }
   }, [selectedExpandDirection, selectedPosition])
 
+  
+  // 生成随机会话哈希
+  function generateSessionHash() {
+    return Math.random().toString(36).substr(2, 12);
+  }
   const handleGenerate = async (regenerate: boolean = false) => {
-    setIsLoading(true)
-    setIsProcessing(true)
-    let orderNo = ''
-    try {
-      // 创建数据库订单数据
-      const orderRequest = {
-        path: regenerate ? originKey : currentImagePath,
-        options: {
-          aspectRatio: selectedExpandDirection,
-          alignment: selectedPosition,
+    let sessionHash = generateSessionHash();
+    
+    const apiUrl = 'https://fffiloni-diffusers-image-outpaint.hf.space/gradio_api/queue/join?__theme=system';
+    const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
         },
-      }
-
-      // 提交订单
-      const orderResponse = (await fetchPost(
-        '/api/order/submit',
-        orderRequest,
-      )) as any
-      console.log('orderResponse', orderResponse)
-      orderNo = orderResponse?.orderNo
-      if (orderResponse?.error) {
-        if (orderResponse?.error === 'Please Sign In To Continue ') {
-          msg.error(t`Please Sign In To Continue `)
-        } else {
-          msg.error(
-            t`Your credit points are insufficient, please recharge first.`,
-          )
-          paymentRef.current?.open()
-        }
-        return
-      }
-
-      // 重新生成使用最原始图，否则使用当前画布的图片
-      const req = {
-        data: {
-          orderNo,
-          r2_key: regenerate ? originKey : currentImagePath,
-          aspect_ratio: selectedExpandDirection,
-          alignment: selectedPosition,
-          callback_url: `${process.env.UE_WEB_API_URL}/api/order/update`,
-        },
-        source: 'ai-outpainting-web',
-        priority: 1,
-        queue_name: 'aioutpaint',
-      }
-      // 提交mq队列发起订单处理
-      const mqResponse = (await fetchPost(
-        `${process.env.UE_MQ_API_URL}/order`,
-        req,
-      )) as any
-      console.log("###mqResponse",mqResponse)
-      if (mqResponse?.error) {
-        msg.error(t`System Error, Please retry or contact website admin`)
-        return
-      }
-      const clientId = mqResponse.client_id
-      // 设置SSE超时时间
-      const timeout = 60000; // 60秒超时
-      const timeoutId = setTimeout(() => {
-        eventSource.close();
-        setIsLoading(false);
-        setIsProcessing(false);
-        msg.error(t`Request timed out. Please try again later.`);
-        updateOrderStatus(orderNo,'FAILED',0,'','Request timed out')
-      }, timeout);
-      // 使用SSE监听结果
-      const eventSource = new EventSource(`${process.env.UE_MQ_API_URL}/sse/${clientId}`)
-
-      eventSource.onmessage = (event) => {
-        if (event.data !== 'keepalive') {
-          const result = JSON.parse(event.data)
-          console.log('Received SSE message:', result)
-          if (result.data.status === 'SUCCEED') {
-            const outputImagePath = result.data.outputImagePath
-            setGeneratedImages((prev) => [...prev, outputImagePath])
-            setHistoryImages((prev) => [...prev, outputImagePath])
-            loadAndScaleImage(outputImagePath)
-            setHasGeneratedImage(true)
-          } else if (result.data.status === 'FAILED') {
-            msg.error(t`System Error, Please retry or contact website admin`)
-          }
-          updateOrderStatus(orderNo,result.data.status,result.data.costTime,result.data.outputImagePath,result.data.reason)
-          window.clearTimeout(timeoutId);
-          eventSource.close()
-          setIsLoading(false)
-          setIsProcessing(false)
-        }
-      }
-
-      eventSource.onerror = (error) => {
-        console.error('SSE Error:', error)
-        msg.error(t`Error occurred while processing the image`)
-        eventSource.close()
-        setIsLoading(false)
-        setIsProcessing(false)
-        updateOrderStatus(orderNo,'FAILED',0,'',JSON.stringify(error))
-      }
-    } catch (error) {
-      console.error('Error in handleGenerate:', error)
-      msg.error(t`An unexpected error occurred`)
-      if(orderNo){
-        updateOrderStatus(orderNo,'FAILED',0,'',JSON.stringify(error))
-      }
-      setIsLoading(false)
-      setIsProcessing(false)
+        body: JSON.stringify({
+            data: [  // 将对象改为数组
+                "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", // hf_token
+                // image,
+                'https://fffiloni-diffusers-image-outpaint.hf.space/gradio_api/file=/tmp/gradio/412f2b513e0cd9ac7d653b3d867c0f34451fd62cc83de3a3e386a4bf81e326d8/image.webp', // image
+                // 720, // width
+                // 1280, // height
+                // 10, // overlap_percentage
+                // 8, // num_inference_steps
+                // "Full", // resize_option
+                // 50, // custom_resize_percentage
+                // "Hello!!", // prompt_input
+                // "Middle", // alignment
+                // '16:9' | '9:16' | '1:1'
+                selectedExpandDirection == '1:1' ? '1024' : selectedExpandDirection == '9:16' ? '720' : '1280',
+                selectedExpandDirection == '1:1' ? '1024' : selectedExpandDirection == '9:16' ? '1280' : '720',
+                selectedPosition,
+                true, // overlap_left
+                true, // overlap_right
+                true, // overlap_top
+                true, // overlap_bottom
+            ],
+            api_name: "/hf-api-token",  // 保持 API 名称
+            // session_hash: "6emwz21148",
+            // trigger_id: 11,
+            // fn_index: 9
+            session_hash: sessionHash,
+            fn_index: 0
+        })
+    });
+    // 检查HTTP状态码
+    if (!response.ok) {
+        throw new Error(`HTTP错误! 状态码: ${response.status}`);
     }
+    // 解析JSON响应
+    const responseData = await response.json();
+    // // 使用返回的数据
+    // console.log("完整响应:", responseData);
+    if (responseData) {
+        // const resultUrl = responseData.data?.result_url; // 假设返回结构中有这个字段
+        console.log("完整响应:", responseData);
+        let apiUrl2 = `https://fffiloni-diffusers-image-outpaint.hf.space/gradio_api/queue/data?session_hash=${sessionHash}`
+        
+        const response2 = await fetch(apiUrl2, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        // 解析JSON响应
+        console.log(response2);
+        
+    } else {
+        console.error("API返回错误:");
+    }
+
+
+
+    // setIsLoading(true)
+    // setIsProcessing(true)
+    // let orderNo = ''
+    // try {
+    //   // 创建数据库订单数据
+    //   const orderRequest = {
+    //     path: regenerate ? originKey : currentImagePath,
+    //     options: {
+    //       aspectRatio: selectedExpandDirection,
+    //       alignment: selectedPosition,
+    //     },
+    //   }
+
+    //   // 提交订单
+    //   const orderResponse = (await fetchPost(
+    //     '/api/order/submit',
+    //     orderRequest,
+    //   )) as any
+    //   console.log('orderResponse', orderResponse)
+    //   orderNo = orderResponse?.orderNo
+    //   if (orderResponse?.error) {
+    //     if (orderResponse?.error === 'Please Sign In To Continue ') {
+    //       msg.error(t`Please Sign In To Continue `)
+    //     } else {
+    //       msg.error(
+    //         t`Your credit points are insufficient, please recharge first.`,
+    //       )
+    //       paymentRef.current?.open()
+    //     }
+    //     return
+    //   }
+
+    //   // 重新生成使用最原始图，否则使用当前画布的图片
+    //   const req = {
+    //     data: {
+    //       orderNo,
+    //       r2_key: regenerate ? originKey : currentImagePath,
+    //       aspect_ratio: selectedExpandDirection,
+    //       alignment: selectedPosition,
+    //       callback_url: `${process.env.UE_WEB_API_URL}/api/order/update`,
+    //     },
+    //     source: 'ai-outpainting-web',
+    //     priority: 1,
+    //     queue_name: 'aioutpaint',
+    //   }
+    //   // 提交mq队列发起订单处理
+    //   const mqResponse = (await fetchPost(
+    //     `${process.env.UE_MQ_API_URL}/order`,
+    //     req,
+    //   )) as any
+    //   console.log("###mqResponse",mqResponse)
+    //   if (mqResponse?.error) {
+    //     msg.error(t`System Error, Please retry or contact website admin`)
+    //     return
+    //   }
+    //   const clientId = mqResponse.client_id
+    //   // 设置SSE超时时间
+    //   const timeout = 60000; // 60秒超时
+    //   const timeoutId = setTimeout(() => {
+    //     eventSource.close();
+    //     setIsLoading(false);
+    //     setIsProcessing(false);
+    //     msg.error(t`Request timed out. Please try again later.`);
+    //     updateOrderStatus(orderNo,'FAILED',0,'','Request timed out')
+    //   }, timeout);
+    //   // 使用SSE监听结果
+    //   const eventSource = new EventSource(`${process.env.UE_MQ_API_URL}/sse/${clientId}`)
+
+    //   eventSource.onmessage = (event) => {
+    //     if (event.data !== 'keepalive') {
+    //       const result = JSON.parse(event.data)
+    //       console.log('Received SSE message:', result)
+    //       if (result.data.status === 'SUCCEED') {
+    //         const outputImagePath = result.data.outputImagePath
+    //         setGeneratedImages((prev) => [...prev, outputImagePath])
+    //         setHistoryImages((prev) => [...prev, outputImagePath])
+    //         loadAndScaleImage(outputImagePath)
+    //         setHasGeneratedImage(true)
+    //       } else if (result.data.status === 'FAILED') {
+    //         msg.error(t`System Error, Please retry or contact website admin`)
+    //       }
+    //       updateOrderStatus(orderNo,result.data.status,result.data.costTime,result.data.outputImagePath,result.data.reason)
+    //       window.clearTimeout(timeoutId);
+    //       eventSource.close()
+    //       setIsLoading(false)
+    //       setIsProcessing(false)
+    //     }
+    //   }
+
+    //   eventSource.onerror = (error) => {
+    //     console.error('SSE Error:', error)
+    //     msg.error(t`Error occurred while processing the image`)
+    //     eventSource.close()
+    //     setIsLoading(false)
+    //     setIsProcessing(false)
+    //     updateOrderStatus(orderNo,'FAILED',0,'',JSON.stringify(error))
+    //   }
+    // } catch (error) {
+    //   console.error('Error in handleGenerate:', error)
+    //   msg.error(t`An unexpected error occurred`)
+    //   if(orderNo){
+    //     updateOrderStatus(orderNo,'FAILED',0,'',JSON.stringify(error))
+    //   }
+    //   setIsLoading(false)
+    //   setIsProcessing(false)
+    // }
   }
 
   const updateOrderStatus = (orderNo:string,status:string,costTime:number,outputImagePath:string,reason:string) => {
@@ -807,6 +878,9 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                     <span className="ml-1">{t`Regenerate`}</span>
                   </Button>
                 )}
+                <div onClick={() => handleGenerate(false)}>
+                    Start Expanding
+                </div>
                 <Button
                   size="sm"
                   color="primary"

@@ -16,20 +16,40 @@ const getNavigation = () => {
 
 const Footer = ({ params }: { params?: { lang: AVAILABLE_LOCALES } }) => (
   <>
-    <footer className="md:pt-22 pt-10 mt-8 bg-black px-4 md:px-0" style={{background: '#061630'}}>
-      <div className="text-white bg-black w-full max-w-7xl mx-auto  items-center gap-16 md:grid-cols-2 md:gap-24" style={{background: '#061630'}}>
-        <div className="flex flex-wrap gap-y-10 items-center justify-between">
-          <div className="space-y-4">
-            <Link href="/" className="inline-block">
-              <div className="w-full h-full flex items-center justify-start">
-                <img
-                  className="w-auto h-10 object-cover"
-                  src="/logo.png"
-                  alt="logo"
-                />
-              </div>
-            </Link>
-            <h2 className="text-gray-300 text-lg font-semibold sm:text-2xl">
+    <footer className="md:pt-22 pt-10 mt-8 bg-black px-4 md:px-0" style={{background: '#18283A'}}>
+      <div className="text-white bg-black w-full max-w-7xl mx-auto  items-center gap-16 md:grid-cols-2 md:gap-24" style={{background: '#18283A'}}>
+        <div className="flex flex-wrap gap-y-10 items-center justify-between" style={{display: 'flex', marginBottom: '20px', alignItems: 'center', justifyContent: 'center'}}>
+          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <div>
+              <ul className="flex flex-wrap items-center gap-4 sm:text-sm">
+                {getNavigation().map((item, idx) => (
+                  <li
+                    key={idx}
+                    className="font-medium text-gray-500 hover:text-primary-200 duration-150"
+                    style={{fontSize: '14px'}}
+                  >
+                    <Link href={`/${params?.lang}${item.href}`}>{item.name}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div style={{margin: '0 16px', width: '1px', height: '60px', backgroundColor: '#444E5A'}}></div>
+            <div>
+              <Link href="/" className="inline-block">
+                <div className="w-full h-full flex items-center justify-start">
+                  <img
+                    className="w-auto h-14 object-cover"
+                    src="/logo2.png"
+                    alt="logo"
+                  />
+                  <div style={{marginLeft: '8px'}}>
+                    <div style={{fontSize: '21px'}}>AIMEGApro</div>
+                    <div style={{fontSize: '10px', color: '#5961F9'}}>Democratize AI: Power for Everyone, No Expertise Needed</div>
+                  </div>
+                </div>
+              </Link>
+            </div>
+            {/* <h2 className="text-gray-300 text-lg font-semibold sm:text-2xl">
               AIMEGApro Online
             </h2>
             <p className="max-2xl">
@@ -45,7 +65,7 @@ const Footer = ({ params }: { params?: { lang: AVAILABLE_LOCALES } }) => (
               <Link href={`/${params?.lang}/generative-fill-ai`} >
                 Generative Fill AI
               </Link>
-              {/*<a href="https://x.com/vocalremoveroak" target="_blank" aria-label="Social media">
+              <a href="https://x.com/vocalremoveroak" target="_blank" aria-label="Social media">
                 <svg
                   className="w-6 h-6 hover:text-gray-500 duration-150"
                   fill="none"
@@ -63,8 +83,8 @@ const Footer = ({ params }: { params?: { lang: AVAILABLE_LOCALES } }) => (
                     </clipPath>
                   </defs>
                 </svg>
-              </a>*/}
-              {/*<a href="/" target="_blank" aria-label="Social media">
+              </a>
+              <a href="/" target="_blank" aria-label="Social media">
               <svg
                 className="w-6 h-6 hover:text-gray-500 duration-150"
                 fill="none"
@@ -82,16 +102,17 @@ const Footer = ({ params }: { params?: { lang: AVAILABLE_LOCALES } }) => (
                   </clipPath>
                 </defs>
               </svg>
-            </a>*/}
-            </div>
+            </a>
+            </div> */}
           </div>
         </div>
         <div></div>
         {/* <div className="mt-8">
           <I18nLink params={params} />
         </div> */}
-        <div className="mt-2 py-10 border-t flex-row-reverse items-center justify-between sm:flex">
-          <ul className="flex flex-wrap items-center gap-4 sm:text-sm">
+        {/*  border-t */}
+        <div style={{padding: '12px 0', textAlign: 'center', borderTop: '1px solid #444E5A'}}>
+          {/* <ul className="flex flex-wrap items-center gap-4 sm:text-sm">
             {getNavigation().map((item, idx) => (
               <li
                 key={idx}
@@ -123,8 +144,8 @@ const Footer = ({ params }: { params?: { lang: AVAILABLE_LOCALES } }) => (
                  className="font-medium text-gray-500 hover:text-primary-200 duration-150"
                  title="AI Fill Image">AI Fill Image</a>
             </li>
-          </ul>
-          <p className="mt-6 sm:mt-0">
+          </ul> */}
+          <p>
             © 2024 AIMEGApro.com All rights reserved.
           </p>
         </div>

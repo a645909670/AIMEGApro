@@ -26,21 +26,21 @@ export default function BlogsPageClient({blogs,params}:{params: { lang: AVAILABL
   const shouldShowBlogItem = (selectedKey: number, index: number) => {
     switch(selectedKey) {
       case 1: // Popular
-        return index <= 16; // 显示前6项
+        return index <= 26; // 显示前6项
       case 2: // AI Image Expansion
-        return index <= 16; // 显示第2-5项
+        return index <= 26; // 显示第2-5项
       case 3: // No-Code Creativity
-        return index <= 16; // 显示第4-7项
+        return index <= 26; // 显示第4-7项
       case 4: // Use Cases & Tutorials
-        return index <= 16; // 显示第6-9项
+        return index <= 26; // 显示第6-9项
       case 5: // AI Tools & Productivity
-        return index <= 16; // 显示第8-11项
+        return index <= 26; // 显示第8-11项
       case 6: // Deals & Resources
-        return index <= 16; // 显示第10项及之后
+        return index <= 26; // 显示第10项及之后
       default:
-        return index <= 16; // 默认显示前6项
+        return index <= 26; // 默认显示前6项
     }
-  };
+  }; 
 
   const BlogItem = ({ 
     blog, 
