@@ -13,7 +13,7 @@ export async function generateMetadata({
 ): Promise<Metadata> {
   await activateLocale(params.lang)
   return {
-    title:t`Tools`+` | ${siteConfig.name}`,
+    title:`Tools`+` | ${siteConfig.name}`,
     alternates: {
       languages:metadataLanguages('/tools')
     },

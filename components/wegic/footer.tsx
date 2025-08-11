@@ -8,7 +8,7 @@ import { t } from '@lingui/macro'
 const getNavigation = () => {
   return [
     { name: t`Home`, href: '/' },
-    { name: t`Tools`, href: '/tools' },
+    { name: `Tools`, href: '/tools' },
     { name: t`Pricing`, href: '/pricing' },
     { name: t`Blogs`, href: '/blogs' },
     /* { name: t`Explore`, href: '/user-case' }*/
