@@ -38,7 +38,7 @@ export async function generateMetadata({
 }
 
 interface BlogListItem {
-  id: string;
+  key: string;
   img: string;
   title: string;
   describe: string;
@@ -81,7 +81,7 @@ export default async function Page({
             <div style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', width: '100%'}}>
               {post.list.map((item: BlogListItem) => (
                 <div 
-                  key={item.id}
+                  key={item.key}
                   style={{borderRadius: '8px', boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.08)',boxSizing: 'border-box', border: '1px solid', borderImage: 'linear-gradient(180deg, #BFDEE4 0%, #C0D6DB 100%) 1', background: 'linear-gradient(154deg, #F5FBFF 13%, #FFFFFF 92%)', cursor: 'pointer'}}
                 >
                   {/* 基础卡片内容 */}
