@@ -93,9 +93,8 @@ export default function BlogsPageClient() {
         <div className="w-full max-w-7xl mx-auto rounded-2xl mb-8 text-stone-800 dark:text-white" style={{display: 'flex', flexWrap: 'wrap',marginBottom: '200px', marginTop: '-82px'}}>
           {toolCategories.map((tool) => (
             // <Link href={`/${params.lang}/blogs/${tool.slug}`} passHref>
-            <Link href={`/tools/${tool.slug}`}>
+            <Link href={`/tools/${tool.slug}`} key={tool.key}>
               <div 
-                key={tool.key}
                 style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: (tool.key == 4 || tool.key == 8) ? '0' : '40px', marginBottom: '20px', borderRadius: '8px', boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.08)',boxSizing: 'border-box', border: '1px solid', borderImage: hoveredCard === tool.key ? 'linear-gradient(180deg, #9776F5 0%, #9776F5 100%) 1.02' : 'linear-gradient(180deg, #BFDEE4 0%, #C0D6DB 100%) 1', background: hoveredCard === tool.key ? 'linear-gradient(154deg, #F6F5FF 13%, #FFFFFF 92%)' : 'linear-gradient(154deg, #F5FBFF 13%, #FFFFFF 92%)', width: '290px', height: '139px', cursor: 'pointer'}}
                 onMouseEnter={() => setHoveredCard(tool.key)}
                 onMouseLeave={() => setHoveredCard(null)}
