@@ -19,7 +19,7 @@ export async function generateStaticParams() {
   let posts = getBlogPosts()
 
   return posts.map((post) => ({
-    // slug: post.slug,
+    slug: post.slug,
     lang: post.lang
   }))
 }
