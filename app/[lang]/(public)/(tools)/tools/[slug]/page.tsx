@@ -37,23 +37,6 @@ export async function generateMetadata({
   }
 }
 
-// 新增类型定义
-interface BlogListItem {
-  id: string;
-  img: string;
-  title: string;
-  describe: string;
-}
-
-interface BlogPost {
-  lang: AVAILABLE_LOCALES;
-  slug: string;
-  title: string;
-  description: string;
-  listimg: string;
-  list: BlogListItem[];
-}
-
 export default async function Page({
                                      params
                                    }: {
