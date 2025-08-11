@@ -1,35 +1,22 @@
 import { AVAILABLE_LOCALES } from '@/framework/locale/locale'
-import { NextRequest } from 'next/server'
 import { getBlogPosts } from '@/framework/tools/tools'
 import { notFound } from 'next/navigation'
-import { useState } from 'react'
-// import { CustomMDX } from '@/framework/tools/mdx'
 import Link from 'next/link'
-import { t } from '@lingui/macro'
 import { Metadata } from 'next'
-
-export function GET(request: NextRequest) {
-  const url = request.nextUrl // 包含完整 URL 信息
-  console.log('完整 URL:', url.toString())
-  
-  return Response.json({ url: url.toString() })
-}
 
 export async function generateStaticParams() {
   let posts = getBlogPosts()
-
   return posts.map((post) => ({
     slug: post.slug,
     lang: post.lang
   }))
 }
-// 动态生成metadata
+
 export async function generateMetadata({
-                                         params
-                                       }: {
-                                         params: { slug: string, lang: AVAILABLE_LOCALES }
-                                       }
-): Promise<Metadata> {
+  params
+}: {
+  params: { slug: string, lang: AVAILABLE_LOCALES }
+}): Promise<Metadata> {
   let slug = decodeURIComponent(params.slug)
   let post = getBlogPosts().find((post) => post.lang === params.lang && post.slug === slug)
   return {
@@ -45,21 +32,20 @@ interface BlogListItem {
 }
 
 export default async function Page({
-                                     params
-                                   }: {
+  params
+}: {
   params: { slug: string, lang: AVAILABLE_LOCALES }
 }) {
-  // console.log('访问blog详情页面', params)
   let slug = decodeURIComponent(params.slug)
   let post = getBlogPosts().find((post) => post.lang === params.lang)
+  
   if (!post) {
-   return  notFound()
+    return notFound()
   }
-  // className="prose prose-sm md:prose-base lg:prose-lg  rounded-2xl max-w-5xl mx-auto py-10 px-4"
+
   return (
     <>
       <article>
-        {/* <div>{params.slug}</div> */}
         <Link href={`/${params.lang}/tools`} className="mb-2 text-gray-500">&lt;&lt; Return Blogs List</Link>
         <div>
           <div style={{position: 'relative', fontSize: '0px', zIndex: '-10'}}>
@@ -84,7 +70,6 @@ export default async function Page({
                   key={item.key}
                   style={{borderRadius: '8px', boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.08)',boxSizing: 'border-box', border: '1px solid', borderImage: 'linear-gradient(180deg, #BFDEE4 0%, #C0D6DB 100%) 1', background: 'linear-gradient(154deg, #F5FBFF 13%, #FFFFFF 92%)', cursor: 'pointer'}}
                 >
-                  {/* 基础卡片内容 */}
                   <div style={{padding: '15px 8px', display: 'flex'}}>
                     <div style={{marginRight: '8px', fontSize: '0px'}}>
                       <img 
@@ -104,6 +89,5 @@ export default async function Page({
         </div>
       </article>
     </>
-
   )
 }
