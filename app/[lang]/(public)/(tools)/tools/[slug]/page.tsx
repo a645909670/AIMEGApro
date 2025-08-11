@@ -37,6 +37,23 @@ export async function generateMetadata({
   }
 }
 
+// 新增类型定义
+interface BlogListItem {
+  id: string;
+  img: string;
+  title: string;
+  describe: string;
+}
+
+interface BlogPost {
+  lang: AVAILABLE_LOCALES;
+  slug: string;
+  title: string;
+  description: string;
+  listimg: string;
+  list: BlogListItem[];
+}
+
 export default async function Page({
                                      params
                                    }: {
@@ -72,8 +89,7 @@ export default async function Page({
               <div style={{marginBottom: '62px', width: '244px', height: '40px'}}><img src={post.listimg} alt="" /></div>
             </div>
             <div style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', width: '100%'}}>
-              {post.list.map((item) => (
-              // <Link href={`/tools/${item.slug}`}>
+              {post.list.map(item => (
                 <div 
                   key={item.id}
                   style={{borderRadius: '8px', boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.08)',boxSizing: 'border-box', border: '1px solid', borderImage: 'linear-gradient(180deg, #BFDEE4 0%, #C0D6DB 100%) 1', background: 'linear-gradient(154deg, #F5FBFF 13%, #FFFFFF 92%)', cursor: 'pointer'}}
@@ -83,6 +99,7 @@ export default async function Page({
                     <div style={{marginRight: '8px', fontSize: '0px'}}>
                       <img 
                         src={item.img}
+                        alt={item.title}
                       />
                     </div>
                     <div style={{width: '175px'}}>
@@ -91,7 +108,6 @@ export default async function Page({
                     </div>
                   </div>
                 </div>
-              // </Link>
               ))}
             </div>
           </div>
