@@ -1,7 +1,7 @@
 import CosClient from 'cos-js-sdk-v5'
 import CosStS from 'qcloud-cos-sts'
 import dayjs from 'dayjs'
-
+ 
 export type CosCredential = {
   bucket: string
   region: string

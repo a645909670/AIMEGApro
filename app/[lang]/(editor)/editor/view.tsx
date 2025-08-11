@@ -184,11 +184,11 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   const handleBeforeUpload = (file: File) => {
     const authenticated = loginRef.current?.checkAuthenticated()
     // 未登录不可上传
-    if (!authenticated) {
-      uploadRef.current?.clearFileList()
-      loginRef.current?.open()
-      return false
-    }
+    // if (!authenticated) {
+    //   uploadRef.current?.clearFileList()
+    //   loginRef.current?.open()
+    //   return false
+    // }
     if (file.size > 10485760) {
       msg.error(t`File size exceeds 10MB. Please select a smaller file.`)
       return false

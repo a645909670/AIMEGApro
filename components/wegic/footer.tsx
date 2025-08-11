@@ -8,6 +8,7 @@ import { t } from '@lingui/macro'
 const getNavigation = () => {
   return [
     { name: t`Home`, href: '/' },
+    { name: t`Tools`, href: '/tools' },
     { name: t`Pricing`, href: '/pricing' },
     { name: t`Blogs`, href: '/blogs' },
     /* { name: t`Explore`, href: '/user-case' }*/
@@ -44,7 +45,7 @@ const Footer = ({ params }: { params?: { lang: AVAILABLE_LOCALES } }) => (
                   />
                   <div style={{marginLeft: '8px'}}>
                     <div style={{fontSize: '21px'}}>AIMEGApro</div>
-                    <div style={{fontSize: '10px', color: '#5961F9'}}>Democratize AI: Power for Everyone, No Expertise Needed</div>
+                    <div style={{fontSize: '10px', color: '#5961F9'}}>Democratizing AI: Easy Access for Everyone</div>
                   </div>
                 </div>
               </Link>
