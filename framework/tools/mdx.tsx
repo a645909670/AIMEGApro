@@ -119,3 +119,6 @@ export function CustomMDX(props:any) {
     />
   )
 }
+
+// 添加默认导出
+export default CustomMDX;

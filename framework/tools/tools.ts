@@ -2,7 +2,6 @@ import fs from 'fs'
 import { AVAILABLE_LOCALES } from '@/framework/locale/locale'
 import path from 'path'
 import matter from 'gray-matter'
-import { log } from 'console'
 
 export const getBlogPosts = ():Blog[]=> {
   const allBlogs: Blog[] = []

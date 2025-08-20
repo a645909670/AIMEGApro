@@ -1,7 +1,10 @@
 import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
+// import { createHash } from 'node:crypto'
 
 let globalClient: S3Client = null as any
+
+// const hashedSecretKey = createHash('sha256').update(process.env.UE_S3_SECRET_KEY!).digest('hex');
  
 function getS3Client() {
   if (globalClient) {
@@ -11,9 +14,11 @@ function getS3Client() {
   globalClient = new S3Client({
     endpoint: process.env.UE_S3_ENDPOINT,
     region: process.env.UE_S3_REGION,
+    // region: 'auto',
     credentials: {
       accessKeyId: process.env.UE_S3_ACCESS_KEY!,
       secretAccessKey: process.env.UE_S3_SECRET_KEY!
+      // secretAccessKey: hashedSecretKey
     }
   })
   return globalClient

@@ -44,7 +44,7 @@ export default async function Page({
     <>
       <article
         className="prose prose-sm md:prose-base lg:prose-lg  rounded-2xl max-w-5xl mx-auto py-10 px-4">
-        <Link href={`/${params.lang}/blogs`} className="mb-2 text-gray-500">&lt;&lt; Return Blogs List {post.slug}</Link>
+        <Link href={`/${params.lang}/blogs`} className="mb-2 text-gray-500">&lt;&lt; Return Blogs List</Link>
         <div style={{marginTop: '16px',boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.1)',padding: '24px',borderRadius: '8px'}}>
             <CustomMDX source={post.content} />
         </div>
