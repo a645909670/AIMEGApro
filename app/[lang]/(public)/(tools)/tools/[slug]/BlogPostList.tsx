@@ -12,7 +12,7 @@ interface BlogListItem {
   title: string;
   address: string;
   describe: string;
-  describeb: string;
+  // describeb: string;
   classification: string;
   content: string;
   details1: any;
@@ -28,7 +28,7 @@ interface BlogPost {
   listimg: string;
   list: BlogListItem[];
   content: string;
-  describeb: string;
+  // describeb: string;
 }
 
 interface BlogPostListProps {
