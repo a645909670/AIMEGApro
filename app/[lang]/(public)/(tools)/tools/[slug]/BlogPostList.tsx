@@ -149,7 +149,7 @@ export default function BlogPostList({ post, params }: BlogPostListProps) {
                       </div>
                       <div style={{ width: '175px' }}>
                         <div style={{ color: '#515C6B' }}>{item.title}</div>
-                        <div style={{ fontSize: '12px', color: '#515C6B' }}>{item.describe}</div>
+                        <div style={{ fontSize: '12px', color: '#515C6B', width: '175px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.describe}</div>
                       </div>
                     </div>
                   </div>

@@ -20,15 +20,15 @@ export default function Hero({params,}: {
   const handleGetStarted = () => {
     const authenticated = loginRef.current?.checkAuthenticated()
     // 未登录不可上传
-    if (!authenticated) {
-      loginRef.current?.open()
-      return false
-    }else{
+    // if (!authenticated) {
+    //   loginRef.current?.open()
+    //   return false
+    // }else{
  // 用户已登录，直接跳转到编辑器页面
       window.location.href = `/${params.lang}/editor`
       // window.location.href = 'https://creatra.art/ai-outpainting'
       // window.open('https://creatra.art/ai-outpainting', '_blank');
-    }
+    // }
    
   }
 

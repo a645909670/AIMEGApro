@@ -23,22 +23,22 @@ export default function BlogsPageClient({blogs,params}:{params: { lang: AVAILABL
   };
 
   // 根据选中的 key 和 index 判断是否显示博客项
-  const shouldShowBlogItem = (selectedKey: number, index: number) => {
+  const shouldShowBlogItem = (selectedKey: number, index: number, blog: Blog) => {
     switch(selectedKey) {
       case 1: // Popular
-        return index <= 26; // 显示前6项
+        return index >= 1 && index <= 10000; // 显示前6项
       case 2: // AI Image Expansion
-        return index <= 26; // 显示第2-5项
+        return index >= 1 && index <= 10000; // 显示第2-5项
       case 3: // No-Code Creativity
-        return index <= 26; // 显示第4-7项
+        return index >= 1 && index <= 10000; // 显示第4-7项
       case 4: // Use Cases & Tutorials
-        return index <= 26; // 显示第6-9项
+        return index >= 1 && index <= 10000; // 显示第6-9项
       case 5: // AI Tools & Productivity
-        return index <= 26; // 显示第8-11项
+        return index >= 1 && index <= 10000; // 显示第8-11项
       case 6: // Deals & Resources
-        return index <= 26; // 显示第10项及之后
+        return index >= 1 && index <= 10000; // 显示第10项及之后
       default:
-        return index <= 26; // 默认显示前6项
+        return index >= 1 && index <= 10000; // 默认显示前6项
     }
   }; 
 
@@ -54,7 +54,7 @@ export default function BlogsPageClient({blogs,params}:{params: { lang: AVAILABL
     const { title, description, descriptionb, createdAt, image } = blog;
 
     // 根据选中的 key 和当前索引判断是否显示
-    if (!shouldShowBlogItem(selectedKey, index)) {
+    if (!shouldShowBlogItem(selectedKey, index, blog)) {
       return null;
     }
 
@@ -65,12 +65,12 @@ export default function BlogsPageClient({blogs,params}:{params: { lang: AVAILABL
             <div style={{display: 'flex', alignItems: 'center', marginRight: '12px'}}>
               <img style={{minWidth: '327px',maxWidth: '327px'}} src={image} alt={title} />
             </div>
-            <div>
+            <div style={{position: 'relative'}}>
               <div>
                 <h4 className="font-medium text-2xl mb-2 hover:underline">{title}</h4>
                 <div style={{marginTop: '12px', color: '#6A8193'}}>{descriptionb}</div>
               </div>
-              <div style={{marginTop: '12px', color: '#6A8193'}}>Date:{createdAt}</div>
+              <div style={{position: 'absolute', bottom: '0', color: '#6A8193'}}>Date：{createdAt}</div>
             </div>
           </div>
         </Link>
