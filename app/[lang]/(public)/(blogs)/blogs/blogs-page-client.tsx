@@ -7,12 +7,11 @@ import { useState } from 'react'
 
 export default function BlogsPageClient({blogs,params}:{params: { lang: AVAILABLE_LOCALES },blogs: Blog[] }) {
   const menuItems = [
-    {key: 1, name: 'Popular'},
-    {key: 2, name: 'AI Image Expansion'},
-    {key: 3, name: 'No-Code Creativity'},
-    {key: 4, name: 'Use Cases & Tutorials'},
-    {key: 5, name: 'AI Tools & Productivity'},
-    {key: 6, name: 'Deals & Resources'},
+    {key: 1, name: 'AI Image Expansion'},
+    {key: 2, name: 'No-Code Creativity'},
+    {key: 3, name: 'Use Cases & Tutorials'},
+    {key: 4, name: 'AI Tools & Productivity'},
+    {key: 5, name: 'Deals & Resources'},
   ];
 
   const [selectedItem, setSelectedItem] = useState<number>(menuItems[0].key);
@@ -26,17 +25,15 @@ export default function BlogsPageClient({blogs,params}:{params: { lang: AVAILABL
   const shouldShowBlogItem = (selectedKey: number, index: number, blog: Blog) => {
     switch(selectedKey) {
       case 1: // Popular
-        return index >= 1 && index <= 10000; // 显示前6项
+        return index >= 1 && blog.classification == 1;
       case 2: // AI Image Expansion
-        return index >= 1 && index <= 10000; // 显示第2-5项
+        return index >= 1 && blog.classification == 2;
       case 3: // No-Code Creativity
-        return index >= 1 && index <= 10000; // 显示第4-7项
+        return index >= 1 && blog.classification == 3;
       case 4: // Use Cases & Tutorials
-        return index >= 1 && index <= 10000; // 显示第6-9项
+        return index >= 1 && blog.classification == 4;
       case 5: // AI Tools & Productivity
-        return index >= 1 && index <= 10000; // 显示第8-11项
-      case 6: // Deals & Resources
-        return index >= 1 && index <= 10000; // 显示第10项及之后
+        return index >= 1 && blog.classification == 5;
       default:
         return index >= 1 && index <= 10000; // 默认显示前6项
     }
@@ -63,7 +60,7 @@ export default function BlogsPageClient({blogs,params}:{params: { lang: AVAILABL
         <Link href={`/${params.lang}/blogs/${blog.slug}`} passHref>
           <div style={{display: 'flex', position: 'relative'}}>
             <div style={{display: 'flex', alignItems: 'center', marginRight: '12px'}}>
-              <img style={{minWidth: '327px',maxWidth: '327px'}} src={image} alt={title} />
+              <img style={{minWidth: '327px',maxWidth: '327px',minHeight: '200px'}} src={image} alt={title} />
             </div>
             <div style={{position: 'relative'}}>
               <div>
