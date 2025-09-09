@@ -383,7 +383,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     //         data: [  // 将对象改为数组
     //             "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", // hf_token
     //             // image,
-    //             'https://fffiloni-diffusers-image-outpaint.hf.space/gradio_api/file=/tmp/gradio/412f2b513e0cd9ac7d653b3d867c0f34451fd62cc83de3a3e386a4bf81e326d8/image.webp', // image
+    //             regenerate ? originKey : currentImagePath, // image
     //             // 720, // width
     //             // 1280, // height
     //             // 10, // overlap_percentage
