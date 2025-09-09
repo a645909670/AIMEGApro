@@ -878,9 +878,6 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                     <span className="ml-1">{t`Regenerate`}</span>
                   </Button>
                 )}
-                <div onClick={() => handleGenerate(false)}>
-                    Start Expanding
-                </div>
                 <Button
                   size="sm"
                   color="primary"

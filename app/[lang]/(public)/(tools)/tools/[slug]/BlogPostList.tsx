@@ -31,6 +31,7 @@ interface BlogPost {
   listimg: string;
   list: BlogListItem[];
   content: string;
+  img: string;
   // describeb: string;
 }
 
@@ -108,8 +109,10 @@ export default function BlogPostList({ post, params }: BlogPostListProps) {
                     {post.description}
                   </div>
                 </div>
-                <div style={{ minWidth: '483px', minHeight: '271px' }}>
-                  <img src="/tools/gjimg.png" alt="" />
+                {/*  style={{ minWidth: '483px', minHeight: '271px' }} */}
+                <div style={{ minWidth: '400px' }}>
+                  {/* <img src="/tools/gjimg.png" alt="" /> */}
+                  <img src={post.img} alt="" />
                 </div>
               </div>
             </div>
