@@ -383,7 +383,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     //         data: [  // 将对象改为数组
     //             "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", // hf_token
     //             // image,
-    //             regenerate ? originKey : currentImagePath, // image
+    //             regenerate ? `https://pub-73298ca352544bf49210452cd4dd19b5.r2.dev/${originKey}` : `https://pub-73298ca352544bf49210452cd4dd19b5.r2.dev/${currentImagePath}`, // image
     //             // 720, // width
     //             // 1280, // height
     //             // 10, // overlap_percentage
