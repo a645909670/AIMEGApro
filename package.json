@@ -78,6 +78,7 @@
     "@babel/core": "^7.24.7",
     "@babel/plugin-proposal-do-expressions": "^7.24.7",
     "@faker-js/faker": "^8.4.1",
+    "@gradio/client": "^1.17.1",
     "@lingui/cli": "4.13.0",
     "@lingui/format-json": "4.13.0",
     "@lingui/loader": "4.13.0",
