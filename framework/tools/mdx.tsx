@@ -4,11 +4,33 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import { highlight } from 'sugar-high'
 import React from 'react'
 
-function Table({ data }:{data:any}) {
-  let headers = data.headers.map((header:any, index:number) => (
+// function Table({ data }:{data:any}) {
+//   let headers = data.headers.map((header:any, index:number) => (
+//     <th key={index}>{header}</th>
+//   ))
+//   let rows = data.rows.map((row:any, index:number) => (
+//     <tr key={index}>
+//       {row.map((cell:any, cellIndex:number) => (
+//         <td key={cellIndex}>{cell}</td>
+//       ))}
+//     </tr>
+//   ))
+
+//   return (
+//     <table>
+//       <thead>
+//       <tr>{headers}</tr>
+//       </thead>
+//       <tbody>{rows}</tbody>
+//     </table>
+//   )
+// }
+
+function Table({ headers, rows }:{headers:any,rows:any}) {
+  let headersa = eval(headers).map((header:any, index:number) => (
     <th key={index}>{header}</th>
   ))
-  let rows = data.rows.map((row:any, index:number) => (
+  let rowsa = eval(rows).map((row:any, index:number) => (
     <tr key={index}>
       {row.map((cell:any, cellIndex:number) => (
         <td key={cellIndex}>{cell}</td>
@@ -19,9 +41,9 @@ function Table({ data }:{data:any}) {
   return (
     <table>
       <thead>
-      <tr>{headers}</tr>
+      <tr>{headersa}</tr>
       </thead>
-      <tbody>{rows}</tbody>
+      <tbody>{rowsa}</tbody>
     </table>
   )
 }
@@ -44,14 +66,13 @@ function CustomLink(props:any) {
   return <a target="_blank" rel="noopener noreferrer" {...props} />
 }
 
-// function RoundedImage(props:any) {
-//   return <Image alt={props.alt} className="rounded-lg" {...props} />
-// }
-function RoundedImage({ alt, ...props }: any) {
+function RoundedImage({ alt, width, height, ...props }: any) {
   return (
     <div className="my-4 flex justify-center">
       <Image 
         alt={alt} 
+        width={900}
+        height={450}
         className="rounded-lg object-contain max-w-full h-auto"
         {...props}
       />
