@@ -5,7 +5,7 @@ const GENERATION_URL =
  * 通义千问ai接口服务类
  */
 export class QwenChatApi {
-  static API_KEY = 'sk-e291921d55444a72a3c5cd345452e525'
+  static API_KEY = process.env.UE_QWEN_API_KEY ?? ''
   model
   encoder = new TextEncoder()
   decoder = new TextDecoder('utf-8')

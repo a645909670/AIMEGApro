@@ -82,6 +82,12 @@ router.post('/submit', async (request) => {
 })
 
 router.post('/update', async (request) => {
+  const callbackSecret = process.env.UE_ORDER_CALLBACK_SECRET
+  const receivedSecret = request.headers.get('x-order-callback-secret')
+  if (!callbackSecret || receivedSecret !== callbackSecret) {
+    console.warn('Reject unsigned order update callback')
+    return R.bad('Invalid callback signature')
+  }
   const body = await request.json()
   return updateOrder(body)
 })

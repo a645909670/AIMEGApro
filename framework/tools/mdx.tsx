@@ -26,11 +26,24 @@ import React from 'react'
 //   )
 // }
 
-function Table({ headers, rows }:{headers:any,rows:any}) {
-  let headersa = eval(headers).map((header:any, index:number) => (
+function parseTableValue(value: any) {
+  if (typeof value !== 'string') {
+    return value ?? []
+  }
+  try {
+    return JSON.parse(value)
+  } catch {
+    return []
+  }
+}
+
+function Table({ data, headers, rows }:{data?:any,headers?:any,rows?:any}) {
+  const tableHeaders = parseTableValue(data?.headers ?? headers)
+  const tableRows = parseTableValue(data?.rows ?? rows)
+  let headersa = tableHeaders.map((header:any, index:number) => (
     <th key={index}>{header}</th>
   ))
-  let rowsa = eval(rows).map((row:any, index:number) => (
+  let rowsa = tableRows.map((row:any, index:number) => (
     <tr key={index}>
       {row.map((cell:any, cellIndex:number) => (
         <td key={cellIndex}>{cell}</td>
