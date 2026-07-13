@@ -394,7 +394,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
       const imageBlob = await response.blob();
       
       const client2 = await Client.connect("fffiloni/diffusers-image-outpaint");
-      const result:any = await client2.predict("/infer", { 
+      const result:any = await client2.predict("/infer", {
         image: imageBlob,
         // width: 720,
         // height: 720,
