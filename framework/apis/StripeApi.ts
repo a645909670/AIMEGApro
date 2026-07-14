@@ -3,19 +3,23 @@ import { R } from '@/framework/utils'
 import Stripe from 'stripe'
 import { Trade } from '@prisma/client'
 
-const publicKey = process.env['UE_STRIPE_PK'] ?? ''
-const secretKey = process.env['UE_STRIPE_SK'] ?? ''
+function getStripe() {
+  const secretKey = process.env['UE_STRIPE_SK'] ?? ''
+  return new Stripe(secretKey)
+}
 
-const stripe = new Stripe(secretKey)
+function getPublicKey() {
+  return process.env['UE_STRIPE_PK'] ?? ''
+}
 
 export async function GET(request: NextRequest) {
   return R.ok({
-    clientId: publicKey
+    clientId: getPublicKey()
   })
 }
 
 export async function createStripeOrder(trade: Trade, returnUrl: string) {
-  return await stripe.paymentIntents.create({
+  return await getStripe().paymentIntents.create({
     amount: 50,
     currency: 'USD',
     description: `buy a ${trade.planName}`
@@ -27,7 +31,7 @@ export async function listenWebhook(request: NextRequest) {
 
   let event
   try {
-    event = stripe.webhooks.constructEvent(await request.json(), sig, '')
+    event = getStripe().webhooks.constructEvent(await request.json(), sig, '')
   } catch (e) {
     return R.bad('webhook init error')
   }

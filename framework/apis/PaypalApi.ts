@@ -3,22 +3,29 @@ import { auth, config, CurrencyCodes, ItemsBuilder, order, PurchaseUnitBuilder }
 import { Trade } from '@prisma/client'
 import { R } from '@/framework/utils'
 
-const clientId = process.env['UE_PAYPAL_CLIENT_ID'] ?? ''
-const clientSecret = process.env['UE_PAYPAL_CLIENT_SECRET'] ?? ''
+let paypalConfigured = false
 
-config({
-  mode: process.env.NODE_ENV==='development'?'sandbox':'live',
-  client_id: clientId,
-  client_secret: clientSecret,
-  auto_renew: false
-})
+function ensurePaypalConfig() {
+  if (paypalConfigured) return
+  paypalConfigured = true
+  const clientId = process.env['UE_PAYPAL_CLIENT_ID'] ?? ''
+  const clientSecret = process.env['UE_PAYPAL_CLIENT_SECRET'] ?? ''
+  config({
+    mode: process.env.NODE_ENV==='development'?'sandbox':'live',
+    client_id: clientId,
+    client_secret: clientSecret,
+    auto_renew: false
+  })
+}
 
 
 export function GET(request: NextRequest) {
+  const clientId = process.env['UE_PAYPAL_CLIENT_ID'] ?? ''
   return R.ok({ clientId })
 }
 
 export async function createPaypalOrder(trade: Trade,buyName:string) {
+  ensurePaypalConfig()
   await auth().catch((e) => {
     console.error('paypal auth error', e)
   })
