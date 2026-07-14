@@ -1,4 +1,3 @@
-import { getAuthUser } from '@/auth'
 import { R } from '@/framework/utils'
 import { createGetSingedUrl, createPutSingedUrl } from '@/framework/utils/s34r2'
 import { NextRequest } from 'next/server'
@@ -18,11 +17,6 @@ export async function GET(request: NextRequest) {
   const op = request.nextUrl.searchParams.get('op')
   if (!key) {
     return R.error('key is required')
-  }
-
-  const authUser = await getAuthUser()
-  if (!authUser) {
-    return R.bad('Please Sign In To Continue')
   }
 
   if ('read' !== op && !isSafeUploadKey(key)) {

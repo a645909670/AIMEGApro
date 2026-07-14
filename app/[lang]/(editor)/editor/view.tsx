@@ -28,7 +28,10 @@ import { $Enums } from '@prisma/client'
 import { message, Spin } from 'antd'
 import { FcGoogle } from 'react-icons/fc'
 import { FaAngleRight, FaArrowUpFromBracket } from 'react-icons/fa6'
-import { Client } from "@gradio/client";
+// MCP 扩图服务接口地址（与 mcpServers.gradio.url 保持一致）
+const MCP_ENDPOINT = 'https://fffiloni-diffusers-image-outpaint.hf.space/gradio_api/mcp/'
+// Gradio Space 基础地址，用于补全相对路径的图片结果
+const GRADIO_BASE = 'https://fffiloni-diffusers-image-outpaint.hf.space'
 import {
   ArrowLeft,
   CreditCard,
@@ -179,17 +182,15 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
         setIsImageLoading(false)
         resolve()
       }
+      img.onerror = () => {
+        setIsImageLoading(false)
+        msg.error(t`Failed to load image. The image URL may be invalid or blocked by CORS.`)
+        resolve()
+      }
     })
   }
 
   const handleBeforeUpload = (file: File) => {
-    const authenticated = loginRef.current?.checkAuthenticated()
-    // 未登录不可上传
-    // if (!authenticated) {
-    //   uploadRef.current?.clearFileList()
-    //   loginRef.current?.open()
-    //   return false
-    // }
     if (file.size > 10485760) {
       msg.error(t`File size exceeds 10MB. Please select a smaller file.`)
       return false
@@ -373,41 +374,83 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     setIsProcessing(true)
 
     try {
+      // 1. 获取图片 URL
       const imageKey = regenerate ? originKey : currentImagePath
       if (!imageKey) {
         throw new Error(t`Please upload an image first.`)
       }
-
-      // 1. 从 S3 获取图片
       const imageUrl = `${process.env.UE_S3_PUBLIC_PATH}/${imageKey}`
-      const response = await fetch(imageUrl)
-      if (!response.ok) {
-        throw new Error(t`Failed to load image. Please try again.`)
-      }
-      const imageBlob = await response.blob();
 
-      // 2. 连接 Gradio Space 进行 AI 扩图
-      const client = await Client.connect("fffiloni/diffusers-image-outpaint")
-      const result: any = await client.predict("/infer", {
-        image: imageBlob,
-        width: selectedExpandDirection == '1:1' ? 720 : selectedExpandDirection == '9:16' ? 720 : 1280,
-        height: selectedExpandDirection == '1:1' ? 720 : selectedExpandDirection == '9:16' ? 1280 : 720,
-        overlap_percentage: 1,
-        num_inference_steps: 4,
-        resize_option: "Full",
-        custom_resize_percentage: 1,
-        prompt_input: "Hello!!",
-        alignment: selectedPosition,
-        overlap_left: true,
-        overlap_right: true,
-        overlap_top: true,
-        overlap_bottom: true,
+      // 2. 通过 MCP 调用进行 AI 扩图
+      const targetWidth = selectedExpandDirection == "1:1" ? 720 : selectedExpandDirection == "9:16" ? 720 : 1280
+      const targetHeight = selectedExpandDirection == "1:1" ? 720 : selectedExpandDirection == "9:16" ? 1280 : 720
+
+      const mcpResponse = await fetch(MCP_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json, text/event-stream",
+        },
+        body: JSON.stringify({
+          jsonrpc: "2.0",
+          id: Date.now(),
+          method: "tools/call",
+          params: {
+            name: "diffusers_image_outpaint_infer",
+            arguments: {
+              image: imageUrl,
+              width: targetWidth,
+              height: targetHeight,
+              overlap_percentage: 10,
+              num_inference_steps: 4,
+              resize_option: "Full",
+              custom_resize_percentage: 50,
+              prompt_input: process.env.NEXT_PUBLIC_MCP_PROMPT || "Expand this image naturally",
+              alignment: selectedPosition,
+              overlap_left: true,
+              overlap_right: true,
+              overlap_top: true,
+              overlap_bottom: true,
+            },
+          },
+        }),
       })
 
-      // 3. 获取生成结果并显示在画布上
-      const resultImageUrl: string = result.data[0][result.data[0].length - 1].url
+      // 3. 解析 MCP SSE 响应（取最后一条 data 消息，跳过中间进度事件）
+      const rawText = await mcpResponse.text()
+      const dataLines = rawText.split("\n").filter(line => line.startsWith("data: "))
+      if (!dataLines.length) {
+        throw new Error(t`Invalid response from image processing service.`)
+      }
+      const lastData = dataLines[dataLines.length - 1]
+
+      const mcpResult = JSON.parse(lastData.slice(6))
+      if (mcpResult.error) {
+        throw new Error(mcpResult.error.message || t`Image processing service error.`)
+      }
+
+      // 4. 提取生成结果图片 URL
+      // Gradio MCP 返回的是 FileData 数组 JSON，取最后一张输出图的 URL
+      const rawResult = mcpResult.result.content[0].text
+      let resultImageUrl: string
+      try {
+        const parsed = JSON.parse(rawResult)
+        if (Array.isArray(parsed)) {
+          resultImageUrl = parsed[parsed.length - 1].url || parsed[parsed.length - 1].path
+        } else {
+          resultImageUrl = rawResult
+        }
+      } catch {
+        resultImageUrl = rawResult
+      }
+      // Gradio 可能返回相对路径，需补全
+      if (resultImageUrl.startsWith('/')) {
+        resultImageUrl = `${GRADIO_BASE}${resultImageUrl}`
+      }
+
+      // 5. 显示在画布上
       const img = new Image()
-      img.crossOrigin = 'anonymous'
+      img.crossOrigin = "anonymous"
       img.src = resultImageUrl
       img.onload = () => {
         setGeneratedImages((prev) => [...prev, resultImageUrl])
@@ -429,7 +472,6 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
         setIsLoading(false)
         setIsProcessing(false)
       }
-
 
     } catch (error: any) {
       msg.error(error.message || t`An error occurred while processing the image.`)
