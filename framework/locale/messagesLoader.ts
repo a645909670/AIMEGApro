@@ -44,10 +44,10 @@ function convertToMessages(rawMessages: any): Messages {
 
   return Object.entries(rawMessages).reduce((acc, [key, value]) => {
     const v = value as any
-    if (typeof v === 'string') {
-      // @lingui/loader 已处理为扁平格式，值直接是翻译文本
+    if (typeof v === 'string' || Array.isArray(v)) {
+      // @lingui/loader 已处理，值直接是翻译文本或片段数组（含占位符）
       acc[key] = v;
-    } else if (v && typeof v.translation === 'string') {
+    } else if (v && (typeof v.translation === 'string' || Array.isArray(v.translation))) {
       // 原始 JSON 格式（带 translation 字段）
       acc[key] = v.translation;
     } else if (v && typeof v.message === 'string') {
