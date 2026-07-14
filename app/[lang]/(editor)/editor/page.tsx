@@ -2,7 +2,9 @@ import { siteConfig } from '@/config/site'
 import { activateLocale, AVAILABLE_LOCALES } from '@/framework/locale/locale'
 import { t } from '@lingui/macro'
 import { Metadata } from 'next'
-import EditorView from './view'
+import dynamic from 'next/dynamic'
+
+const EditorView = dynamic(() => import('./view'), { ssr: false })
 
 // 动态生成metadata
 export async function generateMetadata({
@@ -24,7 +26,7 @@ export default async function EditorPage({
   params: { lang: AVAILABLE_LOCALES }
 }) {
   await activateLocale(lang)
-  
+
   return <EditorView params={{lang}}/>
 }
 
