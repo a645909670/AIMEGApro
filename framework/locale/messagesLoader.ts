@@ -37,15 +37,20 @@ type RawMessages = Record<string, {
 }>
 
 // 创建一个函数来转换 RawMessages 为 Messages
-function convertToMessages(rawMessages: RawMessages): Messages {
+function convertToMessages(rawMessages: any): Messages {
   if (!rawMessages) {
     return {};
   }
 
   return Object.entries(rawMessages).reduce((acc, [key, value]) => {
-    if (value && typeof value.translation === 'string') {
+    if (typeof value === 'string') {
+      // @lingui/loader 已处理为扁平格式，值直接是翻译文本
+      acc[key] = value;
+    } else if (value && typeof value.translation === 'string') {
+      // 原始 JSON 格式（带 translation 字段）
       acc[key] = value.translation;
     } else if (value && typeof value.message === 'string') {
+      // 原始 JSON 格式（只有 message 字段）
       acc[key] = value.message;
     } else {
       acc[key] = '';
