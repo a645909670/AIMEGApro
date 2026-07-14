@@ -43,15 +43,16 @@ function convertToMessages(rawMessages: any): Messages {
   }
 
   return Object.entries(rawMessages).reduce((acc, [key, value]) => {
-    if (typeof value === 'string') {
+    const v = value as any
+    if (typeof v === 'string') {
       // @lingui/loader 已处理为扁平格式，值直接是翻译文本
-      acc[key] = value;
-    } else if (value && typeof value.translation === 'string') {
+      acc[key] = v;
+    } else if (v && typeof v.translation === 'string') {
       // 原始 JSON 格式（带 translation 字段）
-      acc[key] = value.translation;
-    } else if (value && typeof value.message === 'string') {
+      acc[key] = v.translation;
+    } else if (v && typeof v.message === 'string') {
       // 原始 JSON 格式（只有 message 字段）
-      acc[key] = value.message;
+      acc[key] = v.message;
     } else {
       acc[key] = '';
     }
