@@ -111,7 +111,8 @@ export async function POST(request: NextRequest) {
         const buffer = Buffer.from(await imageResp.arrayBuffer())
         const contentType = imageResp.headers.get('content-type') || 'image/png'
         const ext = contentType.includes('jpeg') || contentType.includes('jpg') ? '.jpg' : '.png'
-        const outputKey = `output/${Date.now()}_${imageKey.replace(/[/\\]/g, '_')}${ext}`
+        const baseName = imageKey.replace(/[/\\]/g, '_').replace(/\.[^.]+$/, '')
+        const outputKey = `output/${Date.now()}_${baseName}${ext}`
         finalUrl = await uploadResultToS3(outputKey, buffer, contentType)
       }
     }

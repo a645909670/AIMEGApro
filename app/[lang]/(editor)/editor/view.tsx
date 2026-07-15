@@ -527,6 +527,39 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     </motion.button>
   )
 
+  // 图片缩略图辅助函数（兼容完整 URL 和 S3 相对路径）
+  const imgUrl = (key: string) =>
+    key.startsWith('http://') || key.startsWith('https://') ? key : `${process.env.UE_S3_PUBLIC_PATH}/${key}`
+  const isCurrentImage = (key: string) => image?.src === imgUrl(key)
+
+  const switchToImage = (imgPath: string) => {
+    const img = new Image()
+    img.src = imgUrl(imgPath)
+    img.onload = () => {
+      setImage(img)
+      const scale = Math.min(
+        (canvasSize.width - 40) / img.width,
+        (canvasSize.height - 40) / img.height,
+      )
+      setImageProps({
+        width: img.width * scale,
+        height: img.height * scale,
+        x: (canvasSize.width - img.width * scale) / 2,
+        y: (canvasSize.height - img.height * scale) / 2,
+      })
+    }
+  }
+
+  const Thumbnail = ({ imgPath, isActive, onClick }: { imgPath: string; isActive: boolean; onClick: () => void }) => (
+    <div
+      className={`min-w-14 w-14 h-14 rounded border bg-cover bg-center cursor-pointer ${
+        isActive ? 'border-blue-500 border-2' : 'border-gray-300'
+      }`}
+      style={{ backgroundImage: `url(${imgUrl(imgPath)})` }}
+      onClick={onClick}
+    />
+  )
+
   return (
     <Spin spinning={isProcessing} tip={t`Processing...`} size="large">
       <div className="h-screen flex flex-col">
@@ -777,50 +810,22 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
               </div>
 
               <div className="flex justify-center gap-2 mt-2 sm:mt-0 overflow-x-auto w-full sm:w-auto">
-                {
+                {originKey && (
                   <div
                     className={`min-w-14 w-14 h-14 rounded border bg-cover bg-center cursor-pointer ${
-                      image &&
-                      image.src ===
-                        `${process.env.UE_S3_PUBLIC_PATH}/${originKey}`
-                        ? 'border-blue-500 border-2'
-                        : 'border-gray-300'
+                      isCurrentImage(originKey) ? 'border-blue-500 border-2' : 'border-gray-300'
                     }`}
-                    style={{
-                      backgroundImage: `url(${process.env.UE_S3_PUBLIC_PATH}/${originKey})`,
-                    }}
+                    style={{ backgroundImage: `url(${imgUrl(originKey)})` }}
                     onClick={() => setShowOriginalModal(true)}
+                    title="Original"
                   />
-                }
+                )}
                 {historyImages.map((imgPath, index) => (
-                  <div
+                  <Thumbnail
                     key={index}
-                    className={`min-w-14 w-14 h-14 rounded border bg-cover bg-center cursor-pointer ${
-                      image &&
-                      image.src ===
-                        `${process.env.UE_S3_PUBLIC_PATH}/${imgPath}`
-                        ? 'border-blue-500 border-2'
-                        : 'border-gray-300'
-                    }`}
-                    style={{
-                      backgroundImage: `url(${process.env.UE_S3_PUBLIC_PATH}/${imgPath})`,
-                    }}
-                    onClick={() => {
-                      const img = new Image()
-                      img.src = `${process.env.UE_S3_PUBLIC_PATH}/${imgPath}`
-                      img.onload = () => {
-                        setImage(img)
-                        const scale = Math.min(
-                          (canvasSize.width - 40) / img.width,
-                          (canvasSize.height - 40) / img.height,
-                        )
-                        const width = img.width * scale
-                        const height = img.height * scale
-                        const x = (canvasSize.width - width) / 2
-                        const y = (canvasSize.height - height) / 2
-                        setImageProps({ width, height, x, y })
-                      }
-                    }}
+                    imgPath={imgPath}
+                    isActive={isCurrentImage(imgPath)}
+                    onClick={() => switchToImage(imgPath)}
                   />
                 ))}
               </div>
