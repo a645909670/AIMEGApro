@@ -85,6 +85,7 @@ export async function POST(request: NextRequest) {
     })
 
     const result = await aliyunResponse.json()
+    console.log('阿里云提交响应:', JSON.stringify(result))
     if (result.code) {
       console.error('阿里云 API 错误:', result)
       return R.error(result.message || '阿里云 API 调用失败')
@@ -93,12 +94,13 @@ export async function POST(request: NextRequest) {
     // 3. 异步任务：轮询等待结果
     const taskId = result.output?.task_id
     if (!taskId) {
+      console.error('未获取到 task_id，响应:', JSON.stringify(result))
       return R.error('No task_id in response')
     }
 
     const outputImageUrl = await pollAsyncResult(taskId)
     if (!outputImageUrl) {
-      return R.error('Failed to get output image')
+      return R.error('Failed to get output image. Task ID: ' + taskId)
     }
 
     // 4. 如果结果是临时 URL，下载并保存到 S3
@@ -123,24 +125,48 @@ export async function POST(request: NextRequest) {
 
 // 轮询异步任务结果
 async function pollAsyncResult(taskId: string, maxRetries = 120): Promise<string | null> {
-  const taskUrl = `https://dashscope.aliyuncs.com/api/v1/tasks/${taskId}`
+  const workspaceBase = DASHSCOPE_WORKSPACE_ID
+    ? `https://${DASHSCOPE_WORKSPACE_ID}.cn-beijing.maas.aliyuncs.com`
+    : 'https://dashscope.aliyuncs.com'
+  const taskUrl = `${workspaceBase}/api/v1/tasks/${taskId}`
+  console.log('开始轮询任务:', taskUrl)
   for (let i = 0; i < maxRetries; i++) {
+    await new Promise(resolve => setTimeout(resolve, 2000))
+
     const response = await fetch(taskUrl, {
       headers: {
         'Authorization': `Bearer ${ALIBABA_API_KEY}`,
       },
     })
     const result = await response.json()
+    const status = result.output?.task_status
 
-    if (result.output?.task_status === 'SUCCEEDED') {
-      return result.output.results?.[0]?.url || result.output.results?.[0]?.image || null
-    }
-    if (result.output?.task_status === 'FAILED') {
-      throw new Error(result.output.message || '异步任务失败')
+    // 每 10 次打印一次日志避免刷屏
+    if (i % 10 === 0) {
+      console.log(`轮询第 ${i} 次, 状态: ${status}, 响应:`, JSON.stringify(result).slice(0, 300))
     }
 
-    // 每 2 秒轮询一次
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    if (status === 'SUCCEEDED') {
+      const imageUrl =
+        result.output?.output_image_url ??
+        result.output?.image_url ??
+        result.output?.url ??
+        result.output?.result_url ??
+        result.output?.output_url ??
+        result.output?.results?.[0]?.url ??
+        result.output?.results?.[0]?.image ??
+        result.output?.results?.[0]?.image_url ??
+        result.output?.images?.[0]?.url ??
+        result.output?.images?.[0]?.image_url
+                       
+      if (!imageUrl) {
+        console.error('任务成功但未找到图片URL, 完整output:', JSON.stringify(result.output))
+      }
+      return imageUrl || null
+    }
+    if (status === 'FAILED') {
+      throw new Error(result.output?.message || '异步任务失败')
+    }
   }
   throw new Error('异步任务超时')
 }
