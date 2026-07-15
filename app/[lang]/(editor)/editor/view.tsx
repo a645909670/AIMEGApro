@@ -28,10 +28,7 @@ import { $Enums } from '@prisma/client'
 import { message, Spin } from 'antd'
 import { FcGoogle } from 'react-icons/fc'
 import { FaAngleRight, FaArrowUpFromBracket } from 'react-icons/fa6'
-// MCP 扩图服务接口地址（与 mcpServers.gradio.url 保持一致）
-const MCP_ENDPOINT = 'https://fffiloni-diffusers-image-outpaint.hf.space/gradio_api/mcp/'
-// Gradio Space 基础地址，用于补全相对路径的图片结果
-const GRADIO_BASE = 'https://fffiloni-diffusers-image-outpaint.hf.space'
+import { fetchPost } from '@/utils'
 import {
   ArrowLeft,
   CreditCard,
@@ -379,74 +376,19 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
       if (!imageKey) {
         throw new Error(t`Please upload an image first.`)
       }
-      const imageUrl = `${process.env.UE_S3_PUBLIC_PATH}/${imageKey}`
 
-      // 2. 通过 MCP 调用进行 AI 扩图
-      const targetWidth = selectedExpandDirection == "1:1" ? 720 : selectedExpandDirection == "9:16" ? 720 : 1280
-      const targetHeight = selectedExpandDirection == "1:1" ? 720 : selectedExpandDirection == "9:16" ? 1280 : 720
+      // 2. 调用阿里云通义万相进行 AI 扩图
+      const result = await fetchPost('/api/outpaint', {
+        imageKey,
+        expandDirection: selectedExpandDirection,
+        alignment: selectedPosition,
+        prompt: process.env.NEXT_PUBLIC_MCP_PROMPT || '',
+      }) as any
 
-      const mcpResponse = await fetch(MCP_ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json, text/event-stream",
-        },
-        body: JSON.stringify({
-          jsonrpc: "2.0",
-          id: Date.now(),
-          method: "tools/call",
-          params: {
-            name: "diffusers_image_outpaint_infer",
-            arguments: {
-              image: imageUrl,
-              width: targetWidth,
-              height: targetHeight,
-              overlap_percentage: 10,
-              num_inference_steps: 4,
-              resize_option: "Full",
-              custom_resize_percentage: 50,
-              prompt_input: process.env.NEXT_PUBLIC_MCP_PROMPT || "Expand this image naturally",
-              alignment: selectedPosition,
-              overlap_left: true,
-              overlap_right: true,
-              overlap_top: true,
-              overlap_bottom: true,
-            },
-          },
-        }),
-      })
-
-      // 3. 解析 MCP SSE 响应（取最后一条 data 消息，跳过中间进度事件）
-      const rawText = await mcpResponse.text()
-      const dataLines = rawText.split("\n").filter(line => line.startsWith("data: "))
-      if (!dataLines.length) {
-        throw new Error(t`Invalid response from image processing service.`)
+      if (!result || !result.url) {
+        throw new Error(t`Image processing service error.`)
       }
-      const lastData = dataLines[dataLines.length - 1]
-
-      const mcpResult = JSON.parse(lastData.slice(6))
-      if (mcpResult.error) {
-        throw new Error(mcpResult.error.message || t`Image processing service error.`)
-      }
-
-      // 4. 提取生成结果图片 URL
-      // Gradio MCP 返回的是 FileData 数组 JSON，取最后一张输出图的 URL
-      const rawResult = mcpResult.result.content[0].text
-      let resultImageUrl: string
-      try {
-        const parsed = JSON.parse(rawResult)
-        if (Array.isArray(parsed)) {
-          resultImageUrl = parsed[parsed.length - 1].url || parsed[parsed.length - 1].path
-        } else {
-          resultImageUrl = rawResult
-        }
-      } catch {
-        resultImageUrl = rawResult
-      }
-      // Gradio 可能返回相对路径，需补全
-      if (resultImageUrl.startsWith('/')) {
-        resultImageUrl = `${GRADIO_BASE}${resultImageUrl}`
-      }
+      const resultImageUrl = result.url
 
       // 5. 显示在画布上
       const img = new Image()
