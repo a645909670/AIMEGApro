@@ -12,18 +12,6 @@ const S3_ACCESS_KEY = process.env.UE_S3_ACCESS_KEY || ''
 const S3_SECRET_KEY = process.env.UE_S3_SECRET_KEY || ''
 const S3_BUCKET = getBucket()
 
-// 从 S3 下载图片并转为 base64
-async function fetchImageAsBase64(key: string): Promise<string> {
-  const imageUrl = `${S3_PUBLIC_PATH}/${key}`
-  const response = await fetch(imageUrl)
-  if (!response.ok) {
-    throw new Error(`Failed to fetch image: ${response.statusText}`)
-  }
-  const buffer = await response.arrayBuffer()
-  const base64 = Buffer.from(buffer).toString('base64')
-  return base64
-}
-
 // 上传结果图片到 S3
 async function uploadResultToS3(key: string, imageBuffer: Buffer, contentType: string) {
   const client = new S3Client({
@@ -67,19 +55,20 @@ export async function POST(request: NextRequest) {
       return R.bad('imageKey is required')
     }
 
-    // 1. 从 S3 获取图片 base64
-    const imageBase64 = await fetchImageAsBase64(imageKey)
+    // 1. 获取 S3 图片 URL
+    const imageUrl = `${S3_PUBLIC_PATH}/${imageKey}`
 
     // 2. 调用阿里云通义万相 API
     const scaleParams = getScaleParams(expandDirection || '16:9')
     const aliyunBody = {
       model: 'image-out-painting',
       input: {
-        image: imageBase64,
+        image_url: imageUrl,
       },
       parameters: {
-        ...scaleParams,
-        prompt: prompt || '自然扩展，保持风格一致',
+        x_scale: scaleParams.x_scale,
+        y_scale: scaleParams.y_scale,
+        prompt: prompt || '',
       },
     }
 
