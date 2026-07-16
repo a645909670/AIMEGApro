@@ -367,6 +367,12 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
 
   const handleGenerate = async (regenerate: boolean = false) => {
+    // 未登录时弹出登录框
+    if (!isAuthenticated) {
+      loginRef.current?.open()
+      return
+    }
+
     setIsLoading(true)
     setIsProcessing(true)
 
