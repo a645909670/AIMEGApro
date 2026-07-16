@@ -188,6 +188,11 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   }
 
   const handleBeforeUpload = (file: File) => {
+    if (!isAuthenticated) {
+      msg.error(t`Please sign in with Google first before uploading.`)
+      loginRef.current?.open()
+      return false
+    }
     if (file.size > 10485760) {
       msg.error(t`File size exceeds 10MB. Please select a smaller file.`)
       return false
