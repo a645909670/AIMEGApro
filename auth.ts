@@ -8,6 +8,7 @@ import NextAuth from 'next-auth'
 const Give_Credit = 5
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  secret: process.env.AUTH_SECRET,
   debug:process.env.NODE_ENV !== "production",
   adapter: PrismaAdapter(prisma),
   session: {
