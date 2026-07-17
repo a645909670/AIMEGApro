@@ -26,16 +26,4 @@ export default {
       }
     }),
   ],
-  cookies: {
-    pkceCodeVerifier: {
-      name: 'next-auth.pkce.code_verifier',
-      options: {
-        httpOnly: true,
-        sameSite: 'none',
-        path: '/',
-        secure: true
-      }
-    }
-  }
-
 } satisfies NextAuthConfig
