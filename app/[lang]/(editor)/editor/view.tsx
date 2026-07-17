@@ -188,7 +188,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   }
 
   const handleBeforeUpload = (file: File) => {
-    if (!isAuthenticated) {
+    if (isUnauthenticated) {
       msg.error(t`Please sign in with Google first before uploading.`)
       loginRef.current?.open()
       return false
@@ -373,7 +373,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
   const handleGenerate = async (regenerate: boolean = false) => {
     // 未登录时弹出登录框
-    if (!isAuthenticated) {
+    if (isUnauthenticated) {
       loginRef.current?.open()
       return
     }

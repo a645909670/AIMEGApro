@@ -32,6 +32,16 @@ import clsx from 'clsx'
 import { LuLanguages } from 'react-icons/lu'
 import { siteConfig } from '@/config/site'
 import { FcGoogle } from 'react-icons/fc'
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+  Input,
+} from '@nextui-org/react'
+import { message } from 'antd'
 
 export interface NavItem extends Record<string, any> {
   title: string
@@ -54,6 +64,33 @@ export default function Nav({ items, locale }: NavbarProps) {
   const [pathWithoutLocale, isActive] = useNavigation(pathname)
   const [currentLocale, locales] = useI18nLocale(locale)
   const user = data?.user as SessionUser
+
+  const { isOpen: isRegOpen, onOpen: onRegOpen, onClose: onRegClose } = useDisclosure()
+  const [regForm, setRegForm] = React.useState({ email: '', name: '' })
+  const [regLoading, setRegLoading] = React.useState(false)
+  const [regResult, setRegResult] = React.useState<string | null>(null)
+
+  const handleRegister = async () => {
+    if (!regForm.email) return
+    setRegLoading(true)
+    setRegResult(null)
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(regForm),
+      })
+      const data = await res.json()
+      if (data.code === 200) {
+        setRegResult(`注册成功！ID: ${data.data.id}, 积分: ${data.data.credit}`)
+      } else {
+        setRegResult(`注册失败：${data.message}`)
+      }
+    } catch (e: any) {
+      setRegResult(`注册失败：${e.message}`)
+    }
+    setRegLoading(false)
+  }
 
   const localDropdown = (
     <Dropdown>
@@ -143,7 +180,12 @@ export default function Nav({ items, locale }: NavbarProps) {
         {
           isUnauthenticated && siteConfig.showLogin ? (
             <>
-              <div className="hidden sm:block">
+              <div className="hidden sm:flex items-center gap-2">
+                <Button
+                  color="default"
+                  variant="flat"
+                  onClick={onRegOpen}
+                >{t`Register`}</Button>
                 <Button
                   color={'primary'}
                   variant="flat"
@@ -151,13 +193,9 @@ export default function Nav({ items, locale }: NavbarProps) {
                   onClick={() => signIn('google')}
                 >{t`Sign In With Google`}</Button>
               </div>
-              <div className="sm:hidden">
-                <Button
-                  color={'primary'}
-                  variant="flat"
-                  startContent={<FcGoogle size="1em" color="white" />}
-                  onClick={() => signIn('google')}
-                >{t`Sign In`}</Button>
+              <div className="sm:hidden flex items-center gap-1">
+                <Button size="sm" color="default" variant="flat" onClick={onRegOpen}>{t`Register`}</Button>
+                <Button size="sm" color={'primary'} variant="flat" onClick={() => signIn('google')}>{t`Sign In`}</Button>
               </div>
             </>
           ) : (
@@ -203,6 +241,39 @@ export default function Nav({ items, locale }: NavbarProps) {
           }
         </div> */}
       </NavbarContent>
+    
+        {/* 注册弹窗 */}
+        <Modal isOpen={isRegOpen} onClose={onRegClose}>
+          <ModalContent>
+            <ModalHeader>Create Account</ModalHeader>
+            <ModalBody>
+              <Input
+                label="Email"
+                placeholder="Enter your email"
+                value={regForm.email}
+                onChange={(e) => setRegForm({ ...regForm, email: e.target.value })}
+              />
+              <Input
+                label="Name"
+                placeholder="Enter your name"
+                value={regForm.name}
+                onChange={(e) => setRegForm({ ...regForm, name: e.target.value })}
+              />
+              {regResult && (
+                <p className={'text-sm ' + (regResult.includes('成功') ? 'text-green-600' : 'text-red-600')}>
+                  {regResult}
+                </p>
+              )}
+            </ModalBody>
+            <ModalFooter>
+              <Button color="danger" variant="light" onPress={onRegClose}>Close</Button>
+              <Button color="primary" onPress={handleRegister} isLoading={regLoading}>
+                Register
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+
     </Navbar>
   )
 }
