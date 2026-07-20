@@ -167,11 +167,10 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     return new Promise<void>((resolve) => {
       setIsImageLoading(true)
       const img = new Image()
-      img.crossOrigin = 'anonymous'
 
       if (typeof imgSrc === 'string') {
         setCurrentImagePath(imgSrc)
-        img.src = `${process.env.UE_S3_PUBLIC_PATH}/${imgSrc}`
+        img.src = `/api/image-proxy?key=${encodeURIComponent(imgSrc)}`
       } else {
         img.src = URL.createObjectURL(imgSrc)
       }
@@ -448,7 +447,6 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
       // 5. 显示在画布上
       const img = new Image()
-      img.crossOrigin = "anonymous"
       img.src = resultImageUrl
       img.onload = () => {
         setGeneratedImages((prev) => [...prev, resultImageUrl])
@@ -591,7 +589,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
   // 图片缩略图辅助函数（兼容完整 URL 和 S3 相对路径）
   const imgUrl = (key: string) =>
-    key.startsWith('http://') || key.startsWith('https://') ? key : `${process.env.UE_S3_PUBLIC_PATH}/${key}`
+    key.startsWith('http://') || key.startsWith('https://') ? key : `/api/image-proxy?key=${encodeURIComponent(key)}`
   const isCurrentImage = (key: string) => image?.src === imgUrl(key)
 
   const switchToImage = (imgPath: string) => {
@@ -921,7 +919,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
             <ModalHeader>{t`Original Image`}</ModalHeader>
             <ModalBody>
               <img
-                src={`${process.env.UE_S3_PUBLIC_PATH}/${originKey}`}
+                src={`/api/image-proxy?key=${encodeURIComponent(originKey || '')}`}
                 alt="Original"
                 className="w-full h-auto"
               />
