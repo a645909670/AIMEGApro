@@ -110,8 +110,13 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   const [currentImagePath, setCurrentImagePath] = useState<string | null>(null)
   const [hasGeneratedImage, setHasGeneratedImage] = useState(false)
   const [showOriginalModal, setShowOriginalModal] = useState(false)
+  const [showLimitModal, setShowLimitModal] = useState(false)
+  const [limitModalMsg, setLimitModalMsg] = useState('')
   const [historyImages, setHistoryImages] = useState<string[]>([])
   const [isProcessing, setIsProcessing] = useState(false)
+  const [skipAuth, setSkipAuth] = useState(false) // 跳过登录验证开关
+  const skipAuthRef = useRef(skipAuth)
+  skipAuthRef.current = skipAuth // 实时同步，供闭包内读取
   const [isImageLoading, setIsImageLoading] = useState(false)
   const [originalFileName, setOriginalFileName] = useState<string | null>(null)
 
@@ -140,6 +145,13 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     window.addEventListener('resize', updateCanvasSize)
     return () => window.removeEventListener('resize', updateCanvasSize)
   }, [])
+
+  // 跳过登录验证时关闭登录弹窗
+  useEffect(() => {
+    if (skipAuth) {
+      loginRef.current?.close()
+    }
+  }, [skipAuth])
 
   // 更新这个 useEffect 来处理 Stage 样式的变化
   useEffect(() => {
@@ -188,23 +200,49 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   }
 
   const handleBeforeUpload = (file: File) => {
-    if (isUnauthenticated) {
-      msg.error(t`Please sign in with Google first before uploading.`)
-      loginRef.current?.open()
-      return false
-    }
+    // 限制文件大小 10MB
     if (file.size > 10485760) {
       msg.error(t`File size exceeds 10MB. Please select a smaller file.`)
       return false
     }
-    setOriginalFileName(file.name) // 保存原始文件名
-    return true
+    return new Promise<boolean>((resolve) => {
+      const img = new Image()
+      img.onload = () => {
+        URL.revokeObjectURL(img.src)
+        const minDim = 64
+        const maxDim = 2048
+        if (img.width < minDim || img.height < minDim) {
+          msg.error(t`Image is too small. Minimum size: 64×64 pixels.`)
+          resolve(false)
+          return
+        }
+        if (img.width > maxDim || img.height > maxDim) {
+          msg.error(t`Image is too large. Maximum size: 2048×2048 pixels.`)
+          resolve(false)
+          return
+        }
+        setOriginalFileName(file.name)
+        resolve(true)
+      }
+      img.onerror = () => {
+        URL.revokeObjectURL(img.src)
+        setOriginalFileName(file.name)
+        resolve(true) // 无法读取尺寸时允许上传
+      }
+      img.src = URL.createObjectURL(file)
+    })
   }
 
   function handleUploadFinish(e: any) {
     setOriginKey(e.extra.key)
     loadAndScaleImage(e.extra.key)
     setHistoryImages([]) // 清空历史图片列表，而不是加原始图片
+    // 记录上传日志
+    fetchPost('/api/upload-log', {
+      fileName: e.name || 'unknown',
+      fileSize: e.size || 0,
+      imageKey: e.extra.key,
+    }).catch(() => {})
   }
 
   function handleUploadRemove() {
@@ -372,34 +410,41 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
 
   const handleGenerate = async (regenerate: boolean = false) => {
-    // 未登录时弹出登录框
-    if (isUnauthenticated) {
-      loginRef.current?.open()
-      return
-    }
-
     setIsLoading(true)
     setIsProcessing(true)
 
     try {
-      // 1. 获取图片 URL
       const imageKey = regenerate ? originKey : currentImagePath
       if (!imageKey) {
         throw new Error(t`Please upload an image first.`)
       }
 
-      // 2. 调用阿里云通义万相进行 AI 扩图
-      const result = await fetchPost('/api/outpaint', {
+      // 2. 提交扩图任务到队列
+      let task = await fetchPost('/api/outpaint', {
         imageKey,
         expandDirection: selectedExpandDirection,
         alignment: selectedPosition,
         prompt: process.env.NEXT_PUBLIC_MCP_PROMPT || '',
       }) as any
 
-      if (!result || !result.url) {
-        throw new Error(t`Image processing service error.`)
+      if (!task || !task.taskId) {
+        throw new Error(t`Failed to submit task.`)
       }
-      const resultImageUrl = result.url
+
+      // 3. 处理任务
+      task = await fetchPost('/api/outpaint', { action: 'process', taskId: task.taskId }) as any
+
+      // 4. 如果还在处理中，轮询等待
+      while (task.status === 'PENDING' || task.status === 'PROCESSING') {
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        task = await (await fetch(`/api/outpaint?taskId=${task.taskId}`)).json()
+        task = task.data
+      }
+
+      if (task.status !== 'SUCCEEDED' || !task.resultUrl) {
+        throw new Error(task.errorMessage || t`Image processing failed.`)
+      }
+      const resultImageUrl = task.resultUrl
 
       // 5. 显示在画布上
       const img = new Image()
@@ -427,7 +472,13 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
       }
 
     } catch (error: any) {
-      msg.error(error.message || t`An error occurred while processing the image.`)
+      const msgText = typeof error === 'string' ? error : (error?.message || '')
+      if (msgText.includes('今日免费扩图次数已用完')) {
+        setLimitModalMsg(msgText)
+        setShowLimitModal(true)
+      } else {
+        msg.error(msgText || t`An error occurred while processing the image.`)
+      }
       setIsLoading(false)
       setIsProcessing(false)
       console.error("扩图失败:", error)
@@ -669,16 +720,8 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
               </AntDropDown>
             )}
 
-            <Button
-              size="sm"
-              color="primary"
-              startContent={<CreditCard />}
-              onClick={() => {
-                paymentRef.current?.open()
-              }}
-            >
-              {t`Purchase`}
-            </Button>
+            {/* Purchase 按钮暂时隐藏 */}
+
           </div>
         </Navbar>
 
@@ -818,6 +861,14 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                   <Download size={20} />
                   <span className="ml-1 hidden sm:inline">{t`Download`}</span>
                 </Button>
+                <Button
+                  size="sm"
+                  color={skipAuth ? "warning" : "default"}
+                  variant="flat"
+                  onClick={() => setSkipAuth(!skipAuth)}
+                >
+                  {skipAuth ? t`Auth Off` : t`Auth`}
+                </Button>
               </div>
 
               <div className="flex justify-center gap-2 mt-2 sm:mt-0 overflow-x-auto w-full sm:w-auto">
@@ -879,6 +930,29 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
               <Button
                 onClick={() => setShowOriginalModal(false)}
               >{t`Close`}</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+
+        {/* 每日次数用完提示弹窗 */}
+        <Modal isOpen={showLimitModal} onClose={() => setShowLimitModal(false)}>
+          <ModalContent>
+            <ModalHeader className="flex flex-col items-center text-warning">
+              ⚠️ {t`Daily limit reached`}
+            </ModalHeader>
+            <ModalBody className="text-center py-4">
+              <p className="text-lg font-semibold">{limitModalMsg}</p>
+              <p className="text-gray-500 mt-2">{t`Sign in with Google to get 5 uses per day.`}</p>
+            </ModalBody>
+            <ModalFooter className="flex justify-center gap-3">
+              <Button color="primary" variant="flat" startContent={<FcGoogle size="1em" />}
+                onClick={() => { setShowLimitModal(false); signIn('google') }}
+              >
+                {t`Sign In With Google`}
+              </Button>
+              <Button color="danger" variant="light" onPress={() => setShowLimitModal(false)}>
+                {t`Close`}
+              </Button>
             </ModalFooter>
           </ModalContent>
         </Modal>

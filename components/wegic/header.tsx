@@ -7,7 +7,7 @@ export default function Header({ lang }: { lang?: string }) {
   const navigation = [
     { title: t`Home`, href: '/', current: false },
     { title: `Tools`, href: '/tools', current: false },
-    { title: t`Pricing`, href: '/pricing', current: false },
+    // { title: t`Pricing`, href: '/pricing', current: false },//隐藏支付渠道
     { title: t`Blogs`, href: '/blogs', current: false }
     /*{ name: t`Explore`, href: '/user-case' }*/
   ]

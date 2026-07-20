@@ -110,7 +110,7 @@ export default function Nav({ items, locale }: NavbarProps) {
             <NextLink
               className={currentLocale === item.key ? 'text-primary-200 w-full' : 'flex items-center gap-2 text-gray-500 hover:text-primary w-full'}
               replace={true}
-              href={`/${item.key}/`}
+              href={`/${item.key}${pathWithoutLocale}`}
             >
               <FaAngleRight />{item.name}
             </NextLink>
@@ -182,19 +182,13 @@ export default function Nav({ items, locale }: NavbarProps) {
             <>
               <div className="hidden sm:flex items-center gap-2">
                 <Button
-                  color="default"
-                  variant="flat"
-                  onClick={onRegOpen}
-                >{t`Register`}</Button>
-                <Button
                   color={'primary'}
                   variant="flat"
                   startContent={<FcGoogle size="1em" color="white" />}
                   onClick={() => signIn('google')}
                 >{t`Sign In With Google`}</Button>
               </div>
-              <div className="sm:hidden flex items-center gap-1">
-                <Button size="sm" color="default" variant="flat" onClick={onRegOpen}>{t`Register`}</Button>
+              <div className="sm:hidden">
                 <Button size="sm" color={'primary'} variant="flat" onClick={() => signIn('google')}>{t`Sign In`}</Button>
               </div>
             </>
@@ -235,11 +229,9 @@ export default function Nav({ items, locale }: NavbarProps) {
             </AntDropDown>)
         }
 
-        {/* <div className="hidden sm:block">
-          {
-            localDropdown
-          }
-        </div> */}
+        <div className="hidden sm:block">
+          {localDropdown}
+        </div>
       </NavbarContent>
     
         {/* 注册弹窗 */}

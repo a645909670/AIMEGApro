@@ -1,28 +1,12 @@
 'use client'
-import PaintingUploader from '@/components/wegic/painting-uploader'
-import { GoogleLoginRef } from '@/framework/components/login/types'
 import { AVAILABLE_LOCALES } from '@/framework/locale/locale'
 import { t } from '@lingui/macro'
 import { Button } from '@nextui-org/react'
-import { useRef } from 'react'
 import { FaArrowRightLong } from 'react-icons/fa6'
-export default function IndexUploader({ params }: { params: { lang: AVAILABLE_LOCALES }}){
-  const loginRef = useRef<GoogleLoginRef>(null)
+export default function IndexUploader({ params }: { params: { lang: AVAILABLE_LOCALES }}) {
 
   const handleGetStarted = () => {
-    const authenticated = loginRef.current?.checkAuthenticated()
-    // 未登录不可上传
-    if (!authenticated) {
-      loginRef.current?.open()
-      return false
-    }else{
- // 用户已登录，直接跳转到编辑器页面
-      // window.location.href = `/${params.lang}/editor`
-      // window.location.href = 'https://creatra.art/ai-outpainting'
-      window.open('https://creatra.art/ai-outpainting', '_blank');
-      
-    }
-   
+    window.location.href = `/${params.lang}/editor`
   }
   return (
     <div className="w-full max-w-7xl mx-auto  items-center py-10">

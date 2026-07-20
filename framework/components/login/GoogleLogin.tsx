@@ -6,7 +6,7 @@ import { forwardRef, useEffect, useImperativeHandle } from 'react'
 import { GoogleLoginRef } from '@/framework/components/login/types'
 
 const GoogleLogin = forwardRef<GoogleLoginRef, any>((props, ref) => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure()
   const { status } = useSession()
   useEffect(() => {
     // 将status状态写入sessionStorage
@@ -20,10 +20,9 @@ const GoogleLogin = forwardRef<GoogleLoginRef, any>((props, ref) => {
     ref,
     () =>
       ({
-        // 检查是否已经登录，返回boolean类型
         checkAuthenticated: checkAuthenticated,
-        // 弹出登录窗口
-        open: () => onOpen()
+        open: () => onOpen(),
+        close: () => onClose(),
       }) as any
   )
   return (

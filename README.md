@@ -160,7 +160,9 @@ https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/verce
 - 在scripts/add-word-locale.js中 修改要调整词密度的语言代码和目标词
 - cd scripts/ 目录下执行命令：`bun run add-word-locale.js` 或者 `node add-word-locale.js`
 
-
+## 使用备注
+- 每日 IP 次数限制：3 次/天/IP
+- 真正的瓶颈是阿里云 API 的并发限制，但扩图流程已经用数据库任务队列解决了
 
 ## 版权声明
 - 本项目采用MIT开源协议，请遵守协议内容
@@ -170,3 +172,8 @@ https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/verce
 - 如果项目对你有帮助，请给个star，非常感谢！
 - 有技术问题欢迎添加微信交流：fafafa-ai
 - 小广告：当前ai-outpainting网站，接受付费提交外链，有需要的朋友可以联系我。
+
+
+## 谷歌授权
+- https://console.cloud.google.com/apis/credentials
+- 去申请凭证

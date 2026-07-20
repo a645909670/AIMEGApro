@@ -166,6 +166,24 @@ model BehaviorLog {
   @@map("s_behavior_log")
 }
 
+model OutpaintTask {
+  id              Int      @id @default(autoincrement())
+  taskId          String   @unique @db.VarChar(64)
+  imageKey        String   @db.VarChar(500)
+  expandDirection String   @default("16:9") @db.VarChar(10)
+  alignment       String   @default("Middle") @db.VarChar(20)
+  prompt          String?  @db.VarChar(1000)
+  status          String   @default("PENDING") @db.VarChar(20)
+  resultUrl       String?  @db.VarChar(1000)
+  errorMessage    String?  @db.VarChar(1000)
+  userEmail       String?  @db.VarChar(255)       // 登录用户邮箱
+  ipAddress        String?   @db.VarChar(50)       // 匿名用户 IP
+  createdAt       DateTime @default(now()) @map("create_time")
+  updatedAt       DateTime @updatedAt @map("update_time")
+
+  @@map("t_outpaint_task")
+}
+
 enum OrderStatus {
   // 排队中
   PENDING

@@ -9,7 +9,7 @@ const getNavigation = () => {
   return [
     { name: t`Home`, href: '/' },
     { name: `Tools`, href: '/tools' },
-    { name: t`Pricing`, href: '/pricing' },
+    // { name: t`Pricing`, href: '/pricing' },//隐藏支付
     { name: t`Blogs`, href: '/blogs' },
     /* { name: t`Explore`, href: '/user-case' }*/
   ]
@@ -147,7 +147,7 @@ const Footer = ({ params }: { params?: { lang: AVAILABLE_LOCALES } }) => (
             </li>
           </ul> */}
           <p>
-            © 2024 AIMEGApro.com All rights reserved.
+            © 2026 AIMEGApro.com All rights reserved.
           </p>
         </div>
       </div>
