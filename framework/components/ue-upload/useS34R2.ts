@@ -101,14 +101,26 @@ export default function useS34R2(props: UeUploadProps): Partial<UploadProps> {
 
 
   async function customRequest({ file, onProgress, onSuccess, onError }: any) {
-    const action = file.extra.action
-    return uploadFile(action, file, onProgress, onSuccess, onError)
+    // 通过服务器代理上传（避免浏览器 CORS 限制）
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      const resp = await fetch('/api/upload', { method: 'POST', body: formData })
+      const result = await resp.json()
+      if (result.code === 200) {
+        file.extra = { key: result.data.key, action: '' }
+        onSuccess(result, null as any)
+      } else {
+        onError(new Error(result.message || 'Upload failed'), null)
+      }
+    } catch (e: any) {
+      onError(e, null)
+    }
   }
 
   async function handleBeforeUpload(file: any, files: any[]) {
     const key = createUploadFileKey(file!.name, props, true)
-    const action = await fetchGet<any>(`/api/s34r2?key=${key}`)
-    file.extra = { key, action }
+    file.extra = { key, action: '' }
     if (props.onBeforeUpload) {
       return props.onBeforeUpload(file, files)
     }
