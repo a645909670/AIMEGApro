@@ -1,6 +1,6 @@
 {
   "J/hVSQ": {
-    "translation": "{0}",
+    "translation": "",
     "message": "{0}",
     "comments": [],
     "origin": [
@@ -19,18 +19,18 @@
     ]
   },
   "heWVMD": {
-    "translation": "1 次使用/信用，还剩{0}次",
+    "translation": "",
     "message": "1 Credit/use, {0} left",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        827
+        904
       ]
     ]
   },
   "Ukjyf+": {
-    "translation": "当然！AI 图片扩展器专门设计用于在扩展过程中保留原始图像风格。我们的 AI 图片扩展器的算法经过训练，可以理解和复制独特的图像特征，确保原始和扩展内容之间的视觉一致性。",
+    "translation": "",
     "message": "Absolutely! AI Photo Extender is specifically designed to preserve the original image style throughout the expansion process. Our AI photo extender's algorithms are trained to understand and replicate unique image characteristics, ensuring visual consistency between the original and expanded content.",
     "comments": [],
     "origin": [
@@ -41,7 +41,7 @@
     ]
   },
   "Gc4eSt": {
-    "translation": "当然！除了扩展图像内容外，AI 图像扩展器还提供了增加上传图像像素尺寸的选项。这允许用户增强图像的整体分辨率和质量。",
+    "translation": "",
     "message": "Absolutely! In addition to expanding the content of the image, AI Image Extender also provides the option to increase the pixel dimensions of the uploaded images. This allows users to enhance the overall resolution and quality of their images.",
     "comments": [],
     "origin": [
@@ -52,7 +52,7 @@
     ]
   },
   "PVrmDs": {
-    "translation": "확실히! 이미지 내용을 확장하는 것 외에도 AI 아웃페인팅은 업로드된 이미지의 픽셀 크기를 증가시키는 옵션도 제공합니다. 이를 통해 사용자는 이미지의 전체 해상도와 품질을 향상시킬 수 있습니다.",
+    "translation": "",
     "message": "Absolutely! In addition to expanding the content of the image, AI Outpainting also provides the option to increase the pixel dimensions of the uploaded images. This allows users to enhance the overall resolution and quality of their images.",
     "comments": [],
     "origin": [
@@ -63,7 +63,7 @@
     ]
   },
   "zLNTkq": {
-    "translation": "当然！我们的生成式填充 AI 专门设计用于在扩展过程中保留原始图像风格。为生成式填充 AI 提供动力的算法经过训练，可以理解和复制独特的图像特征，确保原始和扩展内容之间的视觉一致性。",
+    "translation": "",
     "message": "Absolutely! Our generative fill AI is specifically designed to preserve the original image style throughout the expansion process. The algorithms powering this generative fill AI technology are trained to understand and replicate unique image characteristics, ensuring visual consistency between the original and expanded content.",
     "comments": [],
     "origin": [
@@ -74,7 +74,7 @@
     ]
   },
   "A+Al01": {
-    "translation": "图片扩展后",
+    "translation": "",
     "message": "After Image Extender",
     "comments": [],
     "origin": [
@@ -85,18 +85,18 @@
     ]
   },
   "uFZsqH": {
-    "translation": "로그인한 후에는 AI를 사용하여 이미지를 확장할 수 있는 3회의 체험이 제공됩니다.",
+    "translation": "",
     "message": "After logging in, you can have three two trials expand your image with AI",
     "comments": [],
     "origin": [
       [
         "components/wegic/index-uploader.tsx",
-        36
+        20
       ]
     ]
   },
   "JFnLY9": {
-    "translation": "아웃페인팅 후",
+    "translation": "",
     "message": "After Outpainting",
     "comments": [],
     "origin": [
@@ -111,7 +111,7 @@
     ]
   },
   "6EmTc/": {
-    "translation": "照片扩展后",
+    "translation": "",
     "message": "After Photo Extender",
     "comments": [],
     "origin": [
@@ -126,7 +126,7 @@
     ]
   },
   "HOlava": {
-    "translation": "AI 图像扩展器允许用户同时扩展多达四个图像。此多图像扩展功能使用户能够以高效的方式同时增强多个图像。",
+    "translation": "",
     "message": "AI Image Extender allows users to simultaneously expand up to four images. This multi-image expansion feature enables users to conveniently enhance multiple images in a time-efficient manner.",
     "comments": [],
     "origin": [
@@ -137,7 +137,7 @@
     ]
   },
   "WN+5uZ": {
-    "translation": "AI 图像扩展器使用先进的 AI 算法分析上传的图像，并根据现有图像数据生成额外的内容。通过使用深度学习模型，AI 技术能够以与原始样式一致的方式无缝扩展图像内容。",
+    "translation": "",
     "message": "AI Image Extender employs cutting-edge AI algorithms to analyze the uploaded images and generate additional content based on the existing image data. By utilizing a deep learning model, the AI technology is able to seamlessly expand the image content in a way that remains consistent with the original style.",
     "comments": [],
     "origin": [
@@ -148,7 +148,7 @@
     ]
   },
   "C/klTT": {
-    "translation": "AI 图像扩展器画廊",
+    "translation": "",
     "message": "AI Image Extender Gallery",
     "comments": [],
     "origin": [
@@ -159,7 +159,7 @@
     ]
   },
   "7KKVnB": {
-    "translation": "AI 图像扩展器是一个利用先进的 AI 技术扩展和增强用户上传的图像的网站。它可以在四个方向（上、下、左、右）扩展图像内容，同时保持图像的原始样式。它还具有增加图像像素尺寸和同时扩展多达四个图像的功能。",
+    "translation": "",
     "message": "AI Image Extender is a website that utilizes advanced AI technology to expand and enhance images uploaded by users. It can extend the content of images in four directions (up, down, left, and right), while maintaining the original style of the image. It also has the capability to increase the pixel dimensions of the images and simultaneously expand up to four images.",
     "comments": [],
     "origin": [
@@ -170,7 +170,7 @@
     ]
   },
   "/vcx2e": {
-    "translation": "AI 图像扩展器：用创意图像扩展扩展您的视野",
+    "translation": "",
     "message": "AI Image Extender: Expand Your Horizons with Creative Image Extensions",
     "comments": [],
     "origin": [
@@ -192,7 +192,7 @@
     ]
   },
   "TuDjpa": {
-    "translation": "AI 아웃페인팅은 업로드된 이미지를 분석하고 기존 이미지 데이터를 기반으로 추가 콘텐츠를 생성하기 위해 첨단 AI 알고리즘을 활용합니다. AI 기술은 딥 러닝 모델을 활용하여 원본 스타일과 일관성을 유지하면서 이미지 콘텐츠를 확장하는 기술을 가지고 있습니다.",
+    "translation": "",
     "message": "AI Outpainting employs cutting-edge AI algorithms to analyze the uploaded images and generate additional content based on the existing image data. By utilizing a deep learning model, the AI technology is able to seamlessly expand the image content in a way that remains consistent with the original style.",
     "comments": [],
     "origin": [
@@ -214,7 +214,7 @@
     ]
   },
   "iTf+zF": {
-    "translation": "AI 아웃페인팅은 사용자가 업로드한 이미지를 확장하고 향상시키기 위해 첨단 AI 기술을 활용하는 웹사이트입니다. 이는 이미지 콘텐츠를 상하좌우로 네 방향으로 확장할 수 있으며, 원본 이미지의 스타일을 유지합니다. 또한 이미지의 픽셀 크기를 증가시키고 동시에 최대 네 개의 이미지를 확장할 수 있는 기능도 갖추고 있습니다.",
+    "translation": "",
     "message": "AI Outpainting is a website that utilizes advanced AI technology to expand and enhance images uploaded by users. It can extend the content of images in four directions (up, down, left, and right), while maintaining the original style of the image. It also has the capability to increase the pixel dimensions of the images and simultaneously expand up to four images.",
     "comments": [],
     "origin": [
@@ -225,18 +225,18 @@
     ]
   },
   "xxs+vI": {
-    "translation": "AI 图像外扩游乐场",
+    "translation": "",
     "message": "AI Outpainting Playground",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/page.tsx",
-        15
+        17
       ]
     ]
   },
   "n8ms0F": {
-    "translation": "AI 아웃페인팅 결과",
+    "translation": "",
     "message": "AI Outpainting Result",
     "comments": [],
     "origin": [
@@ -247,7 +247,7 @@
     ]
   },
   "NFpS5a": {
-    "translation": "AI 照片扩展器画廊",
+    "translation": "",
     "message": "AI Photo Extender Gallery",
     "comments": [],
     "origin": [
@@ -258,7 +258,7 @@
     ]
   },
   "CHNN5v": {
-    "translation": "AI 照片扩展器是一种创新的在线工具，它使用先进的人工智能技术来扩展和增强用户上传的图像。这个 AI 照片扩展器可以在不影响原始样式的情况下，在所有四个方向上无缝扩展图像内容。此外，我们的 AI 照片扩展器可以提高图像分辨率，并同时处理多达四个图像。",
+    "translation": "",
     "message": "AI Photo Extender is an innovative online tool that uses advanced AI technology to expand and enhance user-uploaded images. This AI photo extender can seamlessly extend image content in all four directions while maintaining the original style. Additionally, our AI photo extender can increase image resolution and process up to four images simultaneously.",
     "comments": [],
     "origin": [
@@ -269,7 +269,7 @@
     ]
   },
   "bK/TAt": {
-    "translation": "AI 照片扩展器一次最多可处理四个图像。此 AI 照片扩展器的多图像功能可让您在单个会话中高效地增强多个图像，节省时间和精力。",
+    "translation": "",
     "message": "AI Photo Extender is capable of processing up to four images simultaneously. This multi-image feature of our AI photo extender enables users to efficiently enhance multiple images in a single session, saving time and effort.",
     "comments": [],
     "origin": [
@@ -280,7 +280,7 @@
     ]
   },
   "MeL6D4": {
-    "translation": "AI 照片扩展器使用最先进的 AI 算法分析上传的图像并生成额外的内容。我们的 AI 照片扩展器的深度学习模型确保扩展区域与原始图像无缝融合，保持风格和质量的一致性。",
+    "translation": "",
     "message": "AI Photo Extender utilizes state-of-the-art AI algorithms to analyze uploaded images and generate additional content. Our AI photo extender's deep learning model ensures that the expanded areas blend seamlessly with the original image, maintaining consistency in style and quality.",
     "comments": [],
     "origin": [
@@ -291,7 +291,7 @@
     ]
   },
   "bJOlPb": {
-    "translation": "AI 照片扩展器：用创意图像扩展扩展您的视野",
+    "translation": "",
     "message": "AI Photo Extender: Expand Your Horizons with Creative Image Extensions",
     "comments": [],
     "origin": [
@@ -334,41 +334,41 @@
       ]
     ]
   },
-  "lxentK": {
+  "qqz6Hk": {
     "translation": "",
-    "message": "An unexpected error occurred",
+    "message": "An error occurred while processing the image.",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        468
+        490
       ]
     ]
   },
   "4WPYPJ": {
-    "translation": "您确定要清除当前画布吗？这将删除所有生成的图像和当前的编辑状态。",
+    "translation": "",
     "message": "Are you sure you want to clear the current canvas? This will delete all generated images and the current editing state.",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        895
+        953
       ]
     ]
   },
   "iH8pgl": {
-    "translation": "返回",
+    "translation": "",
     "message": "Back",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        605
+        649
       ]
     ]
   },
   "8Cg4ES": {
-    "translation": "图片扩展前",
+    "translation": "",
     "message": "Before Image Extender",
     "comments": [],
     "origin": [
@@ -379,7 +379,7 @@
     ]
   },
   "IBtiOe": {
-    "translation": "아웃페인팅 이전",
+    "translation": "",
     "message": "Before Outpainting",
     "comments": [],
     "origin": [
@@ -394,7 +394,7 @@
     ]
   },
   "FU+lge": {
-    "translation": "照片扩展前",
+    "translation": "",
     "message": "Before Photo Extender",
     "comments": [],
     "origin": [
@@ -409,7 +409,7 @@
     ]
   },
   "ExFMj8": {
-    "translation": "블로그",
+    "translation": "",
     "message": "Blogs",
     "comments": [],
     "origin": [
@@ -423,22 +423,22 @@
       ],
       [
         "components/wegic/footer.tsx",
-        12
+        13
       ],
       [
         "components/wegic/header.tsx",
-        10
+        11
       ]
     ]
   },
   "zsiX7I": {
-    "translation": "底部",
+    "translation": "",
     "message": "Bottom",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        586
+        597
       ]
     ]
   },
@@ -454,7 +454,7 @@
     ]
   },
   "xzHB2Z": {
-    "translation": "浏览\n通过 AI 图片扩展器的惊人示例，展示扩展\n艺术品的无限可能性。",
+    "translation": "",
     "message": "Browse\nthrough stunning examples of AI image extender, showcasing the limitless possibilities of extending\nartworks.",
     "comments": [],
     "origin": [
@@ -465,7 +465,7 @@
     ]
   },
   "A056gq": {
-    "translation": "浏览\n通过 AI 照片扩展器的惊人示例，展示扩展\n艺术品的无限可能性。",
+    "translation": "",
     "message": "Browse\nthrough stunning examples of AI photo extender, showcasing the limitless possibilities of extending\nartworks.",
     "comments": [],
     "origin": [
@@ -476,7 +476,7 @@
     ]
   },
   "eBimti": {
-    "translation": "浏览\n通过生成式填充 AI 的惊人示例，展示扩展\n艺术品的无限可能性。",
+    "translation": "",
     "message": "Browse\nthrough stunning examples of generative fill ai, showcasing the limitless possibilities of extending\nartworks.",
     "comments": [],
     "origin": [
@@ -498,7 +498,7 @@
     ]
   },
   "EWY1qg": {
-    "translation": "AI 图像扩展器可以增加图像的像素尺寸吗？",
+    "translation": "",
     "message": "Can AI Image Extender increase the pixel dimensions of an image?",
     "comments": [],
     "origin": [
@@ -509,7 +509,7 @@
     ]
   },
   "WWl4gu": {
-    "translation": "AI 图像扩展器可以在扩展图像内容的同时保持原始图像的风格吗？",
+    "translation": "",
     "message": "Can AI Image Extender maintain the style of the original image while expanding it?",
     "comments": [],
     "origin": [
@@ -520,7 +520,7 @@
     ]
   },
   "1Fpd2D": {
-    "translation": "AI 아웃페인팅은 이미지의 픽셀 크기를 증가시킬 수 있나요?",
+    "translation": "",
     "message": "Can AI Outpainting increase the pixel dimensions of an image?",
     "comments": [],
     "origin": [
@@ -531,7 +531,7 @@
     ]
   },
   "OTPxHN": {
-    "translation": "AI 아웃페인팅은 이미지를 확장하는 동안 원본 이미지의 스타일을 유지할 수 있나요?",
+    "translation": "",
     "message": "Can AI Outpainting maintain the style of the original image while expanding it?",
     "comments": [],
     "origin": [
@@ -542,7 +542,7 @@
     ]
   },
   "6+I5pv": {
-    "translation": "AI 照片扩展器可以保持原始图像风格吗？",
+    "translation": "",
     "message": "Can AI Photo Extender maintain the original image style?",
     "comments": [],
     "origin": [
@@ -553,7 +553,7 @@
     ]
   },
   "o7jL3/": {
-    "translation": "生成式填充 AI 可以保持原始图像风格吗？",
+    "translation": "",
     "message": "Can Generative Fill AI maintain the original image style?",
     "comments": [],
     "origin": [
@@ -564,66 +564,70 @@
     ]
   },
   "dEgA5A": {
-    "translation": "取消",
+    "translation": "",
     "message": "Cancel",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        899
+        957
       ]
     ]
   },
   "z65MvS": {
-    "translation": "清除画布",
+    "translation": "",
     "message": "Clear Canvas",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        796
+        873
       ]
     ]
   },
   "yz7wBu": {
-    "translation": "닫기",
+    "translation": "",
     "message": "Close",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        926
+        984
+      ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        1006
       ],
       [
         "framework/components/login/GoogleLogin.tsx",
-        56
+        55
       ]
     ]
   },
   "QTBZC3": {
-    "translation": "确认清除",
+    "translation": "",
     "message": "Confirm Clear",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        902
+        960
       ]
     ]
   },
   "1KApxq": {
-    "translation": "确认清除画布",
+    "translation": "",
     "message": "Confirm Clear Canvas",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        893
+        951
       ]
     ]
   },
   "BWF0ai": {
-    "translation": "컨텍스트 인식형 AI",
+    "translation": "",
     "message": "Context-aware AI",
     "comments": [],
     "origin": [
@@ -642,18 +646,18 @@
     ]
   },
   "qTrELo": {
-    "translation": "继续生成",
+    "translation": "",
     "message": "Continue Generating",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        822
+        899
       ]
     ]
   },
   "TXxF+/": {
-    "translation": "크레딧",
+    "translation": "",
     "message": "credit",
     "comments": [],
     "origin": [
@@ -664,25 +668,36 @@
     ]
   },
   "mehNeY": {
-    "translation": "신용:{0}",
+    "translation": "",
     "message": "Credit:{0}",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        660
+        733
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        677
+        750
       ],
       [
         "components/wegic/navbar.tsx",
-        172
+        204
       ],
       [
         "components/wegic/navbar.tsx",
-        188
+        220
+      ]
+    ]
+  },
+  "widEIq": {
+    "translation": "",
+    "message": "Daily limit reached",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        993
       ]
     ]
   },
@@ -697,8 +712,23 @@
       ]
     ]
   },
+  "9DrGla": {
+    "translation": "",
+    "message": "Describe what you want to generate...",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        687
+      ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        801
+      ]
+    ]
+  },
   "38nphA": {
-    "translation": "AI 照片扩展器可以提高图像分辨率吗？",
+    "translation": "",
     "message": "Does AI Photo Extender increase image resolution?",
     "comments": [],
     "origin": [
@@ -709,7 +739,7 @@
     ]
   },
   "8gRz33": {
-    "translation": "生成式填充 AI 可以提高图像分辨率吗？",
+    "translation": "",
     "message": "Does Generative Fill AI increase image resolution?",
     "comments": [],
     "origin": [
@@ -720,18 +750,18 @@
     ]
   },
   "mzI/c+": {
-    "translation": "다운로드",
+    "translation": "",
     "message": "Download",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        836
+        913
       ]
     ]
   },
   "0yQo/k": {
-    "translation": "이미지 다운로드",
+    "translation": "",
     "message": "Download Image",
     "comments": [],
     "origin": [
@@ -742,7 +772,7 @@
     ]
   },
   "fBjOS6": {
-    "translation": "갤러리의 각 작품은 AI의 능력을 보여주며 창의적인 프로젝트를 변형하고 향상시키는 힘을 보여줍니다.",
+    "translation": "",
     "message": "Each\npiece in our gallery demonstrates the power of AI in transforming and enhancing creative projects.",
     "comments": [],
     "origin": [
@@ -760,17 +790,6 @@
       ]
     ]
   },
-  "qBX4sV": {
-    "translation": "",
-    "message": "Error occurred while processing the image",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        460
-      ]
-    ]
-  },
   "i0wn8o": {
     "translation": "",
     "message": "Every Gallery Piece Proves AI’s Democratizing Power.Watch how AI reshapes photos into polished projects—for bloggers, small biz, and hobbyists alike. No “pro tools” barriers—just creativity, amplified.",
@@ -782,47 +801,36 @@
       ]
     ]
   },
-  "CajufG": {
-    "translation": "이미지 확장, 이미지 재구성",
-    "message": "Expand Your Image, Reshape Your Image",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/footer.tsx",
-        36
-      ]
-    ]
-  },
   "Q+x/E4": {
-    "translation": "扩展",
+    "translation": "",
     "message": "Expanding",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        820
+        897
       ]
     ]
   },
   "jU4owd": {
-    "translation": "扩展方向",
+    "translation": "",
     "message": "Expansion Direction",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        709
+        774
       ]
     ]
   },
   "kNSTBA": {
-    "translation": "扩展方向：",
+    "translation": "",
     "message": "Expansion Direction:",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        611
+        655
       ]
     ]
   },
@@ -838,7 +846,7 @@
     ]
   },
   "nkhTSO": {
-    "translation": "使用 AI 图像扩展器超越框架：在线使用先进的生成式 AI 无缝扩展您的照片，确保在所有图像比例下都保持高质量的视觉效果。",
+    "translation": "",
     "message": "Explore Beyond the Frame with AI Image Extender: Seamlessly expand your photos online using advanced generative AI, ensuring high-quality visuals are maintained across all image ratios.",
     "comments": [],
     "origin": [
@@ -849,7 +857,7 @@
     ]
   },
   "UTesON": {
-    "translation": "使用 AI 照片扩展器超越框架：在线使用先进的生成式 AI 无缝扩展您的照片，确保在所有图像比例下都保持高质量的视觉效果。",
+    "translation": "",
     "message": "Explore Beyond the Frame with AI Photo Extender: Seamlessly expand your photos online using advanced generative AI, ensuring high-quality visuals are maintained across all image ratios.",
     "comments": [],
     "origin": [
@@ -860,7 +868,7 @@
     ]
   },
   "HO2QAu": {
-    "translation": "使用生成式填充 AI 超越框架：在线使用先进的生成式 AI 无缝扩展您的照片，确保在所有图像比例下都保持高质量的视觉效果。",
+    "translation": "",
     "message": "Explore Beyond the Frame with Generative Fill AI: Seamlessly expand your photos online using advanced generative AI, ensuring high-quality visuals are maintained across all image ratios.",
     "comments": [],
     "origin": [
@@ -871,7 +879,7 @@
     ]
   },
   "ke8MAp": {
-    "translation": "다시 확장",
+    "translation": "",
     "message": "Extend Again",
     "comments": [],
     "origin": [
@@ -901,7 +909,7 @@
     ]
   },
   "p5l4iX": {
-    "translation": "확장된 결과물은 반복적으로 확장될 수 있어, 지속적인 향상을 가능케 합니다",
+    "translation": "",
     "message": "Extended results can be expanded repeatedly,allowing for continuous enhancements",
     "comments": [],
     "origin": [
@@ -919,8 +927,30 @@
       ]
     ]
   },
+  "VAPaiM": {
+    "translation": "",
+    "message": "Failed to load image. The image URL may be invalid or blocked by CORS.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        200
+      ]
+    ]
+  },
+  "RBNuL1": {
+    "translation": "",
+    "message": "Failed to submit task.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        436
+      ]
+    ]
+  },
   "lIFSzb": {
-    "translation": "파일 업로드 실패: {0}",
+    "translation": "",
     "message": "Failed to upload file: {0}",
     "comments": [],
     "origin": [
@@ -931,7 +961,7 @@
     ]
   },
   "cDhYY/": {
-    "translation": "빠른 생성",
+    "translation": "",
     "message": "Fast generation",
     "comments": [],
     "origin": [
@@ -942,13 +972,13 @@
     ]
   },
   "TVSR9M": {
-    "translation": "파일 크기가 10MB를 초과합니다. 더 작은 파일을 선택해주세요.",
+    "translation": "",
     "message": "File size exceeds 10MB. Please select a smaller file.",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        193
+        209
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -957,7 +987,7 @@
     ]
   },
   "ofu/39": {
-    "translation": "免费 AI 图像扩展器",
+    "translation": "",
     "message": "Free AI Image Extender",
     "comments": [],
     "origin": [
@@ -968,7 +998,7 @@
     ]
   },
   "0BCXgy": {
-    "translation": "免费 AI 照片扩展器",
+    "translation": "",
     "message": "Free AI Photo Extender",
     "comments": [],
     "origin": [
@@ -979,7 +1009,7 @@
     ]
   },
   "ViaB2F": {
-    "translation": "免费生成式填充 AI",
+    "translation": "",
     "message": "Free Generative Fill AI",
     "comments": [],
     "origin": [
@@ -990,7 +1020,7 @@
     ]
   },
   "fDIFV3": {
-    "translation": "AI 이미지 확장을위한 무료 온라인 도구",
+    "translation": "",
     "message": "Free Online Tool For AI Image Expanding",
     "comments": [],
     "origin": [
@@ -1001,7 +1031,7 @@
     ]
   },
   "F7G/TS": {
-    "translation": "자주 묻는 질문",
+    "translation": "",
     "message": "Frequently Asked Questions",
     "comments": [],
     "origin": [
@@ -1024,7 +1054,7 @@
     ]
   },
   "oJZ41z": {
-    "translation": "生成式填充 AI 使用最先进的算法分析上传的图像并生成额外的内容。我们的生成式填充 AI 背后的深度学习模型确保扩展区域与原始图像无缝融合，保持风格和质量的一致性。",
+    "translation": "",
     "message": "Generative Fill AI employs state-of-the-art algorithms to analyze uploaded images and generate additional content. The deep learning model behind our generative fill AI ensures that the expanded areas blend seamlessly with the original image, maintaining consistency in style and quality throughout the process.",
     "comments": [],
     "origin": [
@@ -1035,7 +1065,7 @@
     ]
   },
   "+XZy/0": {
-    "translation": "生成式填充 AI 画廊",
+    "translation": "",
     "message": "Generative Fill AI Gallery",
     "comments": [],
     "origin": [
@@ -1046,7 +1076,7 @@
     ]
   },
   "9Q0Mk1": {
-    "translation": "生成式填充 AI 是一种创新的在线工具，它利用先进的人工智能技术来扩展和增强用户上传的图像。这个生成式填充 AI 技术可以在所有四个方向上无缝扩展图像内容，同时保持原始图像的风格。我们的生成式填充 AI 工具还提供图像分辨率增强功能，并可以同时处理多个图像。",
+    "translation": "",
     "message": "Generative Fill AI is an innovative online tool that leverages advanced artificial intelligence to expand and enhance images. This cutting-edge generative fill AI technology can seamlessly extend image content in all directions while maintaining the original style. Our generative fill AI tool also offers image resolution enhancement and can process multiple images simultaneously.",
     "comments": [],
     "origin": [
@@ -1057,7 +1087,7 @@
     ]
   },
   "SH0knd": {
-    "translation": "生成式填充 AI：用创意图像扩展扩展您的视野",
+    "translation": "",
     "message": "Generative Fill AI: Expand Your Horizons with Creative Image Extensions",
     "comments": [],
     "origin": [
@@ -1068,7 +1098,7 @@
     ]
   },
   "c3b0B0": {
-    "translation": "시작하기",
+    "translation": "",
     "message": "Get Started",
     "comments": [],
     "origin": [
@@ -1090,7 +1120,7 @@
       ],
       [
         "components/wegic/index-uploader.tsx",
-        47
+        31
       ],
       [
         "components/wegic/pricing.tsx",
@@ -1099,7 +1129,7 @@
     ]
   },
   "sAH4M6": {
-    "translation": "결제로 이동",
+    "translation": "",
     "message": "Go to Payment",
     "comments": [],
     "origin": [
@@ -1109,8 +1139,19 @@
       ]
     ]
   },
+  "2tJeBV": {
+    "translation": "",
+    "message": "GPT Image",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        677
+      ]
+    ]
+  },
   "0RKAvR": {
-    "translation": "로그인했습니다",
+    "translation": "",
     "message": "Has logged in",
     "comments": [],
     "origin": [
@@ -1121,7 +1162,7 @@
     ]
   },
   "Ghlr93": {
-    "translation": "고화질 이미지",
+    "translation": "",
     "message": "High quality images",
     "comments": [],
     "origin": [
@@ -1132,7 +1173,7 @@
     ]
   },
   "i0qMbr": {
-    "translation": "홈",
+    "translation": "",
     "message": "Home",
     "comments": [],
     "origin": [
@@ -1147,22 +1188,22 @@
     ]
   },
   "pzu7v4": {
-    "translation": "수평",
+    "translation": "",
     "message": "Horizontal",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        613
+        657
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        711
+        776
       ]
     ]
   },
   "k4BMq5": {
-    "translation": "수평 확장",
+    "translation": "",
     "message": "Horizontal Expansion",
     "comments": [],
     "origin": [
@@ -1173,7 +1214,7 @@
     ]
   },
   "/o/u7t": {
-    "translation": "AI 图片扩展器是如何工作的？",
+    "translation": "",
     "message": "How does AI Image Extender work?",
     "comments": [],
     "origin": [
@@ -1184,7 +1225,7 @@
     ]
   },
   "NYWdBf": {
-    "translation": "AI 아웃페인팅은 어떻게 작동하나요?",
+    "translation": "",
     "message": "How does AI Outpainting work?",
     "comments": [],
     "origin": [
@@ -1195,7 +1236,7 @@
     ]
   },
   "i1x708": {
-    "translation": "AI 图片扩展器如何工作？",
+    "translation": "",
     "message": "How does AI Photo Extender work?",
     "comments": [],
     "origin": [
@@ -1206,7 +1247,7 @@
     ]
   },
   "VVkhXx": {
-    "translation": "生成填充 AI 如何工作？",
+    "translation": "",
     "message": "How does Generative Fill AI work?",
     "comments": [],
     "origin": [
@@ -1217,7 +1258,7 @@
     ]
   },
   "EJYtRo": {
-    "translation": "AI 图片扩展器一次可以处理多少张图像？",
+    "translation": "",
     "message": "How many images can AI Photo Extender process at once?",
     "comments": [],
     "origin": [
@@ -1228,7 +1269,7 @@
     ]
   },
   "T2jWIX": {
-    "translation": "使用 AI 图片扩展器一次可以扩展多少张图像？",
+    "translation": "",
     "message": "How many images can Generative Fill AI process at once?",
     "comments": [],
     "origin": [
@@ -1239,7 +1280,7 @@
     ]
   },
   "wVrOLV": {
-    "translation": "我一次可以使用 AI 图像扩展器扩展多少张图像？",
+    "translation": "",
     "message": "How many images can I expand at once using AI Image Extender?",
     "comments": [],
     "origin": [
@@ -1250,7 +1291,7 @@
     ]
   },
   "c8UM3u": {
-    "translation": "AI 아웃페인팅을 사용하여 한 번에 몇 장의 이미지를 확장할 수 있나요?",
+    "translation": "",
     "message": "How many images can I expand at once using AI Outpainting?",
     "comments": [],
     "origin": [
@@ -1260,8 +1301,41 @@
       ]
     ]
   },
+  "4ThHlz": {
+    "translation": "",
+    "message": "Image is too large. Maximum size: 2048×2048 pixels.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        224
+      ]
+    ]
+  },
+  "JfTN1b": {
+    "translation": "",
+    "message": "Image is too small. Minimum size: 64×64 pixels.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        219
+      ]
+    ]
+  },
+  "Jex68g": {
+    "translation": "",
+    "message": "Image processing failed.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        456
+      ]
+    ]
+  },
   "E1UQnk": {
-    "translation": "이미지 아웃페인팅",
+    "translation": "",
     "message": "Images Outpainting",
     "comments": [],
     "origin": [
@@ -1284,7 +1358,7 @@
     ]
   },
   "oTSrSS": {
-    "translation": "PayPal 서비스 초기화 중 오류가 발생했습니다.",
+    "translation": "",
     "message": "Initialization of PayPal services encountered an error.",
     "comments": [],
     "origin": [
@@ -1295,7 +1369,7 @@
     ]
   },
   "XU5AOg": {
-    "translation": "입력",
+    "translation": "",
     "message": "Input",
     "comments": [],
     "origin": [
@@ -1306,29 +1380,29 @@
     ]
   },
   "UlKSMd": {
-    "translation": "左",
+    "translation": "",
     "message": "Left",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        581
+        592
       ]
     ]
   },
   "F/9EGj": {
-    "translation": "이미지 로딩 중...",
+    "translation": "",
     "message": "Loading image...",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        755
+        832
       ]
     ]
   },
   "Z3FXyt": {
-    "translation": "로딩 중...",
+    "translation": "",
     "message": "Loading...",
     "comments": [],
     "origin": [
@@ -1343,33 +1417,44 @@
     ]
   },
   "paehRh": {
-    "translation": "로그아웃",
+    "translation": "",
     "message": "Log Out",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        667
+        740
       ],
       [
         "components/wegic/navbar.tsx",
-        178
+        210
       ]
     ]
   },
   "S1g3Ds": {
-    "translation": "中",
+    "translation": "",
     "message": "Middle",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        579
+        590
+      ]
+    ]
+  },
+  "hDkkvu": {
+    "translation": "",
+    "message": "Model:",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        664
       ]
     ]
   },
   "bHt2FX": {
-    "translation": "네트워크 오류 또는 CORS 문제가 발생했습니다.",
+    "translation": "",
     "message": "Network error or CORS issue.",
     "comments": [],
     "origin": [
@@ -1380,18 +1465,18 @@
     ]
   },
   "ko93eb": {
-    "translation": "로그인한 신규 사용자는 2 크레딧을 받습니다",
+    "translation": "",
     "message": "New users who log in will receive 2 credits",
     "comments": [],
     "origin": [
       [
         "framework/components/login/GoogleLogin.tsx",
-        39
+        38
       ]
     ]
   },
   "cvwg/A": {
-    "translation": "로그인하는 새 사용자는 5개의 크레딧을 받습니다.",
+    "translation": "",
     "message": "New users who log in will receive 5 credits",
     "comments": [],
     "origin": [
@@ -1402,7 +1487,7 @@
     ]
   },
   "uO0GB/": {
-    "translation": "유효한 리소스 정보를 찾을 수 없습니다.",
+    "translation": "",
     "message": "No valid resource information was found.",
     "comments": [],
     "origin": [
@@ -1424,35 +1509,35 @@
     ]
   },
   "8HI10O": {
-    "translation": "原始图像",
+    "translation": "",
     "message": "Original Image",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        915
+        973
       ]
     ]
   },
   "shdsCc": {
-    "translation": "原始图像位置",
+    "translation": "",
     "message": "Original Image Position",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        717
+        782
       ]
     ]
   },
   "3gz7Y7": {
-    "translation": "原始图像位置：",
+    "translation": "",
     "message": "Original Image Position:",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        620
+        693
       ]
     ]
   },
@@ -1468,7 +1553,7 @@
     ]
   },
   "56MoT/": {
-    "translation": "我们的生成填充 AI 工具能够同时处理多达四张图像。此多图像功能使用户能够在单个会话中高效地增强多张图像，展示了生成填充 AI 技术的多功能性和效率。",
+    "translation": "",
     "message": "Our generative fill AI tool is capable of processing up to four images simultaneously. This multi-image feature enables users to efficiently enhance multiple images in a single session, showcasing the versatility and efficiency of generative fill AI technology.",
     "comments": [],
     "origin": [
@@ -1479,7 +1564,7 @@
     ]
   },
   "gh06VD": {
-    "translation": "출력",
+    "translation": "",
     "message": "Output",
     "comments": [],
     "origin": [
@@ -1490,7 +1575,7 @@
     ]
   },
   "3F1hbx": {
-    "translation": "사용자 소유",
+    "translation": "",
     "message": "Own By User",
     "comments": [],
     "origin": [
@@ -1501,7 +1586,7 @@
     ]
   },
   "2bVshK": {
-    "translation": "영구적으로 유효함",
+    "translation": "",
     "message": "Permanently valid",
     "comments": [],
     "origin": [
@@ -1512,13 +1597,13 @@
     ]
   },
   "W3mmGV": {
-    "translation": "이미지를 클릭하거나 끌어다 놓아 업로드해주세요.",
+    "translation": "",
     "message": "Please click or drag the image to upload it.",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        774
+        851
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -1527,22 +1612,18 @@
     ]
   },
   "+Y65s1": {
-    "translation": "계속하려면 로그인하세요",
+    "translation": "",
     "message": "Please Sign In To Continue",
     "comments": [],
     "origin": [
       [
-        "app/[lang]/(editor)/editor/view.tsx",
-        391
-      ],
-      [
         "framework/components/login/GoogleLogin.tsx",
-        38
+        37
       ]
     ]
   },
   "PZCqeW": {
-    "translation": "나중에 다시 시도해주세요.",
+    "translation": "",
     "message": "Please try again later.",
     "comments": [],
     "origin": [
@@ -1552,27 +1633,30 @@
       ]
     ]
   },
+  "3kCvID": {
+    "translation": "",
+    "message": "Please upload an image first.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        423
+      ]
+    ]
+  },
   "aHCEmh": {
-    "translation": "가격 책정",
+    "translation": "",
     "message": "Pricing",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(public)/(pricing)/pricing/page.tsx",
         17
-      ],
-      [
-        "components/wegic/footer.tsx",
-        11
-      ],
-      [
-        "components/wegic/header.tsx",
-        9
       ]
     ]
   },
   "tdGO5K": {
-    "translation": "가격 정책 | {0}",
+    "translation": "",
     "message": "Pricing | {0}",
     "comments": [],
     "origin": [
@@ -1583,7 +1667,7 @@
     ]
   },
   "rQBXl9": {
-    "translation": "가격 계획",
+    "translation": "",
     "message": "Pricing Plans",
     "comments": [],
     "origin": [
@@ -1594,18 +1678,33 @@
     ]
   },
   "k1ifdL": {
-    "translation": "正在处理...",
+    "translation": "",
     "message": "Processing...",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        592
+        636
+      ]
+    ]
+  },
+  "o73FAt": {
+    "translation": "",
+    "message": "Prompt:",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        682
+      ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        796
       ]
     ]
   },
   "x50rMS": {
-    "translation": "출판 날짜:",
+    "translation": "",
     "message": "Publish Date:",
     "comments": [],
     "origin": [
@@ -1615,19 +1714,8 @@
       ]
     ]
   },
-  "zZk9Yz": {
-    "translation": "购买",
-    "message": "Purchase",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        697
-      ]
-    ]
-  },
   "A20mxR": {
-    "translation": "요구에 따라 구매, 구독료 없음, 평생 유효",
+    "translation": "",
     "message": "Purchase on demand, no subscription fee, lifetime validity",
     "comments": [],
     "origin": [
@@ -1638,7 +1726,7 @@
     ]
   },
   "WEYdDv": {
-    "translation": "추천",
+    "translation": "",
     "message": "Recommended",
     "comments": [],
     "origin": [
@@ -1649,13 +1737,13 @@
     ]
   },
   "6exX+8": {
-    "translation": "재생성",
+    "translation": "",
     "message": "Regenerate",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        807
+        884
       ],
       [
         "app/[lang]/(public)/playgroundv1/[[...slug]]/views.tsx",
@@ -1663,19 +1751,8 @@
       ]
     ]
   },
-  "xSxPvs": {
-    "translation": "",
-    "message": "Request timed out. Please try again later.",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        431
-      ]
-    ]
-  },
   "6gRgw8": {
-    "translation": "재시도",
+    "translation": "",
     "message": "Retry",
     "comments": [],
     "origin": [
@@ -1686,43 +1763,47 @@
     ]
   },
   "nOPbWJ": {
-    "translation": "右",
+    "translation": "",
     "message": "Right",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        583
+        594
       ]
     ]
   },
   "n1ekoW": {
-    "translation": "로그인",
+    "translation": "",
     "message": "Sign In",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        646
+        719
       ],
       [
         "components/wegic/navbar.tsx",
-        160
+        192
       ]
     ]
   },
   "ZqvdDl": {
-    "translation": "Google로 로그인",
+    "translation": "",
     "message": "Sign In With Google",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        638
+        711
+      ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        1003
       ],
       [
         "components/wegic/navbar.tsx",
-        152
+        189
       ],
       [
         "components/wegic/pricing.tsx",
@@ -1730,38 +1811,49 @@
       ],
       [
         "framework/components/login/GoogleLogin.tsx",
-        50
+        49
+      ]
+    ]
+  },
+  "M75fzb": {
+    "translation": "",
+    "message": "Sign in with Google to get 5 uses per day.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        997
       ]
     ]
   },
   "1DA6ap": {
-    "translation": "正方形",
+    "translation": "",
     "message": "Square",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        615
+        659
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        713
+        778
       ]
     ]
   },
   "FKsmFn": {
-    "translation": "开始扩展",
+    "translation": "",
     "message": "Start Expanding",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        823
+        900
       ]
     ]
   },
   "SowH7o": {
-    "translation": "AI 익스텐더로 무료로 시작하세요. 처음 3개의 이미지를 무료로 확장하세요.",
+    "translation": "",
     "message": "Start for free with the AI extender. Expand your first 3 images at no charge.",
     "comments": [],
     "origin": [
@@ -1776,7 +1868,7 @@
     ]
   },
   "fYBlNd": {
-    "translation": "免费使用生成填充 ai。免费扩展前 3 张图像。",
+    "translation": "",
     "message": "Start for free with the generative fill ai. Expand your first 3 images at no charge.",
     "comments": [],
     "origin": [
@@ -1786,23 +1878,8 @@
       ]
     ]
   },
-  "1gi2aF": {
-    "translation": "",
-    "message": "System Error, Please retry or contact website admin",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        421
-      ],
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        448
-      ]
-    ]
-  },
   "ywdZxq": {
-    "translation": "시스템 오류입니다. 다시 시도하거나 웹사이트 관리자에게 문의하세요.",
+    "translation": "",
     "message": "System Error,Please retry or contract website admin",
     "comments": [],
     "origin": [
@@ -1813,7 +1890,7 @@
     ]
   },
   "I3FBWw": {
-    "translation": "AI가 이미지의 맥락을 분석하고 일관된 현실적인 결과를 위해 확장합니다.",
+    "translation": "",
     "message": "The AI analyzes your image's context and extends it for consistently realistic outcomes.",
     "comments": [],
     "origin": [
@@ -1832,7 +1909,7 @@
     ]
   },
   "fWtzVj": {
-    "translation": "이미지 처리 중 오류가 발생했습니다. 나중에 다시 시도해주세요.",
+    "translation": "",
     "message": "There was an error processing the image. Please try again later.",
     "comments": [],
     "origin": [
@@ -1842,19 +1919,30 @@
       ]
     ]
   },
+  "3jxGQW": {
+    "translation": "",
+    "message": "Tongyi",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        671
+      ]
+    ]
+  },
   "WWy8TN": {
-    "translation": "顶部",
+    "translation": "",
     "message": "Top",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        585
+        596
       ]
     ]
   },
   "kCd+q+": {
-    "translation": "총 결제 금액",
+    "translation": "",
     "message": "Total Payment",
     "comments": [],
     "origin": [
@@ -1865,18 +1953,18 @@
     ]
   },
   "Rd1BcW": {
-    "translation": "무료로 시도해보세요",
+    "translation": "",
     "message": "Try It Free",
     "comments": [],
     "origin": [
       [
         "components/wegic/index-uploader.tsx",
-        32
+        16
       ]
     ]
   },
   "MxB2DA": {
-    "translation": "시험해보세요",
+    "translation": "",
     "message": "Try it out",
     "comments": [],
     "origin": [
@@ -1887,7 +1975,7 @@
     ]
   },
   "ONWvwQ": {
-    "translation": "업로드",
+    "translation": "",
     "message": "Upload",
     "comments": [],
     "origin": [
@@ -1898,7 +1986,7 @@
     ]
   },
   "Pdq4/9": {
-    "translation": "새 이미지 업로드",
+    "translation": "",
     "message": "Upload New Image",
     "comments": [],
     "origin": [
@@ -1913,7 +2001,7 @@
     ]
   },
   "+/4Lnu": {
-    "translation": "업로드 성공",
+    "translation": "",
     "message": "Upload successfully",
     "comments": [],
     "origin": [
@@ -1924,7 +2012,7 @@
     ]
   },
   "h3BBNG": {
-    "translation": "사진을 업로드하세요",
+    "translation": "",
     "message": "Upload your photo",
     "comments": [],
     "origin": [
@@ -1935,7 +2023,7 @@
     ]
   },
   "/eguJc": {
-    "translation": "업로딩 중",
+    "translation": "",
     "message": "Uploading",
     "comments": [],
     "origin": [
@@ -1946,13 +2034,13 @@
     ]
   },
   "GxkJXS": {
-    "translation": "업로드 중...",
+    "translation": "",
     "message": "Uploading...",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        755
+        832
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -1961,7 +2049,7 @@
     ]
   },
   "Sxm8rQ": {
-    "translation": "사용자",
+    "translation": "",
     "message": "Users",
     "comments": [],
     "origin": [
@@ -1984,22 +2072,22 @@
     ]
   },
   "mX/isJ": {
-    "translation": "수직",
+    "translation": "",
     "message": "Vertical",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        614
+        658
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        712
+        777
       ]
     ]
   },
   "M1f5yq": {
-    "translation": "수직 확장",
+    "translation": "",
     "message": "Vertical Expansion",
     "comments": [],
     "origin": [
@@ -2010,7 +2098,7 @@
     ]
   },
   "ernaiK": {
-    "translation": "什么是 AI 图片扩展器？",
+    "translation": "",
     "message": "What is AI Image Extender?",
     "comments": [],
     "origin": [
@@ -2021,7 +2109,7 @@
     ]
   },
   "hBTR82": {
-    "translation": "AI 아웃페인팅이란 무엇인가요?",
+    "translation": "",
     "message": "What is AI Outpainting?",
     "comments": [],
     "origin": [
@@ -2032,7 +2120,7 @@
     ]
   },
   "e40dkT": {
-    "translation": "什么是 AI 照片扩展器？",
+    "translation": "",
     "message": "What is AI Photo Extender?",
     "comments": [],
     "origin": [
@@ -2043,7 +2131,7 @@
     ]
   },
   "tNQRV8": {
-    "translation": "什么是生成填充 AI？",
+    "translation": "",
     "message": "What is Generative Fill AI?",
     "comments": [],
     "origin": [
@@ -2054,7 +2142,7 @@
     ]
   },
   "xVURvs": {
-    "translation": "是的，AI 图片扩展器旨在在扩展过程中保持原始图像的风格。AI 算法经过训练，可以理解和复制图像的独特特征，确保扩展内容在视觉上与原始内容保持一致。",
+    "translation": "",
     "message": "Yes, AI Image Extender is designed to preserve the style of the original image throughout the expansion process. The AI algorithms are trained to understand and replicate the unique characteristics of the image, ensuring that the expanded content remains visually consistent with the original.",
     "comments": [],
     "origin": [
@@ -2065,7 +2153,7 @@
     ]
   },
   "6kC20h": {
-    "translation": "네, AI 아웃페인팅은 확장 과정 중 원본 이미지의 스타일을 보존하기 위해 설계되었습니다. AI 알고리즘은 이미지의 고유한 특성을 이해하고 복제하여 확장된 내용이 원본과 시각적으로 일관되도록 보장합니다.",
+    "translation": "",
     "message": "Yes, AI Outpainting is designed to preserve the style of the original image throughout the expansion process. The AI algorithms are trained to understand and replicate the unique characteristics of the image, ensuring that the expanded content remains visually consistent with the original.",
     "comments": [],
     "origin": [
@@ -2076,7 +2164,7 @@
     ]
   },
   "HiX60c": {
-    "translation": "是的，AI 照片扩展器不仅可以扩展图像内容，还可以增加像素尺寸。我们的 AI 照片扩展器的此功能允许用户增强图像的大小和质量，从而通过生成填充 AI 技术获得更高的分辨率输出。",
+    "translation": "",
     "message": "Yes, AI Photo Extender not only expands image content but also offers the option to increase pixel dimensions. This feature of our AI photo extender allows users to enhance both the size and quality of their images, resulting in higher resolution outputs.",
     "comments": [],
     "origin": [
@@ -2087,7 +2175,7 @@
     ]
   },
   "FrTOHj": {
-    "translation": "是的，我们的生成填充 AI 不仅可以扩展图像内容，还可以增加像素尺寸。此功能允许用户增强图像的大小和质量，从而通过生成填充 AI 技术获得更高的分辨率输出。",
+    "translation": "",
     "message": "Yes, our generative fill AI not only expands image content but also offers the option to increase pixel dimensions. This feature allows users to enhance both the size and quality of their images, resulting in higher resolution outputs through the power of generative fill AI technology.",
     "comments": [],
     "origin": [
@@ -2108,30 +2196,23 @@
       ]
     ]
   },
-  "WCkkI4": {
-    "translation": "您的信用点数不足，请先充值。",
-    "message": "Your credit points are insufficient, please recharge first.",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        394
-      ]
-    ]
-  },
   "lX4VC4": {
-    "translation": "블로그 목록",
+    "translation": "",
     "message": "博客列表",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(public)/(blogs)/blogs/layout..tsx",
         7
+      ],
+      [
+        "app/[lang]/(public)/(tools)/tools/layout..tsx",
+        7
       ]
     ]
   },
   "uk086D": {
-    "translation": "음성 분리 탐색",
+    "translation": "",
     "message": "探索人声分离",
     "comments": [],
     "origin": [
@@ -2142,7 +2223,7 @@
     ]
   },
   "Xqre6v": {
-    "translation": "AI 음성 분리 기술을 쉽게 이해하여 일상 생활과 업무 효율을 높이세요.",
+    "translation": "",
     "message": "轻松掌握我们的AI人声分离技术，助您在生活和工作中提高效率。",
     "comments": [],
     "origin": [

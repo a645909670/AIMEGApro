@@ -1,6 +1,6 @@
 {
   "J/hVSQ": {
-    "translation": "{0}",
+    "translation": "",
     "message": "{0}",
     "comments": [],
     "origin": [
@@ -19,18 +19,18 @@
     ]
   },
   "heWVMD": {
-    "translation": "1 kredit/brug, {0} tilbage",
+    "translation": "",
     "message": "1 Credit/use, {0} left",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        827
+        904
       ]
     ]
   },
   "Ukjyf+": {
-    "translation": "Absolut! AI Photo Extender er specielt designet til at bevare det originale billedstil under udvidelsesprocessen. Vores AI fotoextender-algoritmer er trænet til at forstå og replikere unikke billedkarakteristika, hvilket sikrer visuel konsistens mellem det originale og udvidede indhold.",
+    "translation": "",
     "message": "Absolutely! AI Photo Extender is specifically designed to preserve the original image style throughout the expansion process. Our AI photo extender's algorithms are trained to understand and replicate unique image characteristics, ensuring visual consistency between the original and expanded content.",
     "comments": [],
     "origin": [
@@ -41,7 +41,7 @@
     ]
   },
   "Gc4eSt": {
-    "translation": "Absolut! Udover at udvide indholdet af billedet giver AI Image Extender også mulighed for at øge pixeldimensionerne af de uploadede billeder. Dette giver brugerne mulighed for at forbedre den samlede opløsning og kvalitet af deres billeder.",
+    "translation": "",
     "message": "Absolutely! In addition to expanding the content of the image, AI Image Extender also provides the option to increase the pixel dimensions of the uploaded images. This allows users to enhance the overall resolution and quality of their images.",
     "comments": [],
     "origin": [
@@ -52,7 +52,7 @@
     ]
   },
   "PVrmDs": {
-    "translation": "Absolut! Udover at udvide indholdet af billedet, giver AI Outpainting også mulighed for at øge pixel dimensionerne af de uploadede billeder. Dette giver brugerne mulighed for at forbedre den samlede opløsning og kvalitet af deres billeder.",
+    "translation": "",
     "message": "Absolutely! In addition to expanding the content of the image, AI Outpainting also provides the option to increase the pixel dimensions of the uploaded images. This allows users to enhance the overall resolution and quality of their images.",
     "comments": [],
     "origin": [
@@ -63,7 +63,7 @@
     ]
   },
   "zLNTkq": {
-    "translation": "Absolut! Vores generative fill AI er specielt designet til at bevare det originale billedstil under udvidelsesprocessen. Algoritmerne bag denne generative fill AI-teknologi er trænet til at forstå og replikere unikke billedkarakteristika, hvilket sikrer visuel konsistens mellem det originale og udvidede indhold.",
+    "translation": "",
     "message": "Absolutely! Our generative fill AI is specifically designed to preserve the original image style throughout the expansion process. The algorithms powering this generative fill AI technology are trained to understand and replicate unique image characteristics, ensuring visual consistency between the original and expanded content.",
     "comments": [],
     "origin": [
@@ -74,7 +74,7 @@
     ]
   },
   "A+Al01": {
-    "translation": "Efter Billedudvider",
+    "translation": "",
     "message": "After Image Extender",
     "comments": [],
     "origin": [
@@ -85,18 +85,18 @@
     ]
   },
   "uFZsqH": {
-    "translation": "Efter at have logget ind, kan du have tre to forsøg bøje dit billede med AI",
+    "translation": "",
     "message": "After logging in, you can have three two trials expand your image with AI",
     "comments": [],
     "origin": [
       [
         "components/wegic/index-uploader.tsx",
-        36
+        20
       ]
     ]
   },
   "JFnLY9": {
-    "translation": "Efter Outpainting",
+    "translation": "",
     "message": "After Outpainting",
     "comments": [],
     "origin": [
@@ -111,7 +111,7 @@
     ]
   },
   "6EmTc/": {
-    "translation": "Efter Fotoextender",
+    "translation": "",
     "message": "After Photo Extender",
     "comments": [],
     "origin": [
@@ -126,7 +126,7 @@
     ]
   },
   "HOlava": {
-    "translation": "AI Image Extender giver brugerne mulighed for samtidig at udvide op til fire billeder. Denne funktion til multi-billedudvidelse gør det muligt for brugerne bekvemt at forbedre flere billeder på en tidsbesparende måde.",
+    "translation": "",
     "message": "AI Image Extender allows users to simultaneously expand up to four images. This multi-image expansion feature enables users to conveniently enhance multiple images in a time-efficient manner.",
     "comments": [],
     "origin": [
@@ -137,7 +137,7 @@
     ]
   },
   "WN+5uZ": {
-    "translation": "AI Image Extender benytter skærende AI-algoritmer til at analysere de uploadede billeder og generere yderligere indhold baseret på de eksisterende billeddata. Ved at bruge en dyb læringsmodel er AI-teknologien i stand til sømløst at udvide billedindholdet på en måde, der forbliver konsistent med den oprindelige stil.",
+    "translation": "",
     "message": "AI Image Extender employs cutting-edge AI algorithms to analyze the uploaded images and generate additional content based on the existing image data. By utilizing a deep learning model, the AI technology is able to seamlessly expand the image content in a way that remains consistent with the original style.",
     "comments": [],
     "origin": [
@@ -148,7 +148,7 @@
     ]
   },
   "C/klTT": {
-    "translation": "AI Image Extender Galleri",
+    "translation": "",
     "message": "AI Image Extender Gallery",
     "comments": [],
     "origin": [
@@ -159,7 +159,7 @@
     ]
   },
   "7KKVnB": {
-    "translation": "AI Image Extender er en hjemmeside, der benytter avanceret AI-teknologi til at udvide og forbedre billeder, som brugerne uploader. Den kan udvide indholdet af billeder i fire retninger (op, ned, venstre og højre), samtidig med at den bevarer billedets originale stil. Den har også evnen til at øge pixeldimensionerne af billederne og samtidig udvide op til fire billeder.",
+    "translation": "",
     "message": "AI Image Extender is a website that utilizes advanced AI technology to expand and enhance images uploaded by users. It can extend the content of images in four directions (up, down, left, and right), while maintaining the original style of the image. It also has the capability to increase the pixel dimensions of the images and simultaneously expand up to four images.",
     "comments": [],
     "origin": [
@@ -170,7 +170,7 @@
     ]
   },
   "/vcx2e": {
-    "translation": "AI Image Extender: Udvid dine horisonter med kreative billedudvidelser",
+    "translation": "",
     "message": "AI Image Extender: Expand Your Horizons with Creative Image Extensions",
     "comments": [],
     "origin": [
@@ -192,7 +192,7 @@
     ]
   },
   "TuDjpa": {
-    "translation": "AI Outpainting anvender avancerede AI-algoritmer til at analysere de uploadede billeder og generere yderligere indhold baseret på de eksisterende billeddata. Ved at benytte en dyb læring model er AI-teknologien i stand til at udvide billedindholdet sømløst på en måde, der forbliver konsistent med den originale stil.",
+    "translation": "",
     "message": "AI Outpainting employs cutting-edge AI algorithms to analyze the uploaded images and generate additional content based on the existing image data. By utilizing a deep learning model, the AI technology is able to seamlessly expand the image content in a way that remains consistent with the original style.",
     "comments": [],
     "origin": [
@@ -214,7 +214,7 @@
     ]
   },
   "iTf+zF": {
-    "translation": "AI Outpainting er en hjemmeside, der udnytter avanceret AI-teknologi til at udvide og forbedre billeder uploadet af brugere. Den kan forlænge indholdet af billeder i fire retninger (op, ned, venstre og højre), mens den bevarer den originale stil på billedet. Den har også mulighed for at øge pixel dimensionerne på billederne og samtidigt udvide op til fire billeder.",
+    "translation": "",
     "message": "AI Outpainting is a website that utilizes advanced AI technology to expand and enhance images uploaded by users. It can extend the content of images in four directions (up, down, left, and right), while maintaining the original style of the image. It also has the capability to increase the pixel dimensions of the images and simultaneously expand up to four images.",
     "comments": [],
     "origin": [
@@ -225,18 +225,18 @@
     ]
   },
   "xxs+vI": {
-    "translation": "AI Outpainting Playground",
+    "translation": "",
     "message": "AI Outpainting Playground",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/page.tsx",
-        15
+        17
       ]
     ]
   },
   "n8ms0F": {
-    "translation": "Resultat af AI-udmaling",
+    "translation": "",
     "message": "AI Outpainting Result",
     "comments": [],
     "origin": [
@@ -247,7 +247,7 @@
     ]
   },
   "NFpS5a": {
-    "translation": "AI Photo Extender Galleri",
+    "translation": "",
     "message": "AI Photo Extender Gallery",
     "comments": [],
     "origin": [
@@ -258,7 +258,7 @@
     ]
   },
   "CHNN5v": {
-    "translation": "AI Photo Extender er et innovativt onlineværktøj, der bruger avanceret AI-teknologi til at udvide og forbedre brugeruploadede billeder. Denne AI-fotoextender kan sømløst udvide billedindhold i alle fire retninger og samtidig bevare den originale stil. Derudover kan vores AI fotoextender øge billedopløsningen og behandle op til fire billeder samtidigt.",
+    "translation": "",
     "message": "AI Photo Extender is an innovative online tool that uses advanced AI technology to expand and enhance user-uploaded images. This AI photo extender can seamlessly extend image content in all four directions while maintaining the original style. Additionally, our AI photo extender can increase image resolution and process up to four images simultaneously.",
     "comments": [],
     "origin": [
@@ -269,7 +269,7 @@
     ]
   },
   "bK/TAt": {
-    "translation": "AI Photo Extender er i stand til at behandle op til fire billeder samtidigt. Denne multi-billedefunktion i vores AI fotoextender gør det muligt for brugerne at effektivt forbedre flere billeder i én session, hvilket sparer tid og indsats.",
+    "translation": "",
     "message": "AI Photo Extender is capable of processing up to four images simultaneously. This multi-image feature of our AI photo extender enables users to efficiently enhance multiple images in a single session, saving time and effort.",
     "comments": [],
     "origin": [
@@ -280,7 +280,7 @@
     ]
   },
   "MeL6D4": {
-    "translation": "AI Photo Extender benytter state-of-the-art AI-algoritmer til at analysere uploadede billeder og generere yderligere indhold. Vores AI fotoextenders dybe læringsmodel sikrer, at de udvidede områder blander sig sømløst med det originale billede og bevarer konsistensen i stil og kvalitet.",
+    "translation": "",
     "message": "AI Photo Extender utilizes state-of-the-art AI algorithms to analyze uploaded images and generate additional content. Our AI photo extender's deep learning model ensures that the expanded areas blend seamlessly with the original image, maintaining consistency in style and quality.",
     "comments": [],
     "origin": [
@@ -291,7 +291,7 @@
     ]
   },
   "bJOlPb": {
-    "translation": "AI Photo Extender: Udvid dine horisonter med kreative billedudvidelser",
+    "translation": "",
     "message": "AI Photo Extender: Expand Your Horizons with Creative Image Extensions",
     "comments": [],
     "origin": [
@@ -334,41 +334,41 @@
       ]
     ]
   },
-  "lxentK": {
+  "qqz6Hk": {
     "translation": "",
-    "message": "An unexpected error occurred",
+    "message": "An error occurred while processing the image.",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        468
+        490
       ]
     ]
   },
   "4WPYPJ": {
-    "translation": "Er du sikker på, at du vil rydde den nuværende lærred? Dette vil slette alle genererede billeder og den nuværende redigeringsstatus.",
+    "translation": "",
     "message": "Are you sure you want to clear the current canvas? This will delete all generated images and the current editing state.",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        895
+        953
       ]
     ]
   },
   "iH8pgl": {
-    "translation": "Tilbage",
+    "translation": "",
     "message": "Back",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        605
+        649
       ]
     ]
   },
   "8Cg4ES": {
-    "translation": "Før Billedudvider",
+    "translation": "",
     "message": "Before Image Extender",
     "comments": [],
     "origin": [
@@ -379,7 +379,7 @@
     ]
   },
   "IBtiOe": {
-    "translation": "Før Outpainting",
+    "translation": "",
     "message": "Before Outpainting",
     "comments": [],
     "origin": [
@@ -394,7 +394,7 @@
     ]
   },
   "FU+lge": {
-    "translation": "Før Fotoextender",
+    "translation": "",
     "message": "Before Photo Extender",
     "comments": [],
     "origin": [
@@ -409,7 +409,7 @@
     ]
   },
   "ExFMj8": {
-    "translation": "Blogs",
+    "translation": "",
     "message": "Blogs",
     "comments": [],
     "origin": [
@@ -423,22 +423,22 @@
       ],
       [
         "components/wegic/footer.tsx",
-        12
+        13
       ],
       [
         "components/wegic/header.tsx",
-        10
+        11
       ]
     ]
   },
   "zsiX7I": {
-    "translation": "Bund",
+    "translation": "",
     "message": "Bottom",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        586
+        597
       ]
     ]
   },
@@ -454,7 +454,7 @@
     ]
   },
   "xzHB2Z": {
-    "translation": "Gennemse fantastiske eksempler på AI-billedeextender og se de ubegrænsede muligheder for at udvide kunstværker.",
+    "translation": "",
     "message": "Browse\nthrough stunning examples of AI image extender, showcasing the limitless possibilities of extending\nartworks.",
     "comments": [],
     "origin": [
@@ -465,7 +465,7 @@
     ]
   },
   "A056gq": {
-    "translation": "Gennemse fantastiske eksempler på AI fotoextender og se de ubegrænsede muligheder for at udvide kunstværker.",
+    "translation": "",
     "message": "Browse\nthrough stunning examples of AI photo extender, showcasing the limitless possibilities of extending\nartworks.",
     "comments": [],
     "origin": [
@@ -476,7 +476,7 @@
     ]
   },
   "eBimti": {
-    "translation": "Gennemse fantastiske eksempler på generative fill ai og se de ubegrænsede muligheder for at udvide kunstværker.",
+    "translation": "",
     "message": "Browse\nthrough stunning examples of generative fill ai, showcasing the limitless possibilities of extending\nartworks.",
     "comments": [],
     "origin": [
@@ -498,7 +498,7 @@
     ]
   },
   "EWY1qg": {
-    "translation": "Kan AI Image Extender øge pixeldimensionerne af et billede?",
+    "translation": "",
     "message": "Can AI Image Extender increase the pixel dimensions of an image?",
     "comments": [],
     "origin": [
@@ -509,7 +509,7 @@
     ]
   },
   "WWl4gu": {
-    "translation": "Kan AI Image Extender bevare stilen i det originale billede, mens det udvides?",
+    "translation": "",
     "message": "Can AI Image Extender maintain the style of the original image while expanding it?",
     "comments": [],
     "origin": [
@@ -520,7 +520,7 @@
     ]
   },
   "1Fpd2D": {
-    "translation": "Kan AI Outpainting øge pixel dimensionerne af et billede?",
+    "translation": "",
     "message": "Can AI Outpainting increase the pixel dimensions of an image?",
     "comments": [],
     "origin": [
@@ -531,7 +531,7 @@
     ]
   },
   "OTPxHN": {
-    "translation": "Kan AI Outpainting bevare stilen på det originale billede mens det udvides?",
+    "translation": "",
     "message": "Can AI Outpainting maintain the style of the original image while expanding it?",
     "comments": [],
     "origin": [
@@ -542,7 +542,7 @@
     ]
   },
   "6+I5pv": {
-    "translation": "Kan AI Photo Extender bevare det originale billedstil?",
+    "translation": "",
     "message": "Can AI Photo Extender maintain the original image style?",
     "comments": [],
     "origin": [
@@ -553,7 +553,7 @@
     ]
   },
   "o7jL3/": {
-    "translation": "Kan Generative Fill AI bevare det originale billedstil?",
+    "translation": "",
     "message": "Can Generative Fill AI maintain the original image style?",
     "comments": [],
     "origin": [
@@ -564,66 +564,70 @@
     ]
   },
   "dEgA5A": {
-    "translation": "Annuller",
+    "translation": "",
     "message": "Cancel",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        899
+        957
       ]
     ]
   },
   "z65MvS": {
-    "translation": "Ryd Lærred",
+    "translation": "",
     "message": "Clear Canvas",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        796
+        873
       ]
     ]
   },
   "yz7wBu": {
-    "translation": "Luk",
+    "translation": "",
     "message": "Close",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        926
+        984
+      ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        1006
       ],
       [
         "framework/components/login/GoogleLogin.tsx",
-        56
+        55
       ]
     ]
   },
   "QTBZC3": {
-    "translation": "Bekræft Ryd",
+    "translation": "",
     "message": "Confirm Clear",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        902
+        960
       ]
     ]
   },
   "1KApxq": {
-    "translation": "Bekræft Ryd Lærred",
+    "translation": "",
     "message": "Confirm Clear Canvas",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        893
+        951
       ]
     ]
   },
   "BWF0ai": {
-    "translation": "Context-awware AI",
+    "translation": "",
     "message": "Context-aware AI",
     "comments": [],
     "origin": [
@@ -642,18 +646,18 @@
     ]
   },
   "qTrELo": {
-    "translation": "Fortsæt Generering",
+    "translation": "",
     "message": "Continue Generating",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        822
+        899
       ]
     ]
   },
   "TXxF+/": {
-    "translation": "kredit",
+    "translation": "",
     "message": "credit",
     "comments": [],
     "origin": [
@@ -664,25 +668,36 @@
     ]
   },
   "mehNeY": {
-    "translation": "Kredit:{0}",
+    "translation": "",
     "message": "Credit:{0}",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        660
+        733
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        677
+        750
       ],
       [
         "components/wegic/navbar.tsx",
-        172
+        204
       ],
       [
         "components/wegic/navbar.tsx",
-        188
+        220
+      ]
+    ]
+  },
+  "widEIq": {
+    "translation": "",
+    "message": "Daily limit reached",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        993
       ]
     ]
   },
@@ -697,8 +712,23 @@
       ]
     ]
   },
+  "9DrGla": {
+    "translation": "",
+    "message": "Describe what you want to generate...",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        687
+      ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        801
+      ]
+    ]
+  },
   "38nphA": {
-    "translation": "Øger AI Photo Extender billedopløsning?",
+    "translation": "",
     "message": "Does AI Photo Extender increase image resolution?",
     "comments": [],
     "origin": [
@@ -709,7 +739,7 @@
     ]
   },
   "8gRz33": {
-    "translation": "Øger Generative Fill AI billedopløsning?",
+    "translation": "",
     "message": "Does Generative Fill AI increase image resolution?",
     "comments": [],
     "origin": [
@@ -720,18 +750,18 @@
     ]
   },
   "mzI/c+": {
-    "translation": "Nedlasting",
+    "translation": "",
     "message": "Download",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        836
+        913
       ]
     ]
   },
   "0yQo/k": {
-    "translation": "Hent billede",
+    "translation": "",
     "message": "Download Image",
     "comments": [],
     "origin": [
@@ -742,7 +772,7 @@
     ]
   },
   "fBjOS6": {
-    "translation": "Hvert værk i vores galleri demonstrerer kraften i AI til at transformere og forbedre kreative projekter.",
+    "translation": "",
     "message": "Each\npiece in our gallery demonstrates the power of AI in transforming and enhancing creative projects.",
     "comments": [],
     "origin": [
@@ -760,17 +790,6 @@
       ]
     ]
   },
-  "qBX4sV": {
-    "translation": "",
-    "message": "Error occurred while processing the image",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        460
-      ]
-    ]
-  },
   "i0wn8o": {
     "translation": "",
     "message": "Every Gallery Piece Proves AI’s Democratizing Power.Watch how AI reshapes photos into polished projects—for bloggers, small biz, and hobbyists alike. No “pro tools” barriers—just creativity, amplified.",
@@ -782,47 +801,36 @@
       ]
     ]
   },
-  "CajufG": {
-    "translation": "Udvid dit billede, Form dit billede",
-    "message": "Expand Your Image, Reshape Your Image",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/footer.tsx",
-        36
-      ]
-    ]
-  },
   "Q+x/E4": {
-    "translation": "Udvider",
+    "translation": "",
     "message": "Expanding",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        820
+        897
       ]
     ]
   },
   "jU4owd": {
-    "translation": "Udvidelsesretning",
+    "translation": "",
     "message": "Expansion Direction",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        709
+        774
       ]
     ]
   },
   "kNSTBA": {
-    "translation": "Udvidelsesretning:",
+    "translation": "",
     "message": "Expansion Direction:",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        611
+        655
       ]
     ]
   },
@@ -838,7 +846,7 @@
     ]
   },
   "nkhTSO": {
-    "translation": "Udforsk ud over rammen med AI Image Extender: Sømløst udvid dine fotos online ved hjælp af avanceret generativ AI, der sikrer, at høj kvalitet bevares på tværs af alle billedforhold.",
+    "translation": "",
     "message": "Explore Beyond the Frame with AI Image Extender: Seamlessly expand your photos online using advanced generative AI, ensuring high-quality visuals are maintained across all image ratios.",
     "comments": [],
     "origin": [
@@ -849,7 +857,7 @@
     ]
   },
   "UTesON": {
-    "translation": "Udforsk ud over rammen med AI Photo Extender: Sømløst udvid dine fotos online ved hjælp af avanceret generativ AI, der sikrer, at høj kvalitet bevares på tværs af alle billedforhold.",
+    "translation": "",
     "message": "Explore Beyond the Frame with AI Photo Extender: Seamlessly expand your photos online using advanced generative AI, ensuring high-quality visuals are maintained across all image ratios.",
     "comments": [],
     "origin": [
@@ -860,7 +868,7 @@
     ]
   },
   "HO2QAu": {
-    "translation": "Udforsk ud over rammen med Generative Fill AI: Sømløst udvid dine fotos online ved hjælp af avanceret generativ AI, der sikrer, at høj kvalitet bevares på tværs af alle billedforhold.",
+    "translation": "",
     "message": "Explore Beyond the Frame with Generative Fill AI: Seamlessly expand your photos online using advanced generative AI, ensuring high-quality visuals are maintained across all image ratios.",
     "comments": [],
     "origin": [
@@ -871,7 +879,7 @@
     ]
   },
   "ke8MAp": {
-    "translation": "Udvid Igen",
+    "translation": "",
     "message": "Extend Again",
     "comments": [],
     "origin": [
@@ -901,7 +909,7 @@
     ]
   },
   "p5l4iX": {
-    "translation": "Udvidede resultater kan udvides gentagne gange, hvilket muliggør kontinuerlige forbedringer",
+    "translation": "",
     "message": "Extended results can be expanded repeatedly,allowing for continuous enhancements",
     "comments": [],
     "origin": [
@@ -919,8 +927,30 @@
       ]
     ]
   },
+  "VAPaiM": {
+    "translation": "",
+    "message": "Failed to load image. The image URL may be invalid or blocked by CORS.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        200
+      ]
+    ]
+  },
+  "RBNuL1": {
+    "translation": "",
+    "message": "Failed to submit task.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        436
+      ]
+    ]
+  },
   "lIFSzb": {
-    "translation": "Fejl ved upload af fil: {0}",
+    "translation": "",
     "message": "Failed to upload file: {0}",
     "comments": [],
     "origin": [
@@ -931,7 +961,7 @@
     ]
   },
   "cDhYY/": {
-    "translation": "Hurtig generering",
+    "translation": "",
     "message": "Fast generation",
     "comments": [],
     "origin": [
@@ -942,13 +972,13 @@
     ]
   },
   "TVSR9M": {
-    "translation": "Filstørrelse overstiger 10 MB. Vælg venligst en mindre fil.",
+    "translation": "",
     "message": "File size exceeds 10MB. Please select a smaller file.",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        193
+        209
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -957,7 +987,7 @@
     ]
   },
   "ofu/39": {
-    "translation": "Gratis AI Image Extender",
+    "translation": "",
     "message": "Free AI Image Extender",
     "comments": [],
     "origin": [
@@ -968,7 +998,7 @@
     ]
   },
   "0BCXgy": {
-    "translation": "Gratis AI Photo Extender",
+    "translation": "",
     "message": "Free AI Photo Extender",
     "comments": [],
     "origin": [
@@ -979,7 +1009,7 @@
     ]
   },
   "ViaB2F": {
-    "translation": "Gratis Generative Fill AI",
+    "translation": "",
     "message": "Free Generative Fill AI",
     "comments": [],
     "origin": [
@@ -990,7 +1020,7 @@
     ]
   },
   "fDIFV3": {
-    "translation": "Gratis online værktøj til AI-billedudvidelse",
+    "translation": "",
     "message": "Free Online Tool For AI Image Expanding",
     "comments": [],
     "origin": [
@@ -1001,7 +1031,7 @@
     ]
   },
   "F7G/TS": {
-    "translation": "Ofte stillede spørgsmål",
+    "translation": "",
     "message": "Frequently Asked Questions",
     "comments": [],
     "origin": [
@@ -1024,7 +1054,7 @@
     ]
   },
   "oJZ41z": {
-    "translation": "Generative Fill AI benytter state-of-the-art-algoritmer til at analysere uploadede billeder og generere yderligere indhold. Den dybe læringsmodel bag vores generative fill AI sikrer, at de udvidede områder blander sig sømløst med det originale billede og bevarer konsistensen i stil og kvalitet gennem hele processen.",
+    "translation": "",
     "message": "Generative Fill AI employs state-of-the-art algorithms to analyze uploaded images and generate additional content. The deep learning model behind our generative fill AI ensures that the expanded areas blend seamlessly with the original image, maintaining consistency in style and quality throughout the process.",
     "comments": [],
     "origin": [
@@ -1035,7 +1065,7 @@
     ]
   },
   "+XZy/0": {
-    "translation": "Generative Fill AI Galleri",
+    "translation": "",
     "message": "Generative Fill AI Gallery",
     "comments": [],
     "origin": [
@@ -1046,7 +1076,7 @@
     ]
   },
   "9Q0Mk1": {
-    "translation": "Generative Fill AI er et innovativt onlineværktøj, der udnytter avanceret kunstig intelligens til at udvide og forbedre billeder. Denne topmoderne generative fill AI-teknologi kan sømløst udvide billedindhold i alle retninger, samtidig med at den bevarer den originale stil. Vores generative fill AI-værktøj tilbyder også billedopløsning forbedring og kan behandle flere billeder samtidigt.",
+    "translation": "",
     "message": "Generative Fill AI is an innovative online tool that leverages advanced artificial intelligence to expand and enhance images. This cutting-edge generative fill AI technology can seamlessly extend image content in all directions while maintaining the original style. Our generative fill AI tool also offers image resolution enhancement and can process multiple images simultaneously.",
     "comments": [],
     "origin": [
@@ -1057,7 +1087,7 @@
     ]
   },
   "SH0knd": {
-    "translation": "Generative Fill AI: Udvid dine horisonter med kreative billedudvidelser",
+    "translation": "",
     "message": "Generative Fill AI: Expand Your Horizons with Creative Image Extensions",
     "comments": [],
     "origin": [
@@ -1068,7 +1098,7 @@
     ]
   },
   "c3b0B0": {
-    "translation": "Kom i gang",
+    "translation": "",
     "message": "Get Started",
     "comments": [],
     "origin": [
@@ -1090,7 +1120,7 @@
       ],
       [
         "components/wegic/index-uploader.tsx",
-        47
+        31
       ],
       [
         "components/wegic/pricing.tsx",
@@ -1099,7 +1129,7 @@
     ]
   },
   "sAH4M6": {
-    "translation": "Gå til betaling",
+    "translation": "",
     "message": "Go to Payment",
     "comments": [],
     "origin": [
@@ -1109,8 +1139,19 @@
       ]
     ]
   },
+  "2tJeBV": {
+    "translation": "",
+    "message": "GPT Image",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        677
+      ]
+    ]
+  },
   "0RKAvR": {
-    "translation": "Har logget ind",
+    "translation": "",
     "message": "Has logged in",
     "comments": [],
     "origin": [
@@ -1121,7 +1162,7 @@
     ]
   },
   "Ghlr93": {
-    "translation": "Høj kvalitets billeder",
+    "translation": "",
     "message": "High quality images",
     "comments": [],
     "origin": [
@@ -1132,7 +1173,7 @@
     ]
   },
   "i0qMbr": {
-    "translation": "Hjem",
+    "translation": "",
     "message": "Home",
     "comments": [],
     "origin": [
@@ -1147,22 +1188,22 @@
     ]
   },
   "pzu7v4": {
-    "translation": "Vandret",
+    "translation": "",
     "message": "Horizontal",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        613
+        657
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        711
+        776
       ]
     ]
   },
   "k4BMq5": {
-    "translation": "Horizontal Udvidelse",
+    "translation": "",
     "message": "Horizontal Expansion",
     "comments": [],
     "origin": [
@@ -1173,7 +1214,7 @@
     ]
   },
   "/o/u7t": {
-    "translation": "Hvordan fungerer AI Image Extender?",
+    "translation": "",
     "message": "How does AI Image Extender work?",
     "comments": [],
     "origin": [
@@ -1184,7 +1225,7 @@
     ]
   },
   "NYWdBf": {
-    "translation": "Hvordan fungerer AI Outpainting?",
+    "translation": "",
     "message": "How does AI Outpainting work?",
     "comments": [],
     "origin": [
@@ -1195,7 +1236,7 @@
     ]
   },
   "i1x708": {
-    "translation": "Hvor fungerer AI Fotostørrelsesudstyr?",
+    "translation": "",
     "message": "How does AI Photo Extender work?",
     "comments": [],
     "origin": [
@@ -1206,7 +1247,7 @@
     ]
   },
   "VVkhXx": {
-    "translation": "Hvor fungerer Generativ Fylde AI?",
+    "translation": "",
     "message": "How does Generative Fill AI work?",
     "comments": [],
     "origin": [
@@ -1217,7 +1258,7 @@
     ]
   },
   "EJYtRo": {
-    "translation": "Hvor mange billeder kan AI Fotostørrelsesudstyr behandle samtidig?",
+    "translation": "",
     "message": "How many images can AI Photo Extender process at once?",
     "comments": [],
     "origin": [
@@ -1228,7 +1269,7 @@
     ]
   },
   "T2jWIX": {
-    "translation": "Hvor mange billeder kan Generativ Fylde AI behandle samtidig?",
+    "translation": "",
     "message": "How many images can Generative Fill AI process at once?",
     "comments": [],
     "origin": [
@@ -1239,7 +1280,7 @@
     ]
   },
   "wVrOLV": {
-    "translation": "Hvor mange billeder kan jeg udvide samtidig ved hjælp af AI Billedstørrelsesudstyr?",
+    "translation": "",
     "message": "How many images can I expand at once using AI Image Extender?",
     "comments": [],
     "origin": [
@@ -1250,7 +1291,7 @@
     ]
   },
   "c8UM3u": {
-    "translation": "Hvor mange billeder kan jeg udvide ad gangen med AI Outpainting?",
+    "translation": "",
     "message": "How many images can I expand at once using AI Outpainting?",
     "comments": [],
     "origin": [
@@ -1260,8 +1301,41 @@
       ]
     ]
   },
+  "4ThHlz": {
+    "translation": "",
+    "message": "Image is too large. Maximum size: 2048×2048 pixels.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        224
+      ]
+    ]
+  },
+  "JfTN1b": {
+    "translation": "",
+    "message": "Image is too small. Minimum size: 64×64 pixels.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        219
+      ]
+    ]
+  },
+  "Jex68g": {
+    "translation": "",
+    "message": "Image processing failed.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        456
+      ]
+    ]
+  },
   "E1UQnk": {
-    "translation": "Billeder Udmales",
+    "translation": "",
     "message": "Images Outpainting",
     "comments": [],
     "origin": [
@@ -1284,7 +1358,7 @@
     ]
   },
   "oTSrSS": {
-    "translation": "Initialisering af PayPal-tjenester mødte en fejl.",
+    "translation": "",
     "message": "Initialization of PayPal services encountered an error.",
     "comments": [],
     "origin": [
@@ -1295,7 +1369,7 @@
     ]
   },
   "XU5AOg": {
-    "translation": "Input",
+    "translation": "",
     "message": "Input",
     "comments": [],
     "origin": [
@@ -1306,29 +1380,29 @@
     ]
   },
   "UlKSMd": {
-    "translation": "Venstre",
+    "translation": "",
     "message": "Left",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        581
+        592
       ]
     ]
   },
   "F/9EGj": {
-    "translation": "Laster inn bildet...",
+    "translation": "",
     "message": "Loading image...",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        755
+        832
       ]
     ]
   },
   "Z3FXyt": {
-    "translation": "Indlæser...",
+    "translation": "",
     "message": "Loading...",
     "comments": [],
     "origin": [
@@ -1343,33 +1417,44 @@
     ]
   },
   "paehRh": {
-    "translation": "Log Ud",
+    "translation": "",
     "message": "Log Out",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        667
+        740
       ],
       [
         "components/wegic/navbar.tsx",
-        178
+        210
       ]
     ]
   },
   "S1g3Ds": {
-    "translation": "Middel",
+    "translation": "",
     "message": "Middle",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        579
+        590
+      ]
+    ]
+  },
+  "hDkkvu": {
+    "translation": "",
+    "message": "Model:",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        664
       ]
     ]
   },
   "bHt2FX": {
-    "translation": "Netværksfejl eller CORS-problem.",
+    "translation": "",
     "message": "Network error or CORS issue.",
     "comments": [],
     "origin": [
@@ -1380,18 +1465,18 @@
     ]
   },
   "ko93eb": {
-    "translation": "Nye brugere, der logger ind, vil modtage 2 credits",
+    "translation": "",
     "message": "New users who log in will receive 2 credits",
     "comments": [],
     "origin": [
       [
         "framework/components/login/GoogleLogin.tsx",
-        39
+        38
       ]
     ]
   },
   "cvwg/A": {
-    "translation": "Nye brugere, der logger ind, vil modtage 5 kreditter",
+    "translation": "",
     "message": "New users who log in will receive 5 credits",
     "comments": [],
     "origin": [
@@ -1402,7 +1487,7 @@
     ]
   },
   "uO0GB/": {
-    "translation": "Ingen gyldig ressourceinformation blev fundet.",
+    "translation": "",
     "message": "No valid resource information was found.",
     "comments": [],
     "origin": [
@@ -1424,35 +1509,35 @@
     ]
   },
   "8HI10O": {
-    "translation": "Originalt Billede",
+    "translation": "",
     "message": "Original Image",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        915
+        973
       ]
     ]
   },
   "shdsCc": {
-    "translation": "Position for Originalt Billede",
+    "translation": "",
     "message": "Original Image Position",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        717
+        782
       ]
     ]
   },
   "3gz7Y7": {
-    "translation": "Position for Originalt Billede:",
+    "translation": "",
     "message": "Original Image Position:",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        620
+        693
       ]
     ]
   },
@@ -1468,7 +1553,7 @@
     ]
   },
   "56MoT/": {
-    "translation": "Vores generative fylde AI-verktøj er kapabel til at behandle op til fire billeder samtidig. Dette multi-billede-funktion giver brugere mulighed for at effektivt forbedre flere billeder i én sesjon, vist teknologiernes fleksibilitet og effektivitet.",
+    "translation": "",
     "message": "Our generative fill AI tool is capable of processing up to four images simultaneously. This multi-image feature enables users to efficiently enhance multiple images in a single session, showcasing the versatility and efficiency of generative fill AI technology.",
     "comments": [],
     "origin": [
@@ -1479,7 +1564,7 @@
     ]
   },
   "gh06VD": {
-    "translation": "Output",
+    "translation": "",
     "message": "Output",
     "comments": [],
     "origin": [
@@ -1490,7 +1575,7 @@
     ]
   },
   "3F1hbx": {
-    "translation": "Ejet Af Bruger",
+    "translation": "",
     "message": "Own By User",
     "comments": [],
     "origin": [
@@ -1501,7 +1586,7 @@
     ]
   },
   "2bVshK": {
-    "translation": "Permanent gyldig",
+    "translation": "",
     "message": "Permanently valid",
     "comments": [],
     "origin": [
@@ -1512,13 +1597,13 @@
     ]
   },
   "W3mmGV": {
-    "translation": "Klik eller træk billedet for at uploade det.",
+    "translation": "",
     "message": "Please click or drag the image to upload it.",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        774
+        851
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -1527,22 +1612,18 @@
     ]
   },
   "+Y65s1": {
-    "translation": "Venligst log ind for at fortsætte",
+    "translation": "",
     "message": "Please Sign In To Continue",
     "comments": [],
     "origin": [
       [
-        "app/[lang]/(editor)/editor/view.tsx",
-        391
-      ],
-      [
         "framework/components/login/GoogleLogin.tsx",
-        38
+        37
       ]
     ]
   },
   "PZCqeW": {
-    "translation": "Prøv igen senere.",
+    "translation": "",
     "message": "Please try again later.",
     "comments": [],
     "origin": [
@@ -1552,27 +1633,30 @@
       ]
     ]
   },
+  "3kCvID": {
+    "translation": "",
+    "message": "Please upload an image first.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        423
+      ]
+    ]
+  },
   "aHCEmh": {
-    "translation": "Prissætning",
+    "translation": "",
     "message": "Pricing",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(public)/(pricing)/pricing/page.tsx",
         17
-      ],
-      [
-        "components/wegic/footer.tsx",
-        11
-      ],
-      [
-        "components/wegic/header.tsx",
-        9
       ]
     ]
   },
   "tdGO5K": {
-    "translation": "Prisfastsættelse | {0}",
+    "translation": "",
     "message": "Pricing | {0}",
     "comments": [],
     "origin": [
@@ -1583,7 +1667,7 @@
     ]
   },
   "rQBXl9": {
-    "translation": "Prissætningsplaner",
+    "translation": "",
     "message": "Pricing Plans",
     "comments": [],
     "origin": [
@@ -1594,18 +1678,33 @@
     ]
   },
   "k1ifdL": {
-    "translation": "Behandler...",
+    "translation": "",
     "message": "Processing...",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        592
+        636
+      ]
+    ]
+  },
+  "o73FAt": {
+    "translation": "",
+    "message": "Prompt:",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        682
+      ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        796
       ]
     ]
   },
   "x50rMS": {
-    "translation": "Udgivelsesdato:",
+    "translation": "",
     "message": "Publish Date:",
     "comments": [],
     "origin": [
@@ -1615,19 +1714,8 @@
       ]
     ]
   },
-  "zZk9Yz": {
-    "translation": "Køb",
-    "message": "Purchase",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        697
-      ]
-    ]
-  },
   "A20mxR": {
-    "translation": "Køb efter behov, ingen abonnementsgebyr, livslang gyldighed",
+    "translation": "",
     "message": "Purchase on demand, no subscription fee, lifetime validity",
     "comments": [],
     "origin": [
@@ -1638,7 +1726,7 @@
     ]
   },
   "WEYdDv": {
-    "translation": "Anbefalet",
+    "translation": "",
     "message": "Recommended",
     "comments": [],
     "origin": [
@@ -1649,13 +1737,13 @@
     ]
   },
   "6exX+8": {
-    "translation": "Regenerer",
+    "translation": "",
     "message": "Regenerate",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        807
+        884
       ],
       [
         "app/[lang]/(public)/playgroundv1/[[...slug]]/views.tsx",
@@ -1663,19 +1751,8 @@
       ]
     ]
   },
-  "xSxPvs": {
-    "translation": "",
-    "message": "Request timed out. Please try again later.",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        431
-      ]
-    ]
-  },
   "6gRgw8": {
-    "translation": "Forsøg Igen",
+    "translation": "",
     "message": "Retry",
     "comments": [],
     "origin": [
@@ -1686,43 +1763,47 @@
     ]
   },
   "nOPbWJ": {
-    "translation": "Højre",
+    "translation": "",
     "message": "Right",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        583
+        594
       ]
     ]
   },
   "n1ekoW": {
-    "translation": "Log Ind",
+    "translation": "",
     "message": "Sign In",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        646
+        719
       ],
       [
         "components/wegic/navbar.tsx",
-        160
+        192
       ]
     ]
   },
   "ZqvdDl": {
-    "translation": "Log Ind Med Google",
+    "translation": "",
     "message": "Sign In With Google",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        638
+        711
+      ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        1003
       ],
       [
         "components/wegic/navbar.tsx",
-        152
+        189
       ],
       [
         "components/wegic/pricing.tsx",
@@ -1730,38 +1811,49 @@
       ],
       [
         "framework/components/login/GoogleLogin.tsx",
-        50
+        49
+      ]
+    ]
+  },
+  "M75fzb": {
+    "translation": "",
+    "message": "Sign in with Google to get 5 uses per day.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        997
       ]
     ]
   },
   "1DA6ap": {
-    "translation": "Kvadratisk",
+    "translation": "",
     "message": "Square",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        615
+        659
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        713
+        778
       ]
     ]
   },
   "FKsmFn": {
-    "translation": "Start Udvidelse",
+    "translation": "",
     "message": "Start Expanding",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        823
+        900
       ]
     ]
   },
   "SowH7o": {
-    "translation": "Start gratis med AI-udvidelsen. Udvid dine første 3 billeder uden omkostninger.",
+    "translation": "",
     "message": "Start for free with the AI extender. Expand your first 3 images at no charge.",
     "comments": [],
     "origin": [
@@ -1776,7 +1868,7 @@
     ]
   },
   "fYBlNd": {
-    "translation": "Start gratis med generativ fylde AI. Udvid dine første 3 billeder uden betaling.",
+    "translation": "",
     "message": "Start for free with the generative fill ai. Expand your first 3 images at no charge.",
     "comments": [],
     "origin": [
@@ -1786,23 +1878,8 @@
       ]
     ]
   },
-  "1gi2aF": {
-    "translation": "",
-    "message": "System Error, Please retry or contact website admin",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        421
-      ],
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        448
-      ]
-    ]
-  },
   "ywdZxq": {
-    "translation": "Systemfejl, prøv venligst igen eller kontakt webstedsadministrator",
+    "translation": "",
     "message": "System Error,Please retry or contract website admin",
     "comments": [],
     "origin": [
@@ -1813,7 +1890,7 @@
     ]
   },
   "I3FBWw": {
-    "translation": "AI analyserer dit billede's kontekst og udvider det for konsekvent realistiske resultater.",
+    "translation": "",
     "message": "The AI analyzes your image's context and extends it for consistently realistic outcomes.",
     "comments": [],
     "origin": [
@@ -1832,7 +1909,7 @@
     ]
   },
   "fWtzVj": {
-    "translation": "Der opstod en fejl under behandlingen af billedet. Prøv venligst igen senere.",
+    "translation": "",
     "message": "There was an error processing the image. Please try again later.",
     "comments": [],
     "origin": [
@@ -1842,19 +1919,30 @@
       ]
     ]
   },
+  "3jxGQW": {
+    "translation": "",
+    "message": "Tongyi",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        671
+      ]
+    ]
+  },
   "WWy8TN": {
-    "translation": "Top",
+    "translation": "",
     "message": "Top",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        585
+        596
       ]
     ]
   },
   "kCd+q+": {
-    "translation": "Samlet Betaling",
+    "translation": "",
     "message": "Total Payment",
     "comments": [],
     "origin": [
@@ -1865,18 +1953,18 @@
     ]
   },
   "Rd1BcW": {
-    "translation": "Prøv det gratis",
+    "translation": "",
     "message": "Try It Free",
     "comments": [],
     "origin": [
       [
         "components/wegic/index-uploader.tsx",
-        32
+        16
       ]
     ]
   },
   "MxB2DA": {
-    "translation": "Prøv det",
+    "translation": "",
     "message": "Try it out",
     "comments": [],
     "origin": [
@@ -1887,7 +1975,7 @@
     ]
   },
   "ONWvwQ": {
-    "translation": "Upload",
+    "translation": "",
     "message": "Upload",
     "comments": [],
     "origin": [
@@ -1898,7 +1986,7 @@
     ]
   },
   "Pdq4/9": {
-    "translation": "Overfør Nyt Billede",
+    "translation": "",
     "message": "Upload New Image",
     "comments": [],
     "origin": [
@@ -1913,7 +2001,7 @@
     ]
   },
   "+/4Lnu": {
-    "translation": "Upload succesfuld",
+    "translation": "",
     "message": "Upload successfully",
     "comments": [],
     "origin": [
@@ -1924,7 +2012,7 @@
     ]
   },
   "h3BBNG": {
-    "translation": "Overfør dit foto",
+    "translation": "",
     "message": "Upload your photo",
     "comments": [],
     "origin": [
@@ -1935,7 +2023,7 @@
     ]
   },
   "/eguJc": {
-    "translation": "Uploader",
+    "translation": "",
     "message": "Uploading",
     "comments": [],
     "origin": [
@@ -1946,13 +2034,13 @@
     ]
   },
   "GxkJXS": {
-    "translation": "Overfører...",
+    "translation": "",
     "message": "Uploading...",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        755
+        832
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -1961,7 +2049,7 @@
     ]
   },
   "Sxm8rQ": {
-    "translation": "Brugere",
+    "translation": "",
     "message": "Users",
     "comments": [],
     "origin": [
@@ -1984,22 +2072,22 @@
     ]
   },
   "mX/isJ": {
-    "translation": "lodret",
+    "translation": "",
     "message": "Vertical",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        614
+        658
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        712
+        777
       ]
     ]
   },
   "M1f5yq": {
-    "translation": "Vertikal Udvidelse",
+    "translation": "",
     "message": "Vertical Expansion",
     "comments": [],
     "origin": [
@@ -2010,7 +2098,7 @@
     ]
   },
   "ernaiK": {
-    "translation": " Hvad er AI Billedstørrelsesudstyr?",
+    "translation": "",
     "message": "What is AI Image Extender?",
     "comments": [],
     "origin": [
@@ -2021,7 +2109,7 @@
     ]
   },
   "hBTR82": {
-    "translation": "Hvad er AI Outpainting?",
+    "translation": "",
     "message": "What is AI Outpainting?",
     "comments": [],
     "origin": [
@@ -2032,7 +2120,7 @@
     ]
   },
   "e40dkT": {
-    "translation": " Hvad er AI Fotostørrelsesudstyr?",
+    "translation": "",
     "message": "What is AI Photo Extender?",
     "comments": [],
     "origin": [
@@ -2043,7 +2131,7 @@
     ]
   },
   "tNQRV8": {
-    "translation": " Hvad er Generativ Fylde AI?",
+    "translation": "",
     "message": "What is Generative Fill AI?",
     "comments": [],
     "origin": [
@@ -2054,7 +2142,7 @@
     ]
   },
   "xVURvs": {
-    "translation": "Ja, AI Billedstørrelsesudstyr er designet til at beholde stilkenhedens originalitet i udvidelsesprosessen. AI-algoritmerne er trænet til at forstå og reproducere unikke egenskaberne af billedet, sikreres, at udvidelsesindholdet holder sig konsistent med original.",
+    "translation": "",
     "message": "Yes, AI Image Extender is designed to preserve the style of the original image throughout the expansion process. The AI algorithms are trained to understand and replicate the unique characteristics of the image, ensuring that the expanded content remains visually consistent with the original.",
     "comments": [],
     "origin": [
@@ -2065,7 +2153,7 @@
     ]
   },
   "6kC20h": {
-    "translation": "Ja, AI Outpainting er designet til at bevare stilen fra det oprindelige billede under hele udvidelsesprocessen. AI-algoritmerne er trænet til at forstå og replikere de unikke karakteristika ved billedet for at sikre, at det udvidede indhold forbliver visuelt konsistent med det originale.",
+    "translation": "",
     "message": "Yes, AI Outpainting is designed to preserve the style of the original image throughout the expansion process. The AI algorithms are trained to understand and replicate the unique characteristics of the image, ensuring that the expanded content remains visually consistent with the original.",
     "comments": [],
     "origin": [
@@ -2076,7 +2164,7 @@
     ]
   },
   "HiX60c": {
-    "translation": "Ja, AI Fotostørrelsesudstyr ikke kun udvider billedeindhold, men tilbyder også muligheden for at forøge pixeldimensioner. Dette funktion af vores AI fotostørrelsesudstyr giver brugere mulighed for at forbedre både størrelsen og kvaliteten på deres billeder, resulterende i højere opslutningsudgaver.",
+    "translation": "",
     "message": "Yes, AI Photo Extender not only expands image content but also offers the option to increase pixel dimensions. This feature of our AI photo extender allows users to enhance both the size and quality of their images, resulting in higher resolution outputs.",
     "comments": [],
     "origin": [
@@ -2087,7 +2175,7 @@
     ]
   },
   "FrTOHj": {
-    "translation": "Ja, vores generativ fylde AI ikke kun udvider billedeindhold, men tilbyder også muligheden for at forøge pixeldimensioner. Dette funktion giver brugere mulighed for at forbedre både størrelsen og kvaliteten på deres billeder, resulterende i højere opslutningsudgaver ved hjælp af generativ fylde AI teknologi.",
+    "translation": "",
     "message": "Yes, our generative fill AI not only expands image content but also offers the option to increase pixel dimensions. This feature allows users to enhance both the size and quality of their images, resulting in higher resolution outputs through the power of generative fill AI technology.",
     "comments": [],
     "origin": [
@@ -2108,30 +2196,23 @@
       ]
     ]
   },
-  "WCkkI4": {
-    "translation": "Dit kreditpunkt er ubekymret, bedes opladre først.",
-    "message": "Your credit points are insufficient, please recharge first.",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        394
-      ]
-    ]
-  },
   "lX4VC4": {
-    "translation": "Blog Liste",
+    "translation": "",
     "message": "博客列表",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(public)/(blogs)/blogs/layout..tsx",
         7
+      ],
+      [
+        "app/[lang]/(public)/(tools)/tools/layout..tsx",
+        7
       ]
     ]
   },
   "uk086D": {
-    "translation": "Udforsk Stemmegeneration",
+    "translation": "",
     "message": "探索人声分离",
     "comments": [],
     "origin": [
@@ -2142,7 +2223,7 @@
     ]
   },
   "Xqre6v": {
-    "translation": "Mestre vores AI-stemmegenereringsteknologi let og hjælp dig med at øge effektiviteten i dit liv og arbejde.",
+    "translation": "",
     "message": "轻松掌握我们的AI人声分离技术，助您在生活和工作中提高效率。",
     "comments": [],
     "origin": [

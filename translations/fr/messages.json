@@ -25,7 +25,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        827
+        904
       ]
     ]
   },
@@ -91,7 +91,7 @@
     "origin": [
       [
         "components/wegic/index-uploader.tsx",
-        36
+        20
       ]
     ]
   },
@@ -231,7 +231,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/page.tsx",
-        15
+        17
       ]
     ]
   },
@@ -334,14 +334,14 @@
       ]
     ]
   },
-  "lxentK": {
+  "qqz6Hk": {
     "translation": "",
-    "message": "An unexpected error occurred",
+    "message": "An error occurred while processing the image.",
     "comments": [],
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        468
+        490
       ]
     ]
   },
@@ -352,7 +352,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        895
+        953
       ]
     ]
   },
@@ -363,7 +363,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        605
+        649
       ]
     ]
   },
@@ -423,11 +423,11 @@
       ],
       [
         "components/wegic/footer.tsx",
-        12
+        13
       ],
       [
         "components/wegic/header.tsx",
-        10
+        11
       ]
     ]
   },
@@ -438,7 +438,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        586
+        597
       ]
     ]
   },
@@ -570,7 +570,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        899
+        957
       ]
     ]
   },
@@ -581,7 +581,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        796
+        873
       ]
     ]
   },
@@ -592,11 +592,15 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        926
+        984
+      ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        1006
       ],
       [
         "framework/components/login/GoogleLogin.tsx",
-        56
+        55
       ]
     ]
   },
@@ -607,7 +611,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        902
+        960
       ]
     ]
   },
@@ -618,7 +622,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        893
+        951
       ]
     ]
   },
@@ -648,7 +652,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        822
+        899
       ]
     ]
   },
@@ -670,19 +674,30 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        660
+        733
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        677
+        750
       ],
       [
         "components/wegic/navbar.tsx",
-        172
+        204
       ],
       [
         "components/wegic/navbar.tsx",
-        188
+        220
+      ]
+    ]
+  },
+  "widEIq": {
+    "translation": "",
+    "message": "Daily limit reached",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        993
       ]
     ]
   },
@@ -694,6 +709,21 @@
       [
         "components/wegic/features.tsx",
         14
+      ]
+    ]
+  },
+  "9DrGla": {
+    "translation": "",
+    "message": "Describe what you want to generate...",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        687
+      ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        801
       ]
     ]
   },
@@ -726,7 +756,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        836
+        913
       ]
     ]
   },
@@ -760,17 +790,6 @@
       ]
     ]
   },
-  "qBX4sV": {
-    "translation": "",
-    "message": "Error occurred while processing the image",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        460
-      ]
-    ]
-  },
   "i0wn8o": {
     "translation": "",
     "message": "Every Gallery Piece Proves AI’s Democratizing Power.Watch how AI reshapes photos into polished projects—for bloggers, small biz, and hobbyists alike. No “pro tools” barriers—just creativity, amplified.",
@@ -782,17 +801,6 @@
       ]
     ]
   },
-  "CajufG": {
-    "translation": "Agrandissez votre image, Remodellez votre image",
-    "message": "Expand Your Image, Reshape Your Image",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/footer.tsx",
-        36
-      ]
-    ]
-  },
   "Q+x/E4": {
     "translation": "Extension",
     "message": "Expanding",
@@ -800,7 +808,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        820
+        897
       ]
     ]
   },
@@ -811,7 +819,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        709
+        774
       ]
     ]
   },
@@ -822,7 +830,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        611
+        655
       ]
     ]
   },
@@ -919,6 +927,28 @@
       ]
     ]
   },
+  "VAPaiM": {
+    "translation": "",
+    "message": "Failed to load image. The image URL may be invalid or blocked by CORS.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        200
+      ]
+    ]
+  },
+  "RBNuL1": {
+    "translation": "",
+    "message": "Failed to submit task.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        436
+      ]
+    ]
+  },
   "lIFSzb": {
     "translation": "Échec du téléchargement du fichier : {0}",
     "message": "Failed to upload file: {0}",
@@ -948,7 +978,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        193
+        209
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -1090,7 +1120,7 @@
       ],
       [
         "components/wegic/index-uploader.tsx",
-        47
+        31
       ],
       [
         "components/wegic/pricing.tsx",
@@ -1106,6 +1136,17 @@
       [
         "components/payment/stripe.tsx",
         35
+      ]
+    ]
+  },
+  "2tJeBV": {
+    "translation": "",
+    "message": "GPT Image",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        677
       ]
     ]
   },
@@ -1153,11 +1194,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        613
+        657
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        711
+        776
       ]
     ]
   },
@@ -1260,6 +1301,39 @@
       ]
     ]
   },
+  "4ThHlz": {
+    "translation": "",
+    "message": "Image is too large. Maximum size: 2048×2048 pixels.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        224
+      ]
+    ]
+  },
+  "JfTN1b": {
+    "translation": "",
+    "message": "Image is too small. Minimum size: 64×64 pixels.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        219
+      ]
+    ]
+  },
+  "Jex68g": {
+    "translation": "",
+    "message": "Image processing failed.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        456
+      ]
+    ]
+  },
   "E1UQnk": {
     "translation": "Images Outpainting",
     "message": "Images Outpainting",
@@ -1312,7 +1386,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        581
+        592
       ]
     ]
   },
@@ -1323,7 +1397,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        755
+        832
       ]
     ]
   },
@@ -1349,11 +1423,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        667
+        740
       ],
       [
         "components/wegic/navbar.tsx",
-        178
+        210
       ]
     ]
   },
@@ -1364,7 +1438,18 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        579
+        590
+      ]
+    ]
+  },
+  "hDkkvu": {
+    "translation": "",
+    "message": "Model:",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        664
       ]
     ]
   },
@@ -1386,7 +1471,7 @@
     "origin": [
       [
         "framework/components/login/GoogleLogin.tsx",
-        39
+        38
       ]
     ]
   },
@@ -1430,7 +1515,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        915
+        973
       ]
     ]
   },
@@ -1441,7 +1526,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        717
+        782
       ]
     ]
   },
@@ -1452,7 +1537,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        620
+        693
       ]
     ]
   },
@@ -1518,7 +1603,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        774
+        851
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -1532,12 +1617,8 @@
     "comments": [],
     "origin": [
       [
-        "app/[lang]/(editor)/editor/view.tsx",
-        391
-      ],
-      [
         "framework/components/login/GoogleLogin.tsx",
-        38
+        37
       ]
     ]
   },
@@ -1552,6 +1633,17 @@
       ]
     ]
   },
+  "3kCvID": {
+    "translation": "",
+    "message": "Please upload an image first.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        423
+      ]
+    ]
+  },
   "aHCEmh": {
     "translation": "Tarification",
     "message": "Pricing",
@@ -1560,14 +1652,6 @@
       [
         "app/[lang]/(public)/(pricing)/pricing/page.tsx",
         17
-      ],
-      [
-        "components/wegic/footer.tsx",
-        11
-      ],
-      [
-        "components/wegic/header.tsx",
-        9
       ]
     ]
   },
@@ -1600,7 +1684,22 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        592
+        636
+      ]
+    ]
+  },
+  "o73FAt": {
+    "translation": "",
+    "message": "Prompt:",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        682
+      ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        796
       ]
     ]
   },
@@ -1612,17 +1711,6 @@
       [
         "components/wegic/blogs.tsx",
         34
-      ]
-    ]
-  },
-  "zZk9Yz": {
-    "translation": "Achat",
-    "message": "Purchase",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        697
       ]
     ]
   },
@@ -1655,22 +1743,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        807
+        884
       ],
       [
         "app/[lang]/(public)/playgroundv1/[[...slug]]/views.tsx",
         208
-      ]
-    ]
-  },
-  "xSxPvs": {
-    "translation": "",
-    "message": "Request timed out. Please try again later.",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        431
       ]
     ]
   },
@@ -1692,7 +1769,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        583
+        594
       ]
     ]
   },
@@ -1703,11 +1780,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        646
+        719
       ],
       [
         "components/wegic/navbar.tsx",
-        160
+        192
       ]
     ]
   },
@@ -1718,11 +1795,15 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        638
+        711
+      ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        1003
       ],
       [
         "components/wegic/navbar.tsx",
-        152
+        189
       ],
       [
         "components/wegic/pricing.tsx",
@@ -1730,7 +1811,18 @@
       ],
       [
         "framework/components/login/GoogleLogin.tsx",
-        50
+        49
+      ]
+    ]
+  },
+  "M75fzb": {
+    "translation": "",
+    "message": "Sign in with Google to get 5 uses per day.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        997
       ]
     ]
   },
@@ -1741,11 +1833,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        615
+        659
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        713
+        778
       ]
     ]
   },
@@ -1756,7 +1848,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        823
+        900
       ]
     ]
   },
@@ -1783,21 +1875,6 @@
       [
         "app/[lang]/(public)/generative-fill-ai/views/features.tsx",
         14
-      ]
-    ]
-  },
-  "1gi2aF": {
-    "translation": "",
-    "message": "System Error, Please retry or contact website admin",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        421
-      ],
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        448
       ]
     ]
   },
@@ -1842,6 +1919,17 @@
       ]
     ]
   },
+  "3jxGQW": {
+    "translation": "",
+    "message": "Tongyi",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        671
+      ]
+    ]
+  },
   "WWy8TN": {
     "translation": "Haut",
     "message": "Top",
@@ -1849,7 +1937,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        585
+        596
       ]
     ]
   },
@@ -1871,7 +1959,7 @@
     "origin": [
       [
         "components/wegic/index-uploader.tsx",
-        32
+        16
       ]
     ]
   },
@@ -1952,7 +2040,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        755
+        832
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -1990,11 +2078,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        614
+        658
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        712
+        777
       ]
     ]
   },
@@ -2108,17 +2196,6 @@
       ]
     ]
   },
-  "WCkkI4": {
-    "translation": "Vos points de crédit sont insuffisants, veuillez recharger d'abord.",
-    "message": "Your credit points are insufficient, please recharge first.",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        394
-      ]
-    ]
-  },
   "lX4VC4": {
     "translation": "Liste des blogs",
     "message": "博客列表",
@@ -2126,6 +2203,10 @@
     "origin": [
       [
         "app/[lang]/(public)/(blogs)/blogs/layout..tsx",
+        7
+      ],
+      [
+        "app/[lang]/(public)/(tools)/tools/layout..tsx",
         7
       ]
     ]
