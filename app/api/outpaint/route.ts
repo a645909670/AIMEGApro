@@ -17,6 +17,7 @@ const ALIBABA_API_KEY = process.env.ALIBABA_API_KEY || ''
 // 每日免费使用次数限制：登录用户 5 次，匿名用户 3 次
 const DAILY_LIMIT_AUTHED = 5
 const DAILY_LIMIT_ANON = 3
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY || ''
 
 function getScaleParams(expandDirection: string) {
   switch (expandDirection) {
@@ -76,6 +77,43 @@ export async function GET(request: NextRequest) {
   const task = await prisma.outpaintTask.findUnique({ where: { taskId } })
   if (!task) return R.error('Task not found')
 
+  // GPT 模型（taskId 以 task_ 开头）：代理查询 right.codes 实时状态
+  if (taskId.startsWith('task_') && task.status === 'PROCESSING') {
+    try {
+      const pollResp = await fetch('https://www.right.codes/v1/tasks/' + taskId, {
+        headers: { 'Authorization': 'Bearer ' + GPT_IMAGE2_KEY },
+      })
+      const pollResult = await pollResp.json()
+      const rtStatus = pollResult.status || pollResult.data?.status || ''
+      // right.codes 完成后可能不返回 status，直接返回 data 数组
+      const hasDataUrl = pollResult.data?.[0]?.url || pollResult.data?.[0]?.b64_json || pollResult.data?.url || pollResult.url || pollResult.result
+      const isCompleted = rtStatus === 'succeeded' || rtStatus === 'completed' || rtStatus === 'success' || rtStatus === 'SUCCEEDED' || hasDataUrl
+      console.log('GPT 代理查询, 状态:', rtStatus, '有返回数据:', !!hasDataUrl)
+
+      if (isCompleted) {
+        const imageUrl = pollResult.data?.[0]?.url || pollResult.data?.[0]?.b64_json || pollResult.data?.output?.[0] || pollResult.output?.[0] ||
+          pollResult.data?.url || pollResult.url || pollResult.result ||
+          pollResult.data?.image_url || pollResult.data?.image || pollResult.output?.image_url ||
+          pollResult.output_image_url || pollResult.image_url
+        if (imageUrl) {
+          const resultResp = await saveResult(task, task.taskId, imageUrl)
+          const resultData = await resultResp.json()
+          return R.ok(resultData.data || resultData)
+        }
+        return R.ok({ taskId, status: 'FAILED', errorMessage: 'GPT 任务成功但未找到图片URL' })
+      }
+      if (rtStatus === 'failed' || rtStatus === 'FAILED') {
+        await prisma.outpaintTask.update({ where: { taskId }, data: { status: 'FAILED', errorMessage: pollResult.error?.message || 'GPT 处理失败' } })
+        return R.ok({ taskId, status: 'FAILED', errorMessage: pollResult.error?.message || 'GPT 处理失败' })
+      }
+      // 还在处理中，返回 PROCESSING
+      return R.ok({ taskId, status: 'PROCESSING' })
+    } catch (e: any) {
+      console.error('GPT 代理查询失败:', e.message)
+      return R.ok({ taskId, status: 'PROCESSING' })
+    }
+  }
+
   return R.ok({
     taskId: task.taskId,
     status: task.status,
@@ -87,15 +125,15 @@ export async function GET(request: NextRequest) {
 // 提交扩图任务
 export async function POST(request: NextRequest) {
   const body = await request.json()
-  const { imageKey, expandDirection, alignment, prompt, action } = body
+  const { imageKey, model, expandDirection, alignment, prompt, action } = body
 
   if (action === 'process') {
-    return processTask(body.taskId)
+    return processTask(body.taskId, body.model || 'tongyi')
   }
 
   if (!imageKey) return R.bad('imageKey is required')
-  const taskId = nanoid()
   const dir = expandDirection || '16:9'
+  const useModel = model || 'tongyi'
 
   // 获取登录用户信息（未登录则用 IP）
   let userEmail: string | null = null
@@ -104,14 +142,44 @@ export async function POST(request: NextRequest) {
     userEmail = authUser?.email || null
   } catch { /* 未登录用户 */ }
 
-  // 提交前检查每日限制
   const ip = getClientIp(request)
-  const { allowed, used, limit } = await checkDailyLimit(userEmail, ip)
-  if (!allowed) {
-    const tip = userEmail ? `今日免费扩图次数已用完（${used}/${limit}），请明天再试` : `今日免费扩图次数已用完（${used}/${limit}），请登录后获取更多使用次数`
-    return R.error(tip)
+
+  // GPT 模型：先调用 right.codes API 获取 task_id，以此作为数据库 taskId
+  if (useModel === 'gpt-image-2') {
+    try {
+      const imageUrl = `${S3_PUBLIC_PATH}/${imageKey}`
+      const imageResp = await fetch(imageUrl)
+      if (!imageResp.ok) return R.error('获取图片失败')
+      const buf = Buffer.from(await imageResp.arrayBuffer())
+      const base64 = buf.toString('base64')
+      const mime = imageResp.headers.get('content-type') || 'image/png'
+
+      const apiResp = await fetch('https://www.right.codes/draw/v1/images/generations', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${GPT_IMAGE2_KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'nano-banana-2-lite',
+          prompt: prompt || 'Expand this image naturally, keep the style consistent',
+          n: 1, size: dir,
+          async: true,
+          image: [`data:${mime};base64,${base64}`],
+        }),
+      })
+      const result = await apiResp.json()
+      const rtTaskId = result.task_id || result.id
+      if (!rtTaskId) return R.error('right.codes 未返回 task_id: ' + JSON.stringify(result).slice(0, 200))
+
+      await prisma.outpaintTask.create({
+        data: { taskId: rtTaskId, imageKey, expandDirection: dir, alignment: alignment || 'Middle', prompt: prompt || '', status: 'PENDING', userEmail, ipAddress: userEmail ? null : ip },
+      })
+      return R.ok({ taskId: rtTaskId, status: 'PENDING' })
+    } catch (err: any) {
+      return R.error('right.codes 调用失败: ' + err.message)
+    }
   }
 
+  // 通义万相：使用本地 taskId
+  const taskId = nanoid()
   try {
     await prisma.outpaintTask.create({
       data: { taskId, imageKey, expandDirection: dir, alignment: alignment || 'Middle', prompt: prompt || '', status: 'PENDING', userEmail, ipAddress: userEmail ? null : ip },
@@ -123,7 +191,35 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function processTask(taskId: string) {
+/** 下载结果图片并保存到 S3，更新任务状态，返回 NextResponse */
+async function saveResult(task: any, taskId: string, resultUrl: string) {
+  let finalUrl = resultUrl
+  if (resultUrl.startsWith('http') && !resultUrl.includes(S3_PUBLIC_PATH)) {
+    const imageResp = await fetch(resultUrl)
+    if (imageResp.ok) {
+      const buf = Buffer.from(await imageResp.arrayBuffer())
+      const ct = imageResp.headers.get('content-type') || 'image/png'
+      const ext = ct.includes('jpeg') ? '.jpg' : '.png'
+      const baseName = task.imageKey.replace(/[/\\]/g, '_').replace(/\.[^.]+$/, '')
+      finalUrl = await uploadResultToS3(`output/${Date.now()}_${baseName}${ext}`, buf, ct)
+    }
+  }
+  await prisma.outpaintTask.update({ where: { taskId }, data: { status: 'SUCCEEDED', resultUrl: finalUrl } })
+  return R.ok({ taskId, status: 'SUCCEEDED', resultUrl: finalUrl })
+}
+
+/** GPT-IMAGE-2 模型扩图 */
+const GPT_IMAGE2_KEY = process.env.GPT_IMAGE2_KEY || ''
+
+async function processWithOpenAI(task: any, taskId: string) {
+  console.log('=== GPT-IMAGE-2 标记处理中 ===', { taskId })
+  // right.codes 已在提交时调用，这里仅将任务标记为 PROCESSING
+  // 前端轮询 GET /api/outpaint?taskId=xxx 时会代理查询 right.codes 实时状态
+  await prisma.outpaintTask.update({ where: { taskId }, data: { status: 'PROCESSING' } })
+  return R.ok({ taskId, status: 'PROCESSING' })
+}
+
+async function processTask(taskId: string, model: string = 'tongyi') {
   const task = await prisma.outpaintTask.findUnique({ where: { taskId } })
   if (!task) return R.error('Task not found')
   if (task.status !== 'PENDING') return R.ok({ taskId, status: task.status, resultUrl: task.resultUrl })
@@ -131,6 +227,10 @@ async function processTask(taskId: string) {
   await prisma.outpaintTask.update({ where: { taskId }, data: { status: 'PROCESSING' } })
 
   try {
+    if (model === 'gpt-image-2') {
+      return await processWithOpenAI(task, taskId)
+    }
+    // 默认使用通义万相
     const imageUrl = `${S3_PUBLIC_PATH}/${task.imageKey}`
     const scaleParams = getScaleParams(task.expandDirection)
     const workspaceEndpoint = `https://${DASHSCOPE_WORKSPACE_ID}.cn-beijing.maas.aliyuncs.com/api/v1/services/aigc/image2image/out-painting`
@@ -163,20 +263,7 @@ async function processTask(taskId: string) {
       return R.error('获取结果超时')
     }
 
-    let finalUrl = outputImageUrl
-    if (outputImageUrl.startsWith('http') && !outputImageUrl.includes(S3_PUBLIC_PATH)) {
-      const imageResp = await fetch(outputImageUrl)
-      if (imageResp.ok) {
-        const buffer = Buffer.from(await imageResp.arrayBuffer())
-        const ct = imageResp.headers.get('content-type') || 'image/png'
-        const ext = ct.includes('jpeg') ? '.jpg' : '.png'
-        const baseName = task.imageKey.replace(/[/\\]/g, '_').replace(/\.[^.]+$/, '')
-        finalUrl = await uploadResultToS3(`output/${Date.now()}_${baseName}${ext}`, buffer, ct)
-      }
-    }
-
-    await prisma.outpaintTask.update({ where: { taskId }, data: { status: 'SUCCEEDED', resultUrl: finalUrl } })
-    return R.ok({ taskId, status: 'SUCCEEDED', resultUrl: finalUrl })
+    return await saveResult(task, taskId, outputImageUrl)
   } catch (error: any) {
     await prisma.outpaintTask.update({ where: { taskId }, data: { status: 'FAILED', errorMessage: error.message } }).catch(() => {})
     return R.error(error.message || '处理失败')

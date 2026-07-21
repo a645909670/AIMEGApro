@@ -57,6 +57,9 @@ import {
   RiLayoutRightFill,
 } from 'react-icons/ri'
 
+// 当前仅使用提示词图生图，暂时隐藏扩图相关控件，后续可通过此开关恢复。
+const SHOW_OUTPAINT_CONTROLS = false
+
 const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   params,
 }) => {
@@ -73,6 +76,8 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 })
   const stageRef = useRef<any>(null)
   const loginRef = useRef<GoogleLoginRef>(null)
+  const [selectedModel, setSelectedModel] = useState<'tongyi' | 'gpt-image-2'>('gpt-image-2')
+  const [promptText, setPromptText] = useState('')
   const [selectedExpandDirection, setSelectedExpandDirection] = useState<
     '16:9' | '9:16' | '1:1'
   >('16:9')
@@ -421,23 +426,30 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
       // 2. 提交扩图任务到队列
       let task = await fetchPost('/api/outpaint', {
         imageKey,
+        model: selectedModel,
         expandDirection: selectedExpandDirection,
         alignment: selectedPosition,
-        prompt: process.env.NEXT_PUBLIC_MCP_PROMPT || '',
+        prompt: promptText || (process.env.NEXT_PUBLIC_MCP_PROMPT || ''),
       }) as any
 
       if (!task || !task.taskId) {
         throw new Error(t`Failed to submit task.`)
       }
 
-      // 3. 处理任务
-      task = await fetchPost('/api/outpaint', { action: 'process', taskId: task.taskId }) as any
+      // 3. 异步触发处理（不等待完成，由轮询获取结果）
+      fetch('/api/outpaint', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'process', taskId: task.taskId, model: selectedModel }),
+      }).catch(() => {})
 
-      // 4. 如果还在处理中，轮询等待
-      while (task.status === 'PENDING' || task.status === 'PROCESSING') {
+      // 4. 轮询等待结果
+      task = task as any
+      while (task?.status === 'PENDING' || task?.status === 'PROCESSING') {
         await new Promise(resolve => setTimeout(resolve, 2000))
-        task = await (await fetch(`/api/outpaint?taskId=${task.taskId}`)).json()
-        task = task.data
+        const res = await fetch(`/api/outpaint?taskId=${task.taskId}`)
+        const json = await res.json()
+        task = json.data
       }
 
       if (task.status !== 'SUCCEEDED' || !task.resultUrl) {
@@ -639,23 +651,52 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
           </div>
 
           <div className="flex-grow justify-center items-center space-x-4 hidden md:flex">
-            <div className="flex items-center space-x-2">
+            {SHOW_OUTPAINT_CONTROLS && <div className="flex items-center space-x-2">
               <span className="text-sm whitespace-nowrap">{t`Expansion Direction:`}</span>
               <div className="flex space-x-2">
                 <AspectRatioButton ratio="16:9" label={t`Horizontal`} />
                 <AspectRatioButton ratio="9:16" label={t`Vertical`} />
                 <AspectRatioButton ratio="1:1" label={t`Square`} />
               </div>
-            </div>
+            </div>}
 
             <div className="flex items-center space-x-2">
+              <span className="text-sm whitespace-nowrap">{t`Model:`}</span>
+              <div className="flex space-x-1">
+                {SHOW_OUTPAINT_CONTROLS && <Button
+                  size="sm"
+                  color={selectedModel === 'tongyi' ? 'primary' : 'default'}
+                  variant={selectedModel === 'tongyi' ? 'solid' : 'flat'}
+                  onClick={() => setSelectedModel('tongyi')}
+                >{t`Tongyi`}</Button>}
+                <Button
+                  size="sm"
+                  color={selectedModel === 'gpt-image-2' ? 'primary' : 'default'}
+                  variant={selectedModel === 'gpt-image-2' ? 'solid' : 'flat'}
+                  onClick={() => setSelectedModel('gpt-image-2')}
+                >{t`GPT Image`}</Button>
+              </div>
+            </div>
+            {selectedModel === 'gpt-image-2' && (
+              <div className="flex items-center space-x-2">
+                <span className="text-sm whitespace-nowrap">{t`Prompt:`}</span>
+                <input
+                  type="text"
+                  value={promptText}
+                  onChange={(e) => setPromptText(e.target.value)}
+                  placeholder={t`Describe what you want to generate...`}
+                  className="px-3 py-1.5 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary w-64"
+                />
+              </div>
+            )}
+            {SHOW_OUTPAINT_CONTROLS && <div className="flex items-center space-x-2">
               <span className="text-sm whitespace-nowrap">{t`Original Image Position:`}</span>
               <div className="flex space-x-2">
                 {getAvailablePositions(selectedExpandDirection).map((pos) => (
                   <PositionButton key={pos} position={pos as any} />
                 ))}
               </div>
-            </div>
+            </div>}
           </div>
 
           <div className="flex items-center space-x-2">
@@ -729,15 +770,15 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
             className="md:hidden sticky top-0 z-10 bg-white bg-opacity-90 p-4 shadow-md"
           >
             <div className="flex flex-col space-y-4">
-              <div>
+              {SHOW_OUTPAINT_CONTROLS && <div>
                 <p className="text-sm font-medium mb-2">{t`Expansion Direction`}</p>
                 <div className="flex justify-between">
                   <AspectRatioButton ratio="16:9" label={t`Horizontal`} />
                   <AspectRatioButton ratio="9:16" label={t`Vertical`} />
                   <AspectRatioButton ratio="1:1" label={t`Square`} />
                 </div>
-              </div>
-              <div>
+              </div>}
+              {SHOW_OUTPAINT_CONTROLS && <div>
                 <p className="text-sm font-medium mb-2">{t`Original Image Position`}</p>
                 <div className="flex justify-between space-x-2">
                   {getAvailablePositions(selectedExpandDirection).map((pos) => (
@@ -748,8 +789,20 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                     />
                   ))}
                 </div>
-              </div>
+              </div>}
             </div>
+            {selectedModel === 'gpt-image-2' && (
+              <div className="pt-2">
+                <p className="text-sm font-medium mb-1">{t`Prompt:`}</p>
+                <input
+                  type="text"
+                  value={promptText}
+                  onChange={(e) => setPromptText(e.target.value)}
+                  placeholder={t`Describe what you want to generate...`}
+                  className="w-full px-3 py-1.5 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+            )}
           </div>
 
           <div className="flex-grow relative">
@@ -859,14 +912,15 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                   <Download size={20} />
                   <span className="ml-1 hidden sm:inline">{t`Download`}</span>
                 </Button>
-                <Button
+                {/* 暂时隐藏授权功能 */}
+                {/* <Button
                   size="sm"
                   color={skipAuth ? "warning" : "default"}
                   variant="flat"
                   onClick={() => setSkipAuth(!skipAuth)}
                 >
                   {skipAuth ? t`Auth Off` : t`Auth`}
-                </Button>
+                </Button> */}
               </div>
 
               <div className="flex justify-center gap-2 mt-2 sm:mt-0 overflow-x-auto w-full sm:w-auto">
