@@ -178,7 +178,8 @@ model OutpaintTask {
   errorMessage    String?  @db.VarChar(1000)
   userEmail       String?  @db.VarChar(255)       // 登录用户邮箱
   ipAddress        String?   @db.VarChar(50)       // 匿名用户 IP
-  createdAt       DateTime @default(now()) @map("create_time")
+  // 图片生成任务表以北京时间墙上时间保存，实际默认值由数据库迁移统一维护。
+  createdAt       DateTime @default(dbgenerated("timezone('Asia/Shanghai', now())")) @map("create_time")
   updatedAt       DateTime @updatedAt @map("update_time")
 
   @@map("t_outpaint_task")

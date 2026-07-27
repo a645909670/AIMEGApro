@@ -28,7 +28,7 @@ import { $Enums } from '@prisma/client'
 import { message, Spin } from 'antd'
 import { FcGoogle } from 'react-icons/fc'
 import { FaAngleRight, FaArrowUpFromBracket } from 'react-icons/fa6'
-import { fetchPost } from '@/utils'
+import { fetchGet, fetchPost } from '@/utils'
 import {
   ArrowLeft,
   CreditCard,
@@ -39,7 +39,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AiOutlineCloudUpload } from 'react-icons/ai'
 import { Image as KonvaImage, Layer, Stage } from 'react-konva'
 // import runpodSdk from 'runpod-sdk'
@@ -60,6 +60,20 @@ import {
 // 当前仅使用提示词图生图，暂时隐藏扩图相关控件，后续可通过此开关恢复。
 const SHOW_OUTPAINT_CONTROLS = false
 
+/**
+ * GPT Image 生成支持的画布比例选项，值会直接传给 right.codes 的 size 参数。
+ */
+type ImageGenerationSize = '1:1' | '16:9' | '9:16' | '4:3'
+const IMAGE_SIZE_OPTIONS: ImageGenerationSize[] = ['1:1', '16:9', '9:16', '4:3']
+
+/**
+ * 登录用户当天的图片生成额度，由服务端根据有效任务记录计算。
+ */
+type DailyGenerationQuota = {
+  limit: number
+  remaining: number
+}
+
 const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   params,
 }) => {
@@ -78,6 +92,11 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   const loginRef = useRef<GoogleLoginRef>(null)
   const [selectedModel, setSelectedModel] = useState<'tongyi' | 'gpt-image-2'>('gpt-image-2')
   const [promptText, setPromptText] = useState('')
+  const [selectedImageSize, setSelectedImageSize] = useState<ImageGenerationSize>('1:1')
+  const [dailyGenerationQuota, setDailyGenerationQuota] = useState<DailyGenerationQuota>({
+    limit: 3,
+    remaining: 3,
+  })
   const [selectedExpandDirection, setSelectedExpandDirection] = useState<
     '16:9' | '9:16' | '1:1'
   >('16:9')
@@ -97,7 +116,6 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   const topOptionsRef = useRef<HTMLDivElement>(null)
   const bottomControlsRef = useRef<HTMLDivElement>(null)
   const [mobileTopOptionsHeight, setMobileTopOptionsHeight] = useState(0)
-  const mobileTopOptionsRef = useRef<HTMLDivElement>(null)
   const uploadRef = useRef<UeUploadRef>(null)
   // 原始图片的key
   const [originKey, setOriginKey] = useState<string | null>(null)
@@ -111,6 +129,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     [status],
   )
   const isAuthenticated = useMemo(() => 'authenticated' === status, [status])
+  const dailyQuotaText = `Today: ${dailyGenerationQuota.remaining}/${dailyGenerationQuota.limit} left`
   // 当前画布显示的图片对应的pathkey
   const [currentImagePath, setCurrentImagePath] = useState<string | null>(null)
   const [hasGeneratedImage, setHasGeneratedImage] = useState(false)
@@ -125,13 +144,32 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   const [isImageLoading, setIsImageLoading] = useState(false)
   const [originalFileName, setOriginalFileName] = useState<string | null>(null)
 
+  /**
+   * 获取当前登录用户的当日生成额度，并同步到头像信息。
+   */
+  const refreshDailyGenerationQuota = useCallback(async () => {
+    if (!isAuthenticated) {
+      setDailyGenerationQuota({ limit: 3, remaining: 3 })
+      return
+    }
+
+    try {
+      const quota = await fetchGet<DailyGenerationQuota>('/api/outpaint', { quota: '1' })
+      setDailyGenerationQuota(quota)
+    } catch (error: any) {
+      console.error('Failed to load daily generation quota:', error)
+      msg.error('获取今日生成次数失败，请稍后重试')
+    }
+  }, [isAuthenticated, msg])
+
+  useEffect(() => {
+    void refreshDailyGenerationQuota()
+  }, [refreshDailyGenerationQuota])
+
   useEffect(() => {
     const updateCanvasSize = () => {
       const navbarHeight = 64 // Navbar 的高度
-      const isMobile = window.innerWidth < 768
-      const mobileTopOptionsHeight = isMobile
-        ? mobileTopOptionsRef.current?.offsetHeight || 120
-        : 0
+      const mobileTopOptionsHeight = 0
       const bottomControlsHeight = bottomControlsRef.current?.offsetHeight || 80
 
       const availableHeight =
@@ -204,6 +242,12 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   }
 
   const handleBeforeUpload = (file: File) => {
+    if (!isAuthenticated) {
+      msg.warning(t`Please Sign In To Continue`)
+      loginRef.current?.open()
+      return false
+    }
+
     // 限制文件大小 10MB
     if (file.size > 10485760) {
       msg.error(t`File size exceeds 10MB. Please select a smaller file.`)
@@ -413,7 +457,18 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
 
 
+  /**
+   * 创建并轮询图片生成任务。
+   * @param regenerate 是否基于首次上传的原图重新生成；为 false 时使用当前画布图片。
+   * @returns 完成后将结果图片写入画布；未登录或服务端额度不足时不创建任务。
+   */
   const handleGenerate = async (regenerate: boolean = false) => {
+    if (!isAuthenticated) {
+      msg.warning(t`Please Sign In To Continue`)
+      loginRef.current?.open()
+      return
+    }
+
     setIsLoading(true)
     setIsProcessing(true)
 
@@ -427,7 +482,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
       let task = await fetchPost('/api/outpaint', {
         imageKey,
         model: selectedModel,
-        expandDirection: selectedExpandDirection,
+        expandDirection: selectedImageSize,
         alignment: selectedPosition,
         prompt: promptText || (process.env.NEXT_PUBLIC_MCP_PROMPT || ''),
       }) as any
@@ -436,12 +491,14 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
         throw new Error(t`Failed to submit task.`)
       }
 
+      await refreshDailyGenerationQuota()
+
       // 3. 异步触发处理（不等待完成，由轮询获取结果）
-      fetch('/api/outpaint', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'process', taskId: task.taskId, model: selectedModel }),
-      }).catch(() => {})
+      await fetchPost('/api/outpaint', {
+        action: 'process',
+        taskId: task.taskId,
+        model: selectedModel,
+      })
 
       // 4. 轮询等待结果
       task = task as any
@@ -483,6 +540,15 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
     } catch (error: any) {
       const msgText = typeof error === 'string' ? error : (error?.message || '')
+      if (msgText.includes('Daily generation limit reached')) {
+        setLimitModalMsg(msgText)
+        setShowLimitModal(true)
+        setIsLoading(false)
+        setIsProcessing(false)
+        console.error('Image generation limit reached:', error)
+        return
+      }
+
       if (msgText.includes('今日免费扩图次数已用完')) {
         setLimitModalMsg(msgText)
         setShowLimitModal(true)
@@ -677,18 +743,6 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                 >{t`GPT Image`}</Button>
               </div>
             </div>
-            {selectedModel === 'gpt-image-2' && (
-              <div className="flex items-center space-x-2">
-                <span className="text-sm whitespace-nowrap">{t`Prompt:`}</span>
-                <input
-                  type="text"
-                  value={promptText}
-                  onChange={(e) => setPromptText(e.target.value)}
-                  placeholder={t`Describe what you want to generate...`}
-                  className="px-3 py-1.5 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary w-64"
-                />
-              </div>
-            )}
             {SHOW_OUTPAINT_CONTROLS && <div className="flex items-center space-x-2">
               <span className="text-sm whitespace-nowrap">{t`Original Image Position:`}</span>
               <div className="flex space-x-2">
@@ -731,6 +785,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                         <>
                           <p className="font-semibold">{user?.email ?? ''}</p>
                           <p className="font-semibold">{t`Credit:${user?.credit ?? 0}`}</p>
+                          <p className="font-semibold">{dailyQuotaText}</p>
                         </>
                       ),
                     },
@@ -747,7 +802,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                   {user?.image && (
                     <User
                       name={user?.name ?? ''}
-                      description={t`Credit:${user?.credit ?? 0}`}
+                      description={dailyQuotaText}
                       className="cursor-pointer"
                       avatarProps={{
                         lang: params.lang,
@@ -765,46 +820,6 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
         </Navbar>
 
         <div className="flex-grow flex flex-col relative">
-          <div
-            ref={mobileTopOptionsRef}
-            className="md:hidden sticky top-0 z-10 bg-white bg-opacity-90 p-4 shadow-md"
-          >
-            <div className="flex flex-col space-y-4">
-              {SHOW_OUTPAINT_CONTROLS && <div>
-                <p className="text-sm font-medium mb-2">{t`Expansion Direction`}</p>
-                <div className="flex justify-between">
-                  <AspectRatioButton ratio="16:9" label={t`Horizontal`} />
-                  <AspectRatioButton ratio="9:16" label={t`Vertical`} />
-                  <AspectRatioButton ratio="1:1" label={t`Square`} />
-                </div>
-              </div>}
-              {SHOW_OUTPAINT_CONTROLS && <div>
-                <p className="text-sm font-medium mb-2">{t`Original Image Position`}</p>
-                <div className="flex justify-between space-x-2">
-                  {getAvailablePositions(selectedExpandDirection).map((pos) => (
-                    <PositionButton
-                      key={pos}
-                      position={pos as any}
-                      isMobile={true}
-                    />
-                  ))}
-                </div>
-              </div>}
-            </div>
-            {selectedModel === 'gpt-image-2' && (
-              <div className="pt-2">
-                <p className="text-sm font-medium mb-1">{t`Prompt:`}</p>
-                <input
-                  type="text"
-                  value={promptText}
-                  onChange={(e) => setPromptText(e.target.value)}
-                  placeholder={t`Describe what you want to generate...`}
-                  className="w-full px-3 py-1.5 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-              </div>
-            )}
-          </div>
-
           <div className="flex-grow relative">
             <Stage
               width={canvasSize.width}
@@ -853,6 +868,42 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                     </UeDropzoneUpload>
                   </div>
                 </Spin>
+              </div>
+            )}
+
+            {/* 提示词输入浮层：固定在画布区域底部居中，避免占用顶部工具栏空间。 */}
+            {selectedModel === 'gpt-image-2' && (
+              <div className="pointer-events-none absolute inset-x-0 bottom-6 z-20 flex justify-center px-4 sm:bottom-8">
+                <div className="pointer-events-auto w-full max-w-3xl rounded-[28px] border border-gray-200 bg-white/95 px-5 py-4 shadow-xl backdrop-blur-sm sm:px-7 sm:py-5">
+                  <label htmlFor="editor-prompt" className="sr-only">
+                    {t`Prompt:`}
+                  </label>
+                  <textarea
+                    id="editor-prompt"
+                    value={promptText}
+                    onChange={(e) => setPromptText(e.target.value)}
+                    placeholder={t`Describe what you want to generate...`}
+                    rows={2}
+                    className="w-full resize-none border-0 bg-transparent text-base text-gray-800 outline-none placeholder:text-gray-400 focus:ring-0 sm:text-lg"
+                  />
+                  <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-3">
+                    {IMAGE_SIZE_OPTIONS.map((size) => (
+                      <button
+                        key={size}
+                        type="button"
+                        onClick={() => setSelectedImageSize(size)}
+                        aria-pressed={selectedImageSize === size}
+                        className={`rounded-full border px-3 py-1 text-xs transition-colors sm:text-sm ${
+                          selectedImageSize === size
+                            ? 'border-primary bg-primary text-white'
+                            : 'border-gray-200 bg-gray-50 text-gray-600 hover:border-primary hover:text-primary'
+                        }`}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -994,14 +1045,9 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
             </ModalHeader>
             <ModalBody className="text-center py-4">
               <p className="text-lg font-semibold">{limitModalMsg}</p>
-              <p className="text-gray-500 mt-2">{t`Sign in with Google to get 5 uses per day.`}</p>
+              <p className="text-gray-500 mt-2">Daily generation limit: 3 uses</p>
             </ModalBody>
             <ModalFooter className="flex justify-center gap-3">
-              <Button color="primary" variant="flat" startContent={<FcGoogle size="1em" />}
-                onClick={() => { setShowLimitModal(false); signIn('google') }}
-              >
-                {t`Sign In With Google`}
-              </Button>
               <Button color="danger" variant="light" onPress={() => setShowLimitModal(false)}>
                 {t`Close`}
               </Button>

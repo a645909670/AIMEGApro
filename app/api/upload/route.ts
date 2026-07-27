@@ -2,9 +2,15 @@ import { NextRequest } from 'next/server'
 import { R } from '@/framework/utils'
 import { createPutSingedUrl } from '@/framework/utils/s34r2'
 import { createUploadFileKey } from '@/framework/components/ue-upload/utils'
+import { getAuthUser } from '@/auth'
 
 export async function POST(request: NextRequest) {
   try {
+    const authUser = await getAuthUser()
+    if (!authUser?.email) {
+      return R.bad('Please sign in before uploading.')
+    }
+
     const formData = await request.formData()
     const file = formData.get('file') as File
     if (!file) {

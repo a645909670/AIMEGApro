@@ -15,8 +15,11 @@ const DASHSCOPE_WORKSPACE_ID = process.env.DASHSCOPE_WORKSPACE_ID || ''
 const ALIBABA_API_KEY = process.env.ALIBABA_API_KEY || ''
 
 // 每日免费使用次数限制：登录用户 5 次，匿名用户 3 次
-const DAILY_LIMIT_AUTHED = 5
-const DAILY_LIMIT_ANON = 3
+/**
+ * 单个登录用户在北京时间自然日内最多可创建的有效图片生成任务数。
+ * 状态为 FAILED 的任务不占用额度，便于用户在生成失败后重新尝试。
+ */
+const DAILY_GENERATION_LIMIT = 3
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || ''
 
 function getScaleParams(expandDirection: string) {
@@ -43,22 +46,54 @@ function getClientIp(request: NextRequest): string {
 }
 
 /** 检查当日使用次数是否超限（登录用户5次，匿名用户3次） */
-async function checkDailyLimit(email: string | null, ip: string): Promise<{ allowed: boolean; used: number; limit: number }> {
+/**
+ * 统计登录用户在北京时间当天已创建的有效生成任务。
+ * @param email 登录用户邮箱
+ * @returns 当日用量及剩余可生成次数
+ */
+async function checkDailyLimit(email: string): Promise<{ allowed: boolean; used: number; limit: number; remaining: number }> {
   // 使用北京时间（UTC+8）作为统计基准
   const now = new Date()
   const beijingOffset = 8 * 60 * 60 * 1000 // UTC+8 的毫秒数
   const beijingNow = new Date(now.getTime() + beijingOffset)
-  beijingNow.setHours(0, 0, 0, 0)
+  // 不调用 setHours，避免受到 Node 进程本地时区影响。
   const todayStart = new Date(beijingNow.getTime() - beijingOffset) // 转回 UTC 用于数据库查询
 
-  const limit = email ? DAILY_LIMIT_AUTHED : DAILY_LIMIT_ANON
-
-  const where = email
-    ? { createdAt: { gte: todayStart }, userEmail: email, status: { not: 'FAILED' } }
-    : { createdAt: { gte: todayStart }, ipAddress: ip, status: { not: 'FAILED' } }
-
-  const usedCount = await prisma.outpaintTask.count({ where })
-  return { allowed: usedCount < limit, used: usedCount, limit }
+  /**
+   * t_outpaint_task 的 create_time 存储为“北京时间墙上时间”的 timestamp，
+   * 因此查询边界同样需要构造为北京时间 00:00，而不是转换成 UTC 的前一天 16:00。
+   * 使用 getUTC* 可避免部署服务器自身时区影响每日额度的重置时刻。
+   */
+  todayStart.setTime(Date.UTC(
+    beijingNow.getUTCFullYear(),
+    beijingNow.getUTCMonth(),
+    beijingNow.getUTCDate(),
+    0,
+    0,
+    0,
+  ))
+  const tomorrowStart = new Date(Date.UTC(
+    beijingNow.getUTCFullYear(),
+    beijingNow.getUTCMonth(),
+    beijingNow.getUTCDate() + 1,
+    0,
+    0,
+    0,
+  ))
+  const usedCount = await prisma.outpaintTask.count({
+    where: {
+      createdAt: { gte: todayStart, lt: tomorrowStart },
+      userEmail: email,
+      status: { not: 'FAILED' },
+    },
+  })
+  const remaining = Math.max(DAILY_GENERATION_LIMIT - usedCount, 0)
+  return {
+    allowed: remaining > 0,
+    used: usedCount,
+    limit: DAILY_GENERATION_LIMIT,
+    remaining,
+  }
 }
 
 async function uploadResultToS3(key: string, imageBuffer: Buffer, contentType: string) {
@@ -71,6 +106,18 @@ async function uploadResultToS3(key: string, imageBuffer: Buffer, contentType: s
 }
 
 export async function GET(request: NextRequest) {
+  if (request.nextUrl.searchParams.get('quota') === '1') {
+    try {
+      const authUser = await getAuthUser()
+      if (!authUser?.email) return R.bad('Please sign in before generating images.')
+
+      return R.ok(await checkDailyLimit(authUser.email))
+    } catch (error: any) {
+      console.error('Failed to load daily generation quota:', error)
+      return R.error('Failed to load daily generation quota.')
+    }
+  }
+
   const taskId = request.nextUrl.searchParams.get('taskId')
   if (!taskId) return R.bad('taskId is required')
 
@@ -142,7 +189,17 @@ export async function POST(request: NextRequest) {
     userEmail = authUser?.email || null
   } catch { /* 未登录用户 */ }
 
+  if (!userEmail) return R.bad('Please sign in before generating images.')
+
   const ip = getClientIp(request)
+
+  try {
+    const quota = await checkDailyLimit(userEmail)
+    if (!quota.allowed) return R.bad('Daily generation limit reached. Please try again tomorrow.')
+  } catch (error: any) {
+    console.error('Failed to verify daily generation quota:', error)
+    return R.error('Failed to verify daily generation quota.')
+  }
 
   // GPT 模型：先调用 right.codes API 获取 task_id，以此作为数据库 taskId
   if (useModel === 'gpt-image-2') {
