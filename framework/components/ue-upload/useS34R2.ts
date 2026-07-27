@@ -1,4 +1,3 @@
-import { fetchGet } from '@/framework/utils'
 import { createUploadFileKey } from '@/framework/components/ue-upload/utils'
 import { UeUploadProps } from '@/framework/components'
 import { useState } from 'react'
@@ -100,20 +99,47 @@ export default function useS34R2(props: UeUploadProps): Partial<UploadProps> {
   };
 
 
-  async function customRequest({ file, onProgress, onSuccess, onError }: any) {
+  /**
+   * 通过站内接口上传图片，统一由服务端完成 R2 写入。
+   * Vercel 开启尾斜杠规则后，/api/upload 会先返回 308；multipart 请求直接访问
+   * /api/upload/ 可避免重定向导致上传组件得到非 JSON 响应并显示无意义错误标识。
+   * @param {{ file: File, onSuccess: Function, onError: Function }} options - Ant Design Upload 的自定义请求参数
+   * @returns {Promise<void>} 上传完成后通过回调通知组件状态
+   */
+  async function customRequest({ file, onSuccess, onError }: any): Promise<void> {
     // 通过服务器代理上传（避免浏览器 CORS 限制）
     try {
       const formData = new FormData()
       formData.append('file', file)
-      const resp = await fetch('/api/upload', { method: 'POST', body: formData })
-      const result = await resp.json()
-      if (result.code === 200) {
-        file.extra = { key: result.data.key, action: '' }
+      const resp = await fetch('/api/upload/', {
+        method: 'POST',
+        body: formData,
+        credentials: 'same-origin',
+        headers: { Accept: 'application/json' },
+      })
+      const responseText = await resp.text()
+      let result: { code?: number; message?: string; data?: { key?: string } } = {}
+
+      try {
+        result = responseText ? JSON.parse(responseText) : {}
+      } catch (error) {
+        console.error('Failed to parse upload response:', error)
+        throw new Error(`Upload service returned an invalid response (${resp.status}).`)
+      }
+
+      if (!resp.ok) {
+        throw new Error(result.message || `Upload failed (${resp.status}).`)
+      }
+      const uploadKey = result.data?.key
+      if (result.code === 200 && uploadKey) {
+        file.extra = { key: uploadKey, action: '' }
         onSuccess(result, null as any)
+        return
       } else {
-        onError(new Error(result.message || 'Upload failed'), null)
+        throw new Error(result.message || 'Upload failed')
       }
     } catch (e: any) {
+      console.error('Image upload request failed:', e)
       onError(e, null)
     }
   }
