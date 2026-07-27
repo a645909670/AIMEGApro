@@ -241,12 +241,26 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     })
   }
 
-  const handleBeforeUpload = (file: File) => {
-    if (!isAuthenticated) {
-      msg.warning(t`Please Sign In To Continue`)
-      loginRef.current?.open()
+  /**
+   * 在执行上传或生成前确认 NextAuth 会话状态。
+   * 会话刷新期间 status 会短暂为 loading，此时不能误判为未登录并弹出 Google 登录框。
+   * @returns 是否已确认当前用户可以执行需要登录的操作
+   */
+  const ensureAuthenticated = useCallback((): boolean => {
+    if (status === 'loading') {
+      msg.info(t`Checking sign-in status. Please try again in a moment.`)
       return false
     }
+
+    if (status === 'authenticated') return true
+
+    msg.warning(t`Please Sign In To Continue`)
+    loginRef.current?.open()
+    return false
+  }, [msg, status])
+
+  const handleBeforeUpload = (file: File) => {
+    if (!ensureAuthenticated()) return false
 
     // 限制文件大小 10MB
     if (file.size > 10485760) {
@@ -463,11 +477,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
    * @returns 完成后将结果图片写入画布；未登录或服务端额度不足时不创建任务。
    */
   const handleGenerate = async (regenerate: boolean = false) => {
-    if (!isAuthenticated) {
-      msg.warning(t`Please Sign In To Continue`)
-      loginRef.current?.open()
-      return
-    }
+    if (!ensureAuthenticated()) return
 
     setIsLoading(true)
     setIsProcessing(true)
