@@ -1,7 +1,7 @@
 'use client'
 
 
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import {
   Button,
   Dropdown,
@@ -58,10 +58,11 @@ export type NavbarProps = {
 export default function Nav({ items, locale }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
   const pathname = usePathname()
-  const { data, status } = useSession()
+  const { data, status, update } = useSession()
   const isUnauthenticated = useMemo(() => 'unauthenticated' === status, [status])
   const isAuthenticated = useMemo(() => 'authenticated' === status, [status])
   const isSessionLoading = useMemo(() => 'loading' === status, [status])
+  const hasRequestedSessionRefresh = useRef(false)
   const [pathWithoutLocale, isActive] = useNavigation(pathname)
   const [currentLocale, locales] = useI18nLocale(locale)
   const user = data?.user as SessionUser
@@ -70,6 +71,16 @@ export default function Nav({ items, locale }: NavbarProps) {
   const [regForm, setRegForm] = React.useState({ email: '', name: '' })
   const [regLoading, setRegLoading] = React.useState(false)
   const [regResult, setRegResult] = React.useState<string | null>(null)
+
+  useEffect(() => {
+    if (hasRequestedSessionRefresh.current) return
+
+    hasRequestedSessionRefresh.current = true
+    void update().catch((error) => {
+      console.error('[auth] Failed to refresh homepage session', error)
+      message.error(t`Unable to check sign-in status. Please try again.`)
+    })
+  }, [update])
 
   /**
    * 使用与编辑页面一致的 NextAuth Google 登录流程。
