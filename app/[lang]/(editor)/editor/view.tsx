@@ -821,9 +821,9 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
               <Download size={20} />
               <span className="ml-1 hidden sm:inline">{t`Download`}</span>
             </Button>
-            {isLocalAuthBypass && <Button size="sm" color={skipAuth ? 'warning' : 'default'} variant="flat" onClick={() => setSkipAuth(!skipAuth)}>
+            {/* {isLocalAuthBypass && <Button size="sm" color={skipAuth ? 'warning' : 'default'} variant="flat" onClick={() => setSkipAuth(!skipAuth)}>
               {skipAuth ? t`Auth Off` : t`Auth`}
-            </Button>}
+            </Button>} */}
           </div>
 
           <div className="flex items-center gap-1 overflow-x-auto max-w-[180px]">
