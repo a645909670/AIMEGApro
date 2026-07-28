@@ -202,7 +202,8 @@ export async function POST(request: NextRequest) {
   }
 
   // GPT 模型：先调用 right.codes API 获取 task_id，以此作为数据库 taskId
-  if (useModel === 'gpt-image-2') {
+  const RIGHT_CODES_MODELS = ['gpt-image-2', 'nano-banana-2-lite', 'nano-banana-2']
+  if (RIGHT_CODES_MODELS.includes(useModel)) {
     try {
       const imageUrl = `${S3_PUBLIC_PATH}/${imageKey}`
       const imageResp = await fetch(imageUrl)
@@ -215,7 +216,7 @@ export async function POST(request: NextRequest) {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${GPT_IMAGE2_KEY}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'nano-banana-2-lite',
+          model: useModel,
           prompt: prompt || 'Expand this image naturally, keep the style consistent',
           n: 1, size: dir,
           async: true,
@@ -284,7 +285,7 @@ async function processTask(taskId: string, model: string = 'tongyi') {
   await prisma.outpaintTask.update({ where: { taskId }, data: { status: 'PROCESSING' } })
 
   try {
-    if (model === 'gpt-image-2') {
+    if (['gpt-image-2', 'nano-banana-2-lite', 'nano-banana-2'].includes(model)) {
       return await processWithOpenAI(task, taskId)
     }
     // 默认使用通义万相

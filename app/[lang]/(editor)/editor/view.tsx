@@ -79,7 +79,7 @@ const IMAGE_SIZE_OPTIONS: ImageGenerationSize[] = ['1:1', '16:9', '9:16', '4:3']
 /**
  * 编辑器支持的图像生成模型。
  */
-type ImageGenerationModel = 'tongyi' | 'gpt-image-2'
+type ImageGenerationModel = 'gpt-image-2' | 'nano-banana-2-lite' | 'nano-banana-2'
 
 /**
  * 登录用户当天的图片生成额度，由服务端根据有效任务记录计算。
@@ -968,24 +968,29 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
             )}
 
             {/* 提示词输入浮层：固定在画布区域底部居中，避免占用顶部工具栏空间。 */}
-            {selectedModel === 'gpt-image-2' && (
-              <div className="pointer-events-none absolute inset-x-0 bottom-6 z-20 flex justify-center px-4 sm:bottom-8">
+            <div className="pointer-events-none absolute inset-x-0 bottom-6 z-20 flex justify-center px-4 sm:bottom-8">
                 <div className="pointer-events-auto w-full max-w-5xl rounded-[28px] border border-gray-200 bg-white/95 px-5 py-3 shadow-xl backdrop-blur-sm sm:px-7 sm:py-4">
                   <div className="mb-2 flex flex-wrap items-center gap-2 border-b border-gray-100 pb-2">
                     <span className="text-sm font-medium whitespace-nowrap text-gray-700">{t`Model:`}</span>
                     <div className="flex flex-wrap gap-1">
-                      {SHOW_OUTPAINT_CONTROLS && <Button
-                        size="sm"
-                        color={isModelSelected('tongyi') ? 'primary' : 'default'}
-                        variant={isModelSelected('tongyi') ? 'solid' : 'flat'}
-                        onClick={() => handleModelChange('tongyi')}
-                      >{t`Tongyi`}</Button>}
                       <Button
                         size="sm"
                         color={isModelSelected('gpt-image-2') ? 'primary' : 'default'}
                         variant={isModelSelected('gpt-image-2') ? 'solid' : 'flat'}
                         onClick={() => handleModelChange('gpt-image-2')}
                       >{t`GPT Image`}</Button>
+                      <Button
+                        size="sm"
+                        color={isModelSelected('nano-banana-2-lite') ? 'primary' : 'default'}
+                        variant={isModelSelected('nano-banana-2-lite') ? 'solid' : 'flat'}
+                        onClick={() => handleModelChange('nano-banana-2-lite')}
+                      >nano-banana-2-lite</Button>
+                      <Button
+                        size="sm"
+                        color={isModelSelected('nano-banana-2') ? 'primary' : 'default'}
+                        variant={isModelSelected('nano-banana-2') ? 'solid' : 'flat'}
+                        onClick={() => handleModelChange('nano-banana-2')}
+                      >nano-banana-2</Button>
                     </div>
                   </div>
                   <label htmlFor="editor-prompt" className="sr-only">
@@ -1017,8 +1022,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                     ))}
                   </div>
                 </div>
-              </div>
-            )}
+            </div>
           </div>
 
           <div>
