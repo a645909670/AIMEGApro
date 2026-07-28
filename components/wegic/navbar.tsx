@@ -178,7 +178,13 @@ export default function Nav({ items, locale }: NavbarProps) {
       <NavbarContent className="hidden md:flex gap-10" justify="center">
         {
           items.map(it => (
-            <NavbarItem key={it.title} isActive={isActive(it.href)}>
+            <NavbarItem
+              key={it.title}
+              isActive={isActive(it.href)}
+              className={clsx({
+                '!bg-gradient-to-r !from-blue-500 !to-purple-600 rounded-full px-4 py-2': isActive(it.href),
+              })}
+            >
               <NextLink
                 className={clsx('text-foreground', { 'text-white': isActive(it.href) })}
                 href={locale ? `/${locale}${it.href}` : it.href}>{it.title}</NextLink>

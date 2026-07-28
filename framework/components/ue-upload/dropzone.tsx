@@ -14,9 +14,9 @@ export const UeDropzoneUpload = forwardRef<
   UeUploadRef,
   UeUploadProps
 >((props, ref) => {
-  const { provider = 's34r2' } = props
+  const { provider = 's34r2', skipAuth, ...uploadProps } = props
   const useProviderHook = 'cos' === provider ? useCos : useS34R2
-  const uploadConfig = useProviderHook(props)
+  const uploadConfig = useProviderHook({ ...uploadProps, skipAuth })
   const [fileList, setFileList] = useState<UploadFile[]>([])
 
   useImperativeHandle(
@@ -79,7 +79,7 @@ export const UeDropzoneUpload = forwardRef<
     <Dragger
       ref={ref as any}
       maxCount={1}
-      {...props}
+      {...uploadProps}
       {...uploadConfig}
       fileList={fileList}
       onChange={handleChange}

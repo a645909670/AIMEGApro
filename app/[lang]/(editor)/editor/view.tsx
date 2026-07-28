@@ -61,10 +61,25 @@ import {
 const SHOW_OUTPAINT_CONTROLS = false
 
 /**
+ * 提示词浮层占用的画布预留高度，避免图片缩放后被输入框遮挡。
+ */
+const PROMPT_PANEL_RESERVED_HEIGHT = 180
+
+/**
+ * 主画布图片相对于可用区域的最大显示比例，保留稳定留白并保持居中。
+ */
+const CANVAS_IMAGE_SCALE_RATIO = 0.8
+
+/**
  * GPT Image 生成支持的画布比例选项，值会直接传给 right.codes 的 size 参数。
  */
 type ImageGenerationSize = '1:1' | '16:9' | '9:16' | '4:3'
 const IMAGE_SIZE_OPTIONS: ImageGenerationSize[] = ['1:1', '16:9', '9:16', '4:3']
+
+/**
+ * 编辑器支持的图像生成模型。
+ */
+type ImageGenerationModel = 'tongyi' | 'gpt-image-2'
 
 /**
  * 登录用户当天的图片生成额度，由服务端根据有效任务记录计算。
@@ -90,7 +105,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 })
   const stageRef = useRef<any>(null)
   const loginRef = useRef<GoogleLoginRef>(null)
-  const [selectedModel, setSelectedModel] = useState<'tongyi' | 'gpt-image-2'>('gpt-image-2')
+  const [selectedModel, setSelectedModel] = useState<ImageGenerationModel>('gpt-image-2')
   const [promptText, setPromptText] = useState('')
   const [selectedImageSize, setSelectedImageSize] = useState<ImageGenerationSize>('1:1')
   const [dailyGenerationQuota, setDailyGenerationQuota] = useState<DailyGenerationQuota>({
@@ -104,6 +119,23 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     'Middle' | 'Left' | 'Right' | 'Top' | 'Bottom'
   >('Middle')
 
+  /**
+   * 更新提示词方框中的模型选择，供模型按钮统一调用。
+   * @param {ImageGenerationModel} model - 用户当前选择的图像生成模型
+   * @returns {void}
+   */
+  const handleModelChange = (model: ImageGenerationModel): void => {
+    setSelectedModel(model)
+  }
+
+  /**
+   * 判断模型按钮是否对应当前选中的模型。
+   * @param {ImageGenerationModel} model - 待判断的图像生成模型
+   * @returns {boolean} 当前模型是否处于选中状态
+   */
+  const isModelSelected = (model: ImageGenerationModel): boolean =>
+    selectedModel === model
+
   const [isLoading, setIsLoading] = useState(false)
   const [generatedImages, setGeneratedImages] = useState<string[]>([])
   const [originalImage, setOriginalImage] = useState<HTMLImageElement | null>(
@@ -111,10 +143,6 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   )
   const [isComparing, setIsComparing] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [topOptionsHeight, setTopOptionsHeight] = useState(0)
-  const [bottomControlsHeight, setBottomControlsHeight] = useState(0)
-  const topOptionsRef = useRef<HTMLDivElement>(null)
-  const bottomControlsRef = useRef<HTMLDivElement>(null)
   const [mobileTopOptionsHeight, setMobileTopOptionsHeight] = useState(0)
   const uploadRef = useRef<UeUploadRef>(null)
   // 原始图片的key
@@ -134,11 +162,14 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   const [currentImagePath, setCurrentImagePath] = useState<string | null>(null)
   const [hasGeneratedImage, setHasGeneratedImage] = useState(false)
   const [showOriginalModal, setShowOriginalModal] = useState(false)
+  const [showImagePreview, setShowImagePreview] = useState(false)
+  const [previewImageSrc, setPreviewImageSrc] = useState<string | null>(null)
   const [showLimitModal, setShowLimitModal] = useState(false)
   const [limitModalMsg, setLimitModalMsg] = useState('')
   const [historyImages, setHistoryImages] = useState<string[]>([])
   const [isProcessing, setIsProcessing] = useState(false)
   const [skipAuth, setSkipAuth] = useState(false) // 跳过登录验证开关
+  const isLocalAuthBypass = process.env.NODE_ENV === 'development'
   const skipAuthRef = useRef(skipAuth)
   skipAuthRef.current = skipAuth // 实时同步，供闭包内读取
   const [isImageLoading, setIsImageLoading] = useState(false)
@@ -170,18 +201,14 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     const updateCanvasSize = () => {
       const navbarHeight = 64 // Navbar 的高度
       const mobileTopOptionsHeight = 0
-      const bottomControlsHeight = bottomControlsRef.current?.offsetHeight || 80
-
       const availableHeight =
         window.innerHeight -
         navbarHeight -
-        mobileTopOptionsHeight -
-        bottomControlsHeight
+        mobileTopOptionsHeight
       const width = window.innerWidth
 
       setCanvasSize({ width, height: availableHeight })
       setMobileTopOptionsHeight(mobileTopOptionsHeight)
-      setBottomControlsHeight(bottomControlsHeight)
     }
 
     updateCanvasSize()
@@ -219,14 +246,18 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
       }
 
       img.onload = () => {
+        const imageAreaHeight = Math.max(
+          120,
+          canvasSize.height - PROMPT_PANEL_RESERVED_HEIGHT,
+        )
         const scale = Math.min(
           (canvasSize.width - 72) / img.width,
-          (canvasSize.height - 72) / img.height,
-        )
+          (imageAreaHeight - 72) / img.height,
+        ) * CANVAS_IMAGE_SCALE_RATIO
         const width = img.width * scale
         const height = img.height * scale
         const x = (canvasSize.width - width) / 2
-        const y = (canvasSize.height - height) / 2
+        const y = (imageAreaHeight - height) / 2
         setImageProps({ width, height, x, y })
         setImage(img)
         setOriginalImage(img)
@@ -247,6 +278,8 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
    * @returns 是否已确认当前用户可以执行需要登录的操作
    */
   const ensureAuthenticated = useCallback((): boolean => {
+    if (isLocalAuthBypass && skipAuthRef.current) return true
+
     if (status === 'loading') {
       msg.info(t`Checking sign-in status. Please try again in a moment.`)
       return false
@@ -257,7 +290,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     msg.warning(t`Please Sign In To Continue`)
     loginRef.current?.open()
     return false
-  }, [msg, status])
+  }, [isLocalAuthBypass, msg, status])
 
   const handleBeforeUpload = (file: File) => {
     if (!ensureAuthenticated()) return false
@@ -530,16 +563,21 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
       img.onload = () => {
         setGeneratedImages((prev) => [...prev, resultImageUrl])
         setHistoryImages((prev) => [...prev, resultImageUrl])
+        setCurrentImagePath(resultImageUrl)
         setHasGeneratedImage(true)
 
+        const imageAreaHeight = Math.max(
+          120,
+          canvasSize.height - PROMPT_PANEL_RESERVED_HEIGHT,
+        )
         const scale = Math.min(
           (canvasSize.width - 72) / img.width,
-          (canvasSize.height - 72) / img.height,
-        )
+          (imageAreaHeight - 72) / img.height,
+        ) * CANVAS_IMAGE_SCALE_RATIO
         const width = img.width * scale
         const height = img.height * scale
         const x = (canvasSize.width - width) / 2
-        const y = (canvasSize.height - height) / 2
+        const y = (imageAreaHeight - height) / 2
         setImageProps({ width, height, x, y })
         setImage(img)
         setOriginalImage(img)
@@ -684,18 +722,33 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     const img = new Image()
     img.src = imgUrl(imgPath)
     img.onload = () => {
+      const imageAreaHeight = Math.max(
+        120,
+        canvasSize.height - PROMPT_PANEL_RESERVED_HEIGHT,
+      )
       setImage(img)
       const scale = Math.min(
         (canvasSize.width - 40) / img.width,
-        (canvasSize.height - 40) / img.height,
-      )
+        (imageAreaHeight - 40) / img.height,
+      ) * CANVAS_IMAGE_SCALE_RATIO
       setImageProps({
         width: img.width * scale,
         height: img.height * scale,
         x: (canvasSize.width - img.width * scale) / 2,
-        y: (canvasSize.height - img.height * scale) / 2,
+        y: (imageAreaHeight - img.height * scale) / 2,
       })
     }
+  }
+
+  /**
+   * 处理主画布图片点击，复用缩略图的图片切换行为。
+   * @returns {void}
+   */
+  const handleCanvasImageClick = (): void => {
+    if (!image) return
+    switchToImage(currentImagePath ?? image.src)
+    setPreviewImageSrc((isComparing ? originalImage : image)?.src ?? image.src)
+    setShowImagePreview(true)
   }
 
   const Thumbnail = ({ imgPath, isActive, onClick }: { imgPath: string; isActive: boolean; onClick: () => void }) => (
@@ -736,23 +789,6 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
               </div>
             </div>}
 
-            <div className="flex items-center space-x-2">
-              <span className="text-sm whitespace-nowrap">{t`Model:`}</span>
-              <div className="flex space-x-1">
-                {SHOW_OUTPAINT_CONTROLS && <Button
-                  size="sm"
-                  color={selectedModel === 'tongyi' ? 'primary' : 'default'}
-                  variant={selectedModel === 'tongyi' ? 'solid' : 'flat'}
-                  onClick={() => setSelectedModel('tongyi')}
-                >{t`Tongyi`}</Button>}
-                <Button
-                  size="sm"
-                  color={selectedModel === 'gpt-image-2' ? 'primary' : 'default'}
-                  variant={selectedModel === 'gpt-image-2' ? 'solid' : 'flat'}
-                  onClick={() => setSelectedModel('gpt-image-2')}
-                >{t`GPT Image`}</Button>
-              </div>
-            </div>
             {SHOW_OUTPAINT_CONTROLS && <div className="flex items-center space-x-2">
               <span className="text-sm whitespace-nowrap">{t`Original Image Position:`}</span>
               <div className="flex space-x-2">
@@ -761,6 +797,54 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                 ))}
               </div>
             </div>}
+          </div>
+
+          <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto">
+            <Button size="sm" color="default" onClick={handleClearCanvas} isDisabled={!image || isProcessing}>
+              <Trash2 size={20} />
+              <span className="ml-1 hidden sm:inline">{t`Clear Canvas`}</span>
+            </Button>
+            {hasGeneratedImage && <Button size="sm" color="secondary" onClick={() => handleGenerate(true)} isLoading={isLoading} isDisabled={!image || isProcessing}>
+              <RefreshCcw size={20} />
+              <span className="ml-1 hidden sm:inline">{t`Regenerate`}</span>
+            </Button>}
+            <Button size="sm" color="primary" onClick={() => handleGenerate(false)} isLoading={isLoading} isDisabled={!image || isProcessing}>
+              {isLoading ? <Spinner size="sm" /> : null}
+              <span className="ml-1 flex items-center">
+                {isLoading ? t`Expanding` : hasGeneratedImage ? t`Continue Generating` : t`Start`}
+              </span>
+            </Button>
+            <span className="ml-1 hidden whitespace-nowrap text-sm sm:inline">
+              {t`1 Credit/use, ${user?.credit} left`}
+            </span>
+            <Button size="sm" color="default" onClick={handleDownload} isDisabled={!image || isProcessing}>
+              <Download size={20} />
+              <span className="ml-1 hidden sm:inline">{t`Download`}</span>
+            </Button>
+            {isLocalAuthBypass && <Button size="sm" color={skipAuth ? 'warning' : 'default'} variant="flat" onClick={() => setSkipAuth(!skipAuth)}>
+              {skipAuth ? t`Auth Off` : t`Auth`}
+            </Button>}
+          </div>
+
+          <div className="flex items-center gap-1 overflow-x-auto max-w-[180px]">
+            {originKey && (
+              <div
+                className={`min-w-14 w-14 h-14 rounded border bg-cover bg-center cursor-pointer ${
+                  isCurrentImage(originKey) ? 'border-blue-500 border-2' : 'border-gray-300'
+                }`}
+                style={{ backgroundImage: `url(${imgUrl(originKey)})` }}
+                onClick={() => setShowOriginalModal(true)}
+                title="Original"
+              />
+            )}
+            {historyImages.map((imgPath, index) => (
+              <Thumbnail
+                key={index}
+                imgPath={imgPath}
+                isActive={isCurrentImage(imgPath)}
+                onClick={() => switchToImage(imgPath)}
+              />
+            ))}
           </div>
 
           <div className="flex items-center space-x-2">
@@ -844,7 +928,8 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                     }
                     {...imageProps}
                     opacity={isComparing ? 0.5 : 1}
-                    listening={false}
+                    onClick={handleCanvasImageClick}
+                    onTap={handleCanvasImageClick}
                   />
                 )}
               </Layer>
@@ -865,6 +950,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                       dir={'/input/origin'}
                       withTimestamp={true}
                       keepOriginName={true}
+                      skipAuth={isLocalAuthBypass && skipAuth}
                       onBeforeUpload={handleBeforeUpload}
                       onUploadFinish={handleUploadFinish}
                       onRemove={handleUploadRemove}
@@ -884,7 +970,24 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
             {/* 提示词输入浮层：固定在画布区域底部居中，避免占用顶部工具栏空间。 */}
             {selectedModel === 'gpt-image-2' && (
               <div className="pointer-events-none absolute inset-x-0 bottom-6 z-20 flex justify-center px-4 sm:bottom-8">
-                <div className="pointer-events-auto w-full max-w-3xl rounded-[28px] border border-gray-200 bg-white/95 px-5 py-4 shadow-xl backdrop-blur-sm sm:px-7 sm:py-5">
+                <div className="pointer-events-auto w-full max-w-5xl rounded-[28px] border border-gray-200 bg-white/95 px-5 py-3 shadow-xl backdrop-blur-sm sm:px-7 sm:py-4">
+                  <div className="mb-2 flex flex-wrap items-center gap-2 border-b border-gray-100 pb-2">
+                    <span className="text-sm font-medium whitespace-nowrap text-gray-700">{t`Model:`}</span>
+                    <div className="flex flex-wrap gap-1">
+                      {SHOW_OUTPAINT_CONTROLS && <Button
+                        size="sm"
+                        color={isModelSelected('tongyi') ? 'primary' : 'default'}
+                        variant={isModelSelected('tongyi') ? 'solid' : 'flat'}
+                        onClick={() => handleModelChange('tongyi')}
+                      >{t`Tongyi`}</Button>}
+                      <Button
+                        size="sm"
+                        color={isModelSelected('gpt-image-2') ? 'primary' : 'default'}
+                        variant={isModelSelected('gpt-image-2') ? 'solid' : 'flat'}
+                        onClick={() => handleModelChange('gpt-image-2')}
+                      >{t`GPT Image`}</Button>
+                    </div>
+                  </div>
                   <label htmlFor="editor-prompt" className="sr-only">
                     {t`Prompt:`}
                   </label>
@@ -893,10 +996,10 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                     value={promptText}
                     onChange={(e) => setPromptText(e.target.value)}
                     placeholder={t`Describe what you want to generate...`}
-                    rows={2}
+                    rows={1}
                     className="w-full resize-none border-0 bg-transparent text-base text-gray-800 outline-none placeholder:text-gray-400 focus:ring-0 sm:text-lg"
                   />
-                  <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-3">
+                  <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-2">
                     {IMAGE_SIZE_OPTIONS.map((size) => (
                       <button
                         key={size}
@@ -918,92 +1021,9 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
             )}
           </div>
 
-          <div
-            ref={bottomControlsRef}
-            className="bg-gray-100 p-2 m-h-14 z-10 sticky bottom-0"
-          >
-            <div className="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-              <div className="flex flex-wrap justify-center items-center gap-2 w-full sm:w-auto">
-                <Button
-                  size="sm"
-                  color="default"
-                  onClick={handleClearCanvas}
-                  isDisabled={!image || isProcessing}
-                >
-                  <Trash2 size={20} />
-                  <span className="ml-1 hidden sm:inline">{t`Clear Canvas`}</span>
-                </Button>
-                {hasGeneratedImage && (
-                  <Button
-                    size="sm"
-                    color="secondary"
-                    onClick={() => handleGenerate(true)}
-                    isLoading={isLoading}
-                    isDisabled={!image || isProcessing}
-                  >
-                    <RefreshCcw size={20} />
-                    <span className="ml-1">{t`Regenerate`}</span>
-                  </Button>
-                )}
-                <Button
-                  size="sm"
-                  color="primary"
-                  onClick={() => handleGenerate(false)}
-                  isLoading={isLoading}
-                  isDisabled={!image || isProcessing}
-                >
-                  {isLoading ? <Spinner size="sm" /> : null}
-                  <span className="ml-1 flex items-center">
-                    {isLoading
-                      ? t`Expanding`
-                      : hasGeneratedImage
-                        ? t`Continue Generating`
-                        : t`Start Expanding`}
-                  </span>
-                </Button>
-                <span className="ml-1 text-sm">
-                  {t`1 Credit/use, ${user?.credit} left`}
-                </span>
-                <Button
-                  size="sm"
-                  color="default"
-                  onClick={handleDownload}
-                  isDisabled={!image || isProcessing}
-                >
-                  <Download size={20} />
-                  <span className="ml-1 hidden sm:inline">{t`Download`}</span>
-                </Button>
+          <div>
+            <div>
                 {/* 暂时隐藏授权功能 */}
-                {/* <Button
-                  size="sm"
-                  color={skipAuth ? "warning" : "default"}
-                  variant="flat"
-                  onClick={() => setSkipAuth(!skipAuth)}
-                >
-                  {skipAuth ? t`Auth Off` : t`Auth`}
-                </Button> */}
-              </div>
-
-              <div className="flex justify-center gap-2 mt-2 sm:mt-0 overflow-x-auto w-full sm:w-auto">
-                {originKey && (
-                  <div
-                    className={`min-w-14 w-14 h-14 rounded border bg-cover bg-center cursor-pointer ${
-                      isCurrentImage(originKey) ? 'border-blue-500 border-2' : 'border-gray-300'
-                    }`}
-                    style={{ backgroundImage: `url(${imgUrl(originKey)})` }}
-                    onClick={() => setShowOriginalModal(true)}
-                    title="Original"
-                  />
-                )}
-                {historyImages.map((imgPath, index) => (
-                  <Thumbnail
-                    key={index}
-                    imgPath={imgPath}
-                    isActive={isCurrentImage(imgPath)}
-                    onClick={() => switchToImage(imgPath)}
-                  />
-                ))}
-              </div>
             </div>
           </div>
         </div>
@@ -1048,6 +1068,32 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
         </Modal>
 
         {/* 每日次数用完提示弹窗 */}
+        <Modal
+          isOpen={showImagePreview}
+          onClose={() => setShowImagePreview(false)}
+          size="full"
+          className="bg-black/90"
+        >
+          <ModalContent className="bg-black/90 shadow-none">
+            <ModalBody className="flex min-h-screen items-center justify-center p-4 sm:p-8">
+              {previewImageSrc && (
+                <img
+                  src={previewImageSrc}
+                  alt="Image preview"
+                  className="max-h-[90vh] max-w-full object-contain"
+                />
+              )}
+            </ModalBody>
+            <ModalFooter className="justify-center border-t border-white/10">
+              <Button
+                color="default"
+                variant="flat"
+                onClick={() => setShowImagePreview(false)}
+              >{t`Close`}</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+
         <Modal isOpen={showLimitModal} onClose={() => setShowLimitModal(false)}>
           <ModalContent>
             <ModalHeader className="flex flex-col items-center text-warning">

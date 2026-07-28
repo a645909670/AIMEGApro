@@ -1,6 +1,6 @@
 import { createUploadFileKey } from '@/framework/components/ue-upload/utils'
 import { UeUploadProps } from '@/framework/components'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import type { UploadProps } from 'antd'
 import { t } from '@lingui/macro'
 
@@ -38,7 +38,8 @@ function createUploadError(error: unknown, traceId: string): Error {
 }
 
 export default function useS34R2(props: UeUploadProps): Partial<UploadProps> {
-
+  const skipAuthRef = useRef(props.skipAuth ?? false)
+  skipAuthRef.current = props.skipAuth ?? false
 
   function uploadFile(url: string,
                       file: File,
@@ -151,6 +152,7 @@ export default function useS34R2(props: UeUploadProps): Partial<UploadProps> {
         headers: {
           Accept: 'application/json',
           'X-Upload-Trace-Id': traceId,
+          ...(skipAuthRef.current ? { 'X-Local-Skip-Auth': 'true' } : {}),
         },
       })
       const responseText = await resp.text()

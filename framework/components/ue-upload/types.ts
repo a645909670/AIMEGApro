@@ -11,6 +11,7 @@ export type UeUploadRef = UploadRef<any> & {
 
 
 export interface UeUploadProps extends Partial<Omit<UploadProps, 'value' | 'onChange'>> {
+  skipAuth?: boolean
   draggable?: boolean
   dir?: string
   withTimestamp?: boolean
