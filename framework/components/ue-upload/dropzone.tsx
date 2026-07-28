@@ -1,7 +1,7 @@
 import { forwardRef, useImperativeHandle, useState } from 'react'
 import { UeUploadProps, UeUploadRef } from './types'
 import type { UploadFile } from 'antd'
-import { Upload } from 'antd'
+import { message, Upload } from 'antd'
 import { InboxOutlined } from '@ant-design/icons'
 import { UploadChangeParam } from 'antd/es/upload/interface'
 import useCos from './useCos'
@@ -28,12 +28,51 @@ export const UeDropzoneUpload = forwardRef<
   )
 
   function handleChange({ file, fileList }: UploadChangeParam) {
-    if ('done' === file.status && props?.onUploadFinish) {
-      props.onUploadFinish(file)
+    const uploadStep = file.status ?? 'unknown'
+
+    try {
+      console.info('[upload] onChange received', {
+        step: uploadStep,
+        fileName: file.name ?? 'unknown',
+        response: file.response,
+      })
+
+      if ('error' === file.status) {
+        const rawError = file.error
+        const rawMessage = rawError instanceof Error ? rawError.message : String(rawError ?? '')
+        const readableMessage = /qEnA05/i.test(rawMessage)
+          ? '图片上传预校验异常，请重新选择图片后再试。'
+          : rawMessage || '图片上传失败，请稍后重试。'
+        console.error('[upload] onChange upload failed', {
+          step: uploadStep,
+          fileName: file.name ?? 'unknown',
+          rawError,
+          response: file.response,
+        })
+        message.error(readableMessage)
+        return
+      }
+
+      if ('done' !== file.status) return
+
+      props?.onUploadFinish?.(file)
       // @ts-ignore
-      props?.onChangeValue && props?.onChangeValue(file.extra.key, file.extra)
+      props?.onChangeValue?.(file.extra?.key ?? '', file.extra)
+    } catch (error: unknown) {
+      const rawMessage = error instanceof Error ? error.message : String(error ?? '')
+      const readableMessage = /qEnA05/i.test(rawMessage)
+        ? '图片上传完成后的数据处理异常，请重新选择图片后再试。'
+        : rawMessage || '图片上传后的数据处理失败，请稍后重试。'
+      console.error('[upload] onChange callback failed', {
+        step: uploadStep,
+        fileName: file.name ?? 'unknown',
+        error,
+        response: file.response,
+      })
+      message.error(readableMessage)
+    } finally {
+      setFileList(fileList.slice())
     }
-    setFileList(fileList.slice())
   }
 
   return (

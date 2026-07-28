@@ -24,11 +24,17 @@ function createUploadTraceId(): string {
  * @returns {Error} 可传递给 Ant Design Upload 的标准错误对象
  */
 function createUploadError(error: unknown, traceId: string): Error {
+  const rawMessage = error instanceof Error ? error.message : String(error ?? '')
+  const isMinifiedUploadError = /qEnA05/i.test(rawMessage)
+  const readableMessage = isMinifiedUploadError
+    ? '图片预校验失败，请重新选择图片后再试。'
+    : rawMessage || '图片上传失败，请稍后重试。'
+
   if (error instanceof Error) {
-    return new Error(`${error.message} (Trace ID: ${traceId})`)
+    return new Error(`${readableMessage} (追踪编号: ${traceId})`)
   }
 
-  return new Error(`Image upload failed. Please try again. (Trace ID: ${traceId})`)
+  return new Error(`${readableMessage} (追踪编号: ${traceId})`)
 }
 
 export default function useS34R2(props: UeUploadProps): Partial<UploadProps> {
@@ -55,10 +61,6 @@ export default function useS34R2(props: UeUploadProps): Partial<UploadProps> {
     xhr.upload.onprogress = onProgress
     xhr.setRequestHeader('Content-Type', file.type)
     // 对文件进行压缩
-   /* compressImage(file, (compressedFile:File) => {
-      console.log('Compressed file size:', compressedFile.size);
-      xhr.send(compressedFile)
-    });*/
     xhr.send(file)
     return {
       abort: () => xhr.abort()
@@ -187,12 +189,32 @@ export default function useS34R2(props: UeUploadProps): Partial<UploadProps> {
   }
 
   async function handleBeforeUpload(file: any, files: any[]) {
-    const key = createUploadFileKey(file!.name, props, true)
-    file.extra = { key, action: '' }
-    if (props.onBeforeUpload) {
-      return props.onBeforeUpload(file, files)
+    const traceId = createUploadTraceId()
+
+    try {
+      const key = createUploadFileKey(file?.name ?? '', props, true)
+      file.extra = { key, action: '' }
+      console.info('[upload] beforeUpload started', {
+        traceId,
+        fileName: file?.name ?? 'unknown',
+        fileSize: file?.size ?? 0,
+      })
+
+      if (!props.onBeforeUpload) return file
+
+      const result = await props.onBeforeUpload(file, files)
+      console.info('[upload] beforeUpload completed', { traceId, allowed: result !== false })
+      return result
+    } catch (error: unknown) {
+      const uploadError = createUploadError(error, traceId)
+      console.error('[upload] beforeUpload failed', {
+        traceId,
+        fileName: file?.name ?? 'unknown',
+        error: uploadError,
+        rawError: error,
+      })
+      throw uploadError
     }
-    return file
   }
 
   const [uploadConfig, setUploadConfig] = useState<UploadProps>({
