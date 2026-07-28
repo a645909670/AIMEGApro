@@ -811,7 +811,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
             <Button size="sm" color="primary" onClick={() => handleGenerate(false)} isLoading={isLoading} isDisabled={!image || isProcessing}>
               {isLoading ? <Spinner size="sm" /> : null}
               <span className="ml-1 flex items-center">
-                {isLoading ? t`Expanding` : hasGeneratedImage ? t`Continue Generating` : t`Start`}
+                {isLoading ? t`Expanding` : hasGeneratedImage ? t`Continue Generating` : 'Start'}
               </span>
             </Button>
             <span className="ml-1 hidden whitespace-nowrap text-sm sm:inline">
