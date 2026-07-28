@@ -25,7 +25,7 @@ import {
   useDisclosure,
 } from '@nextui-org/react'
 import { $Enums } from '@prisma/client'
-import { message, Spin } from 'antd'
+import { message, Select, Spin } from 'antd'
 import { FcGoogle } from 'react-icons/fc'
 import { FaAngleRight, FaArrowUpFromBracket } from 'react-icons/fa6'
 import { fetchGet, fetchPost } from '@/utils'
@@ -82,6 +82,18 @@ const IMAGE_SIZE_OPTIONS: ImageGenerationSize[] = ['1:1', '16:9', '9:16', '4:3']
 type ImageGenerationModel = 'gpt-image-2' | 'nano-banana-2-lite' | 'nano-banana-2'
 
 /**
+ * 编辑器模型下拉框的可选项。
+ */
+const IMAGE_MODEL_OPTIONS: Array<{
+  value: ImageGenerationModel
+  label: string
+}> = [
+  { value: 'gpt-image-2', label: 'GPT Image' },
+  { value: 'nano-banana-2-lite', label: 'nano-banana-2-lite' },
+  { value: 'nano-banana-2', label: 'nano-banana-2' },
+]
+
+/**
  * 登录用户当天的图片生成额度，由服务端根据有效任务记录计算。
  */
 type DailyGenerationQuota = {
@@ -127,14 +139,6 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   const handleModelChange = (model: ImageGenerationModel): void => {
     setSelectedModel(model)
   }
-
-  /**
-   * 判断模型按钮是否对应当前选中的模型。
-   * @param {ImageGenerationModel} model - 待判断的图像生成模型
-   * @returns {boolean} 当前模型是否处于选中状态
-   */
-  const isModelSelected = (model: ImageGenerationModel): boolean =>
-    selectedModel === model
 
   const [isLoading, setIsLoading] = useState(false)
   const [generatedImages, setGeneratedImages] = useState<string[]>([])
@@ -799,34 +803,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
             </div>}
           </div>
 
-          <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto">
-            <Button size="sm" color="default" onClick={handleClearCanvas} isDisabled={!image || isProcessing}>
-              <Trash2 size={20} />
-              <span className="ml-1 hidden sm:inline">{t`Clear Canvas`}</span>
-            </Button>
-            {hasGeneratedImage && <Button size="sm" color="secondary" onClick={() => handleGenerate(true)} isLoading={isLoading} isDisabled={!image || isProcessing}>
-              <RefreshCcw size={20} />
-              <span className="ml-1 hidden sm:inline">{t`Regenerate`}</span>
-            </Button>}
-            <Button size="sm" color="primary" onClick={() => handleGenerate(false)} isLoading={isLoading} isDisabled={!image || isProcessing}>
-              {isLoading ? <Spinner size="sm" /> : null}
-              <span className="ml-1 flex items-center">
-                {isLoading ? t`Expanding` : hasGeneratedImage ? t`Continue Generating` : 'Start'}
-              </span>
-            </Button>
-            <span className="ml-1 hidden whitespace-nowrap text-sm sm:inline">
-              {t`1 Credit/use, ${user?.credit} left`}
-            </span>
-            <Button size="sm" color="default" onClick={handleDownload} isDisabled={!image || isProcessing}>
-              <Download size={20} />
-              <span className="ml-1 hidden sm:inline">{t`Download`}</span>
-            </Button>
-            {/* {isLocalAuthBypass && <Button size="sm" color={skipAuth ? 'warning' : 'default'} variant="flat" onClick={() => setSkipAuth(!skipAuth)}>
-              {skipAuth ? t`Auth Off` : t`Auth`}
-            </Button>} */}
-          </div>
-
-          <div className="flex items-center gap-1 overflow-x-auto max-w-[180px]">
+          <div className="flex max-w-[420px] items-center gap-1 overflow-x-auto">
             {originKey && (
               <div
                 className={`min-w-14 w-14 h-14 rounded border bg-cover bg-center cursor-pointer ${
@@ -845,6 +822,14 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                 onClick={() => switchToImage(imgPath)}
               />
             ))}
+            <Button size="sm" color="default" onClick={handleClearCanvas} isDisabled={!image || isProcessing}>
+              <Trash2 size={18} />
+              <span className="ml-1 hidden sm:inline">{t`Clear Canvas`}</span>
+            </Button>
+            <Button size="sm" color="default" onClick={handleDownload} isDisabled={!image || isProcessing}>
+              <Download size={18} />
+              <span className="ml-1 hidden sm:inline">{t`Download`}</span>
+            </Button>
           </div>
 
           <div className="flex items-center space-x-2">
@@ -878,7 +863,6 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                       label: (
                         <>
                           <p className="font-semibold">{user?.email ?? ''}</p>
-                          <p className="font-semibold">{t`Credit:${user?.credit ?? 0}`}</p>
                           <p className="font-semibold">{dailyQuotaText}</p>
                         </>
                       ),
@@ -970,56 +954,63 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
             {/* 提示词输入浮层：固定在画布区域底部居中，避免占用顶部工具栏空间。 */}
             <div className="pointer-events-none absolute inset-x-0 bottom-6 z-20 flex justify-center px-4 sm:bottom-8">
                 <div className="pointer-events-auto w-full max-w-5xl rounded-[28px] border border-gray-200 bg-white/95 px-5 py-3 shadow-xl backdrop-blur-sm sm:px-7 sm:py-4">
-                  <div className="mb-2 flex flex-wrap items-center gap-2 border-b border-gray-100 pb-2">
-                    <span className="text-sm font-medium whitespace-nowrap text-gray-700">{t`Model:`}</span>
-                    <div className="flex flex-wrap gap-1">
-                      <Button
-                        size="sm"
-                        color={isModelSelected('gpt-image-2') ? 'primary' : 'default'}
-                        variant={isModelSelected('gpt-image-2') ? 'solid' : 'flat'}
-                        onClick={() => handleModelChange('gpt-image-2')}
-                      >{t`GPT Image`}</Button>
-                      <Button
-                        size="sm"
-                        color={isModelSelected('nano-banana-2-lite') ? 'primary' : 'default'}
-                        variant={isModelSelected('nano-banana-2-lite') ? 'solid' : 'flat'}
-                        onClick={() => handleModelChange('nano-banana-2-lite')}
-                      >nano-banana-2-lite</Button>
-                      <Button
-                        size="sm"
-                        color={isModelSelected('nano-banana-2') ? 'primary' : 'default'}
-                        variant={isModelSelected('nano-banana-2') ? 'solid' : 'flat'}
-                        onClick={() => handleModelChange('nano-banana-2')}
-                      >nano-banana-2</Button>
+                  <div className="mb-2 flex flex-col gap-2 border-b border-gray-100 pb-2 sm:flex-row sm:items-start sm:gap-4">
+                    <label htmlFor="editor-prompt" className="sr-only">
+                      {t`Prompt:`}
+                    </label>
+                    <textarea
+                      id="editor-prompt"
+                      value={promptText}
+                      onChange={(e) => setPromptText(e.target.value)}
+                      placeholder={t`Describe what you want to generate...`}
+                      rows={2}
+                      className="min-h-[64px] min-w-0 flex-1 resize-none border-0 bg-transparent text-sm leading-6 text-gray-800 outline-none placeholder:text-gray-400 focus:ring-0 sm:text-base"
+                    />
+                    <div className="flex shrink-0 items-center gap-2 self-end pt-1 sm:self-auto">
+                      <span className="text-sm font-medium whitespace-nowrap text-gray-700">{t`Model:`}</span>
+                      <Select<ImageGenerationModel>
+                        value={selectedModel}
+                        onChange={handleModelChange}
+                        options={IMAGE_MODEL_OPTIONS}
+                        className="min-w-44"
+                        popupMatchSelectWidth={false}
+                      />
                     </div>
                   </div>
-                  <label htmlFor="editor-prompt" className="sr-only">
-                    {t`Prompt:`}
-                  </label>
-                  <textarea
-                    id="editor-prompt"
-                    value={promptText}
-                    onChange={(e) => setPromptText(e.target.value)}
-                    placeholder={t`Describe what you want to generate...`}
-                    rows={1}
-                    className="w-full resize-none border-0 bg-transparent text-base text-gray-800 outline-none placeholder:text-gray-400 focus:ring-0 sm:text-lg"
-                  />
-                  <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-2">
-                    {IMAGE_SIZE_OPTIONS.map((size) => (
-                      <button
-                        key={size}
-                        type="button"
-                        onClick={() => setSelectedImageSize(size)}
-                        aria-pressed={selectedImageSize === size}
-                        className={`rounded-full border px-3 py-1 text-xs transition-colors sm:text-sm ${
-                          selectedImageSize === size
-                            ? 'border-primary bg-primary text-white'
-                            : 'border-gray-200 bg-gray-50 text-gray-600 hover:border-primary hover:text-primary'
-                        }`}
-                      >
-                        {size}
-                      </button>
-                    ))}
+                  <div className="mt-2 flex flex-wrap items-center justify-between gap-3 pt-2">
+                    <div className="order-2 flex flex-wrap items-center gap-2">
+
+                      {hasGeneratedImage && <Button size="sm" color="secondary" onClick={() => handleGenerate(true)} isLoading={isLoading} isDisabled={!image || isProcessing}>
+                        <RefreshCcw size={18} />
+                        <span className="ml-1 hidden sm:inline">{t`Regenerate`}</span>
+                      </Button>}
+                      <Button size="sm" color="primary" onClick={() => handleGenerate(false)} isLoading={isLoading} isDisabled={!image || isProcessing}>
+                        {isLoading ? <Spinner size="sm" /> : null}
+                        <span className="ml-1 flex items-center">
+                          {isLoading ? t`Expanding` : hasGeneratedImage ? t`Continue Generating` : 'Start'}
+                        </span>
+                      </Button>
+                      {/* {isLocalAuthBypass && <Button size="sm" color={skipAuth ? 'warning' : 'default'} variant="flat" onClick={() => setSkipAuth(!skipAuth)}>
+                      {skipAuth ? t`Auth Off` : t`Auth`}
+                    </Button>} */}
+                    </div>
+                    <div className="order-1 flex flex-wrap items-center gap-2">
+                      {IMAGE_SIZE_OPTIONS.map((size) => (
+                        <button
+                          key={size}
+                          type="button"
+                          onClick={() => setSelectedImageSize(size)}
+                          aria-pressed={selectedImageSize === size}
+                          className={`rounded-full border px-3 py-1 text-xs transition-colors sm:text-sm ${
+                            selectedImageSize === size
+                              ? 'border-primary bg-primary text-white'
+                              : 'border-gray-200 bg-gray-50 text-gray-600 hover:border-primary hover:text-primary'
+                          }`}
+                        >
+                          {size}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
             </div>

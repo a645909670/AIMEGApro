@@ -240,7 +240,6 @@ export default function Nav({ items, locale }: NavbarProps) {
                   disabled: true,
                   label: <>
                     <p className="font-semibold">{user?.email ?? ''}</p>
-                    <p className="font-semibold">{t`Credit:${user?.credit ?? 0}`}</p>
                   </>
                 },
                 {
@@ -256,7 +255,6 @@ export default function Nav({ items, locale }: NavbarProps) {
                   user?.image && (
                     <User
                       name={user?.name ?? ''}
-                      description={t`Credit:${user?.credit ?? 0}`}
                       className="cursor-pointer"
                       avatarProps={{
                         lang: locale,
