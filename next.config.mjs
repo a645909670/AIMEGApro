@@ -4,6 +4,9 @@ const nextConfig = {
   compress: true,
   optimizeFonts: true,
   experimental: {
+    outputFileTracingIncludes: {
+      '/*': ['./blogs/**/*'],
+    },
     swcPlugins: [
       [
         '@lingui/swc-plugin', {}

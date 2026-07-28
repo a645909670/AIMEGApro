@@ -25,7 +25,6 @@ export async function generateStaticParams() {
   for (const langDir of Object.values(AVAILABLE_LOCALES)) {
     allLang.push({lang: langDir})
   }
-  console.log('allLang', allLang)
   return allLang
 }
 export default async function BlogsPage({
