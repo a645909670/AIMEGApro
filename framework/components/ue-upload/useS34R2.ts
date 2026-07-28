@@ -4,6 +4,33 @@ import { useState } from 'react'
 import type { UploadProps } from 'antd'
 import { t } from '@lingui/macro'
 
+/**
+ * 创建单次上传的浏览器侧追踪编号。
+ * 编号只用于关联浏览器控制台与 Vercel Runtime Logs，不包含用户、文件名或登录凭据。
+ * @returns {String} 单次上传请求的追踪编号
+ */
+function createUploadTraceId(): string {
+  if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
+    return crypto.randomUUID()
+  }
+
+  return `upload-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
+}
+
+/**
+ * 将未知异常统一转换为包含可读信息的 Error，防止上传组件展示第三方内部错误标识。
+ * @param {unknown} error - fetch、响应解析或回调阶段抛出的原始异常
+ * @param {String} traceId - 当前上传请求的追踪编号
+ * @returns {Error} 可传递给 Ant Design Upload 的标准错误对象
+ */
+function createUploadError(error: unknown, traceId: string): Error {
+  if (error instanceof Error) {
+    return new Error(`${error.message} (Trace ID: ${traceId})`)
+  }
+
+  return new Error(`Image upload failed. Please try again. (Trace ID: ${traceId})`)
+}
+
 export default function useS34R2(props: UeUploadProps): Partial<UploadProps> {
 
 
@@ -100,47 +127,62 @@ export default function useS34R2(props: UeUploadProps): Partial<UploadProps> {
 
 
   /**
-   * 通过站内接口上传图片，统一由服务端完成 R2 写入。
-   * Vercel 开启尾斜杠规则后，/api/upload 会先返回 308；multipart 请求直接访问
-   * /api/upload/ 可避免重定向导致上传组件得到非 JSON 响应并显示无意义错误标识。
+   * 通过站内接口上传图片，并在每一阶段输出可关联的诊断信息。
    * @param {{ file: File, onSuccess: Function, onError: Function }} options - Ant Design Upload 的自定义请求参数
    * @returns {Promise<void>} 上传完成后通过回调通知组件状态
    */
   async function customRequest({ file, onSuccess, onError }: any): Promise<void> {
-    // 通过服务器代理上传（避免浏览器 CORS 限制）
+    const traceId = createUploadTraceId()
+
     try {
       const formData = new FormData()
       formData.append('file', file)
+      console.info('[upload] request started', {
+        traceId,
+        fileSize: file.size,
+        fileType: file.type || 'unknown',
+      })
       const resp = await fetch('/api/upload/', {
         method: 'POST',
         body: formData,
         credentials: 'same-origin',
-        headers: { Accept: 'application/json' },
+        headers: {
+          Accept: 'application/json',
+          'X-Upload-Trace-Id': traceId,
+        },
       })
       const responseText = await resp.text()
+      const responseTraceId = resp.headers.get('x-upload-trace-id') || traceId
       let result: { code?: number; message?: string; data?: { key?: string } } = {}
 
       try {
         result = responseText ? JSON.parse(responseText) : {}
       } catch (error) {
-        console.error('Failed to parse upload response:', error)
+        console.error('[upload] response was not JSON', {
+          traceId: responseTraceId,
+          status: resp.status,
+          contentType: resp.headers.get('content-type'),
+          error,
+        })
         throw new Error(`Upload service returned an invalid response (${resp.status}).`)
       }
 
-      if (!resp.ok) {
+      if (!resp.ok || result.code !== 200) {
         throw new Error(result.message || `Upload failed (${resp.status}).`)
       }
+
       const uploadKey = result.data?.key
-      if (result.code === 200 && uploadKey) {
-        file.extra = { key: uploadKey, action: '' }
-        onSuccess(result, null as any)
-        return
-      } else {
-        throw new Error(result.message || 'Upload failed')
+      if (!uploadKey) {
+        throw new Error('Upload service did not return an image key.')
       }
-    } catch (e: any) {
-      console.error('Image upload request failed:', e)
-      onError(e, null)
+
+      file.extra = { key: uploadKey, action: '' }
+      console.info('[upload] request completed', { traceId: responseTraceId, uploadKey })
+      onSuccess(result, null as any)
+    } catch (error: unknown) {
+      const uploadError = createUploadError(error, traceId)
+      console.error('[upload] request failed', { traceId, error: uploadError })
+      onError(uploadError, null)
     }
   }
 
