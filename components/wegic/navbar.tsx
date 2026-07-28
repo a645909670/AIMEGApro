@@ -61,6 +61,7 @@ export default function Nav({ items, locale }: NavbarProps) {
   const { data, status } = useSession()
   const isUnauthenticated = useMemo(() => 'unauthenticated' === status, [status])
   const isAuthenticated = useMemo(() => 'authenticated' === status, [status])
+  const isSessionLoading = useMemo(() => 'loading' === status, [status])
   const [pathWithoutLocale, isActive] = useNavigation(pathname)
   const [currentLocale, locales] = useI18nLocale(locale)
   const user = data?.user as SessionUser
@@ -69,6 +70,25 @@ export default function Nav({ items, locale }: NavbarProps) {
   const [regForm, setRegForm] = React.useState({ email: '', name: '' })
   const [regLoading, setRegLoading] = React.useState(false)
   const [regResult, setRegResult] = React.useState<string | null>(null)
+
+  /**
+   * 使用与编辑页面一致的 NextAuth Google 登录流程。
+   * 会话恢复期间不触发登录跳转，避免把 loading 状态误判为未登录。
+   * @returns {Promise<void>} 登录流程完成后的异步结果
+   */
+  const handleGoogleSignIn = async (): Promise<void> => {
+    if (isSessionLoading) {
+      message.info(t`Checking sign-in status. Please try again in a moment.`)
+      return
+    }
+
+    try {
+      await signIn('google')
+    } catch (error) {
+      console.error('[auth] Google sign-in failed', error)
+      message.error(t`Google sign-in failed. Please try again.`)
+    }
+  }
 
   const handleRegister = async () => {
     if (!regForm.email) return
@@ -178,18 +198,20 @@ export default function Nav({ items, locale }: NavbarProps) {
 
       <NavbarContent as="div" justify="end">
         {
-          isUnauthenticated && siteConfig.showLogin ? (
+          isSessionLoading ? (
+            <Skeleton className="rounded-lg w-24 h-8" />
+          ) : isUnauthenticated && siteConfig.showLogin ? (
             <>
               <div className="hidden sm:flex items-center gap-2">
                 <Button
                   color={'primary'}
                   variant="flat"
                   startContent={<FcGoogle size="1em" color="white" />}
-                  onClick={() => signIn('google')}
+                  onClick={() => void handleGoogleSignIn()}
                 >{t`Sign In With Google`}</Button>
               </div>
               <div className="sm:hidden">
-                <Button size="sm" color={'primary'} variant="flat" onClick={() => signIn('google')}>{t`Sign In`}</Button>
+                <Button size="sm" color={'primary'} variant="flat" onClick={() => void handleGoogleSignIn()}>{t`Sign In`}</Button>
               </div>
             </>
           ) : (
