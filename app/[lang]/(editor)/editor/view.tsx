@@ -96,9 +96,11 @@ type PersistedGenerationTask = {
   requestId: string
   taskId?: string
   model: ImageGenerationModel
+  createdAt: number
 }
 
 const ACTIVE_GENERATION_TASK_STORAGE_KEY = 'editor-active-generation-task'
+const MAX_TASK_RESTORE_DURATION = 30 * 60 * 1000
 
 const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   params,
@@ -141,6 +143,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [mobileTopOptionsHeight, setMobileTopOptionsHeight] = useState(0)
   const uploadRef = useRef<UeUploadRef>(null)
+  const hasRestoredTaskRef = useRef(false)
   // 原始图片的key
   const [originKey, setOriginKey] = useState<string | null>(null)
   // 添加一个新的 state 来存储 Stage 的样式
@@ -507,7 +510,13 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
 
   useEffect(() => {
-    if (!isAuthenticated) return
+    if (!isAuthenticated) {
+      hasRestoredTaskRef.current = false
+      return
+    }
+    if (hasRestoredTaskRef.current) return
+
+    hasRestoredTaskRef.current = true
 
     let isCancelled = false
 
@@ -517,7 +526,8 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
       try {
         const persistedTask = JSON.parse(storedTaskText) as PersistedGenerationTask
-        if (!persistedTask?.requestId) {
+        const isExpiredTask = Date.now() - persistedTask?.createdAt > MAX_TASK_RESTORE_DURATION
+        if (!persistedTask?.requestId || !persistedTask?.createdAt || isExpiredTask) {
           localStorage.removeItem(ACTIVE_GENERATION_TASK_STORAGE_KEY)
           return
         }
@@ -581,12 +591,21 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
         }
         restoredImage.onerror = () => {
           console.error('Failed to restore generated image:', task.resultUrl)
+          localStorage.removeItem(ACTIVE_GENERATION_TASK_STORAGE_KEY)
           msg.error(t`Failed to restore generated image.`)
           setIsLoading(false)
           setIsProcessing(false)
         }
         restoredImage.src = task.resultUrl
       } catch (error: any) {
+        const errorMessage = typeof error === 'string' ? error : error?.message ?? ''
+        if (errorMessage.includes('Task not found')) {
+          localStorage.removeItem(ACTIVE_GENERATION_TASK_STORAGE_KEY)
+          setIsLoading(false)
+          setIsProcessing(false)
+          return
+        }
+
         console.error('Failed to restore image generation task:', error)
         msg.error(t`Failed to restore image generation task.`)
         setIsLoading(false)
@@ -621,9 +640,10 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
       // 2. 提交扩图任务到队列
       // 每次用户主动生成均创建独立幂等键；刷新恢复会在后续步骤复用该值。
       const requestId = crypto.randomUUID()
+      const taskCreatedAt = Date.now()
       localStorage.setItem(
         ACTIVE_GENERATION_TASK_STORAGE_KEY,
-        JSON.stringify({ requestId, model: selectedModel }),
+        JSON.stringify({ requestId, model: selectedModel, createdAt: taskCreatedAt }),
       )
       let task = await fetchPost('/api/outpaint', {
         requestId,
@@ -640,7 +660,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
       localStorage.setItem(
         ACTIVE_GENERATION_TASK_STORAGE_KEY,
-        JSON.stringify({ requestId, taskId: task.taskId, model: selectedModel }),
+        JSON.stringify({ requestId, taskId: task.taskId, model: selectedModel, createdAt: taskCreatedAt }),
       )
 
       await refreshDailyGenerationQuota()
