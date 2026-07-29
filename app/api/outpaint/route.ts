@@ -119,15 +119,30 @@ export async function GET(request: NextRequest) {
   }
 
   const taskId = request.nextUrl.searchParams.get('taskId')
-  if (!taskId) return R.bad('taskId is required')
+  const requestId = request.nextUrl.searchParams.get('requestId')
+  if (!taskId && !requestId) return R.bad('taskId or requestId is required')
 
-  const task = await prisma.outpaintTask.findUnique({ where: { taskId } })
-  if (!task) return R.error('Task not found')
+  let userEmail: string | null = null
+  try {
+    const authUser = await getAuthUser()
+    userEmail = authUser?.email ?? null
+  } catch (error: any) {
+    console.error('Failed to verify task query user:', error)
+    return R.error('Failed to verify task owner.')
+  }
+  if (!userEmail) return R.bad('Please sign in before querying image tasks.')
+
+  const task = taskId
+    ? await prisma.outpaintTask.findUnique({ where: { taskId } })
+    : await prisma.outpaintTask.findUnique({
+      where: { userEmail_requestId: { userEmail: userEmail as string, requestId: requestId as string } },
+    })
+  if (!task || task.userEmail !== userEmail) return R.error('Task not found')
 
   // GPT 模型（taskId 以 task_ 开头）：代理查询 right.codes 实时状态
-  if (taskId.startsWith('task_') && task.status === 'PROCESSING') {
+  if (task.providerTaskId && task.status === 'PROCESSING') {
     try {
-      const pollResp = await fetch('https://www.right.codes/v1/tasks/' + taskId, {
+      const pollResp = await fetch('https://www.right.codes/v1/tasks/' + task.providerTaskId, {
         headers: { 'Authorization': 'Bearer ' + GPT_IMAGE2_KEY },
       })
       const pollResult = await pollResp.json()
@@ -135,7 +150,6 @@ export async function GET(request: NextRequest) {
       // right.codes 完成后可能不返回 status，直接返回 data 数组
       const hasDataUrl = pollResult.data?.[0]?.url || pollResult.data?.[0]?.b64_json || pollResult.data?.url || pollResult.url || pollResult.result
       const isCompleted = rtStatus === 'succeeded' || rtStatus === 'completed' || rtStatus === 'success' || rtStatus === 'SUCCEEDED' || hasDataUrl
-      console.log('GPT 代理查询, 状态:', rtStatus, '有返回数据:', !!hasDataUrl)
 
       if (isCompleted) {
         const imageUrl = pollResult.data?.[0]?.url || pollResult.data?.[0]?.b64_json || pollResult.data?.output?.[0] || pollResult.output?.[0] ||
@@ -150,7 +164,7 @@ export async function GET(request: NextRequest) {
         return R.ok({ taskId, status: 'FAILED', errorMessage: 'GPT 任务成功但未找到图片URL' })
       }
       if (rtStatus === 'failed' || rtStatus === 'FAILED') {
-        await prisma.outpaintTask.update({ where: { taskId }, data: { status: 'FAILED', errorMessage: pollResult.error?.message || 'GPT 处理失败' } })
+        await prisma.outpaintTask.update({ where: { taskId: task.taskId }, data: { status: 'FAILED', errorMessage: pollResult.error?.message || 'GPT 处理失败' } })
         return R.ok({ taskId, status: 'FAILED', errorMessage: pollResult.error?.message || 'GPT 处理失败' })
       }
       // 还在处理中，返回 PROCESSING
@@ -172,13 +186,8 @@ export async function GET(request: NextRequest) {
 // 提交扩图任务
 export async function POST(request: NextRequest) {
   const body = await request.json()
-  const { imageKey, model, expandDirection, alignment, prompt, action } = body
+  const { imageKey, model, expandDirection, alignment, prompt, action, requestId } = body
 
-  if (action === 'process') {
-    return processTask(body.taskId, body.model || 'tongyi')
-  }
-
-  if (!imageKey) return R.bad('imageKey is required')
   const dir = expandDirection || '16:9'
   const useModel = model || 'tongyi'
 
@@ -187,9 +196,34 @@ export async function POST(request: NextRequest) {
   try {
     const authUser = await getAuthUser()
     userEmail = authUser?.email || null
-  } catch { /* 未登录用户 */ }
+  } catch (error: any) {
+    console.error('Failed to verify image generation user:', error)
+  }
 
   if (!userEmail) return R.bad('Please sign in before generating images.')
+
+  if (action === 'process') {
+    return processTask(body.taskId, body.model || 'tongyi', userEmail)
+  }
+
+  if (!imageKey) return R.bad('imageKey is required')
+
+  if (typeof requestId !== 'string' || !/^[a-zA-Z0-9-]{16,64}$/.test(requestId)) {
+    return R.bad('requestId is required and must be a valid idempotency key.')
+  }
+
+  // 同一用户重复提交同一幂等键时，直接复用任务，避免重复占用额度和调用第三方服务。
+  const existingTask = await prisma.outpaintTask.findUnique({
+    where: { userEmail_requestId: { userEmail, requestId } },
+  })
+  if (existingTask) {
+    return R.ok({
+      taskId: existingTask.taskId,
+      status: existingTask.status,
+      resultUrl: existingTask.resultUrl,
+      errorMessage: existingTask.errorMessage,
+    })
+  }
 
   const ip = getClientIp(request)
 
@@ -204,10 +238,31 @@ export async function POST(request: NextRequest) {
   // GPT 模型：先调用 right.codes API 获取 task_id，以此作为数据库 taskId
   const RIGHT_CODES_MODELS = ['gpt-image-2', 'nano-banana-2-lite', 'nano-banana-2']
   if (RIGHT_CODES_MODELS.includes(useModel)) {
+    const taskId = nanoid()
+    let hasCreatedTask = false
+
     try {
+      // 先记录本地任务，再调用第三方；重复请求会被数据库唯一约束拦截。
+      await prisma.outpaintTask.create({
+        data: {
+          taskId,
+          requestId,
+          imageKey,
+          expandDirection: dir,
+          alignment: alignment || 'Middle',
+          prompt: prompt || '',
+          status: 'PENDING',
+          userEmail,
+          ipAddress: null,
+        },
+      })
+
+      hasCreatedTask = true
       const imageUrl = `${S3_PUBLIC_PATH}/${imageKey}`
       const imageResp = await fetch(imageUrl)
-      if (!imageResp.ok) return R.error('获取图片失败')
+      if (!imageResp.ok) {
+        throw new Error('Failed to fetch source image.')
+      }
       const buf = Buffer.from(await imageResp.arrayBuffer())
       const base64 = buf.toString('base64')
       const mime = imageResp.headers.get('content-type') || 'image/png'
@@ -225,13 +280,42 @@ export async function POST(request: NextRequest) {
       })
       const result = await apiResp.json()
       const rtTaskId = result.task_id || result.id
-      if (!rtTaskId) return R.error('right.codes 未返回 task_id: ' + JSON.stringify(result).slice(0, 200))
+      if (!rtTaskId) {
+        throw new Error('The image generation provider did not return a task ID.')
+      }
 
-      await prisma.outpaintTask.create({
-        data: { taskId: rtTaskId, imageKey, expandDirection: dir, alignment: alignment || 'Middle', prompt: prompt || '', status: 'PENDING', userEmail, ipAddress: userEmail ? null : ip },
+      await prisma.outpaintTask.update({
+        where: { taskId },
+        data: { providerTaskId: rtTaskId },
       })
-      return R.ok({ taskId: rtTaskId, status: 'PENDING' })
+      return R.ok({ taskId, status: 'PENDING' })
     } catch (err: any) {
+      if (err?.code === 'P2002') {
+        const duplicateTask = await prisma.outpaintTask.findUnique({
+          where: { userEmail_requestId: { userEmail, requestId } },
+        })
+        if (duplicateTask) {
+          return R.ok({ taskId: duplicateTask.taskId, status: duplicateTask.status })
+        }
+
+        const activeTask = await prisma.outpaintTask.findFirst({
+          where: { userEmail, status: { in: ['PENDING', 'PROCESSING'] } },
+        })
+        if (activeTask) {
+          return R.bad('An image generation task is already in progress. Please wait for it to finish.')
+        }
+      }
+
+      console.error('right.codes generation request failed:', err)
+      if (!hasCreatedTask) {
+        return R.error('图片生成任务创建失败，请稍后重试')
+      }
+      await prisma.outpaintTask.update({
+        where: { taskId },
+        data: { status: 'FAILED', errorMessage: err?.message || '图片生成服务调用失败' },
+      }).catch((updateError) => {
+        console.error('Failed to mark outpaint task as failed:', updateError)
+      })
       return R.error('right.codes 调用失败: ' + err.message)
     }
   }
@@ -240,10 +324,25 @@ export async function POST(request: NextRequest) {
   const taskId = nanoid()
   try {
     await prisma.outpaintTask.create({
-      data: { taskId, imageKey, expandDirection: dir, alignment: alignment || 'Middle', prompt: prompt || '', status: 'PENDING', userEmail, ipAddress: userEmail ? null : ip },
+      data: { taskId, requestId, imageKey, expandDirection: dir, alignment: alignment || 'Middle', prompt: prompt || '', status: 'PENDING', userEmail, ipAddress: userEmail ? null : ip },
     })
     return R.ok({ taskId, status: 'PENDING' })
   } catch (error: any) {
+    if (error?.code === 'P2002') {
+      const duplicateTask = await prisma.outpaintTask.findUnique({
+        where: { userEmail_requestId: { userEmail, requestId } },
+      })
+      if (duplicateTask) {
+        return R.ok({ taskId: duplicateTask.taskId, status: duplicateTask.status })
+      }
+
+      const activeTask = await prisma.outpaintTask.findFirst({
+        where: { userEmail, status: { in: ['PENDING', 'PROCESSING'] } },
+      })
+      if (activeTask) {
+        return R.bad('An image generation task is already in progress. Please wait for it to finish.')
+      }
+    }
     console.error('提交任务失败:', error)
     return R.error(error.message || '提交任务失败')
   }
@@ -270,19 +369,55 @@ async function saveResult(task: any, taskId: string, resultUrl: string) {
 const GPT_IMAGE2_KEY = process.env.GPT_IMAGE2_KEY || ''
 
 async function processWithOpenAI(task: any, taskId: string) {
-  console.log('=== GPT-IMAGE-2 标记处理中 ===', { taskId })
   // right.codes 已在提交时调用，这里仅将任务标记为 PROCESSING
   // 前端轮询 GET /api/outpaint?taskId=xxx 时会代理查询 right.codes 实时状态
   await prisma.outpaintTask.update({ where: { taskId }, data: { status: 'PROCESSING' } })
   return R.ok({ taskId, status: 'PROCESSING' })
 }
 
-async function processTask(taskId: string, model: string = 'tongyi') {
-  const task = await prisma.outpaintTask.findUnique({ where: { taskId } })
-  if (!task) return R.error('Task not found')
-  if (task.status !== 'PENDING') return R.ok({ taskId, status: task.status, resultUrl: task.resultUrl })
+/**
+ * 原子抢占待处理任务，防止同一 taskId 被多次 process 请求并发执行。
+ * @param {String} taskId - 本地图片生成任务 ID
+ * @param {String} userEmail - 当前登录用户邮箱，用于校验任务归属
+ * @returns {Promise<{task: any, claimed: Boolean, errorMessage?: String}>} 抢占结果
+ */
+async function claimPendingTask(taskId: string, userEmail: string) {
+  try {
+    const task = await prisma.outpaintTask.findUnique({ where: { taskId } })
+    if (!task || task.userEmail !== userEmail) {
+      return { task: null, claimed: false, errorMessage: 'Task not found' }
+    }
 
-  await prisma.outpaintTask.update({ where: { taskId }, data: { status: 'PROCESSING' } })
+    if (task.status !== 'PENDING') {
+      return { task, claimed: false }
+    }
+
+    // updateMany 的状态条件相当于数据库锁：只有一个并发请求能将 PENDING 改为 PROCESSING。
+    const claimResult = await prisma.outpaintTask.updateMany({
+      where: { taskId, userEmail, status: 'PENDING' },
+      data: { status: 'PROCESSING', processingStartedAt: new Date() },
+    })
+    if (claimResult.count === 1) {
+      return { task, claimed: true }
+    }
+
+    const latestTask = await prisma.outpaintTask.findUnique({ where: { taskId } })
+    return { task: latestTask, claimed: false }
+  } catch (error: any) {
+    console.error('Failed to claim image generation task:', error)
+    return { task: null, claimed: false, errorMessage: 'Failed to start image generation task.' }
+  }
+}
+
+async function processTask(taskId: string, model: string = 'tongyi', userEmail: string) {
+  if (!taskId) return R.bad('taskId is required')
+
+  const claimResult = await claimPendingTask(taskId, userEmail)
+  const task = claimResult.task
+  if (!task) return R.error(claimResult.errorMessage || 'Task not found')
+  if (!claimResult.claimed) {
+    return R.ok({ taskId: task.taskId, status: task.status, resultUrl: task.resultUrl })
+  }
 
   try {
     if (['gpt-image-2', 'nano-banana-2-lite', 'nano-banana-2'].includes(model)) {
@@ -323,7 +458,9 @@ async function processTask(taskId: string, model: string = 'tongyi') {
 
     return await saveResult(task, taskId, outputImageUrl)
   } catch (error: any) {
-    await prisma.outpaintTask.update({ where: { taskId }, data: { status: 'FAILED', errorMessage: error.message } }).catch(() => {})
+    await prisma.outpaintTask.update({ where: { taskId }, data: { status: 'FAILED', errorMessage: error.message } }).catch((updateError) => {
+      console.error('Failed to mark image generation task as failed:', updateError)
+    })
     return R.error(error.message || '处理失败')
   }
 }

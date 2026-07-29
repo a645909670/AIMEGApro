@@ -169,6 +169,10 @@ model BehaviorLog {
 model OutpaintTask {
   id              Int      @id @default(autoincrement())
   taskId          String   @unique @db.VarChar(64)
+  // 客户端为一次生成操作创建的幂等键；历史任务允许为空，新任务在接口层强制传入。
+  requestId       String?  @db.VarChar(64)
+  // 第三方图片服务返回的任务标识；本地 taskId 始终由服务端生成，避免与幂等键混用。
+  providerTaskId  String?  @unique @map("provider_task_id") @db.VarChar(128)
   imageKey        String   @db.VarChar(500)
   expandDirection String   @default("16:9") @db.VarChar(10)
   alignment       String   @default("Middle") @db.VarChar(20)
@@ -180,8 +184,13 @@ model OutpaintTask {
   ipAddress        String?   @db.VarChar(50)       // 匿名用户 IP
   // 图片生成任务表以北京时间墙上时间保存，实际默认值由数据库迁移统一维护。
   createdAt       DateTime @default(dbgenerated("timezone('Asia/Shanghai', now())")) @map("create_time")
+  // 任务被原子抢占进入处理中时的时间，用于排查异常任务和后续超时回收。
+  processingStartedAt DateTime? @map("processing_started_at")
   updatedAt       DateTime @updatedAt @map("update_time")
 
+  // 同一登录用户提交同一个 requestId 时，数据库只允许保留一条任务。
+  @@unique([userEmail, requestId])
+  @@index([userEmail, status])
   @@map("t_outpaint_task")
 }
 

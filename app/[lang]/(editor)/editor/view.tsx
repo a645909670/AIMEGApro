@@ -25,7 +25,7 @@ import {
   useDisclosure,
 } from '@nextui-org/react'
 import { $Enums } from '@prisma/client'
-import { message, Select, Spin } from 'antd'
+import { message, Spin } from 'antd'
 import { FcGoogle } from 'react-icons/fc'
 import { FaAngleRight, FaArrowUpFromBracket } from 'react-icons/fa6'
 import { fetchGet, fetchPost } from '@/utils'
@@ -84,15 +84,6 @@ type ImageGenerationModel = 'gpt-image-2' | 'nano-banana-2-lite' | 'nano-banana-
 /**
  * 编辑器模型下拉框的可选项。
  */
-const IMAGE_MODEL_OPTIONS: Array<{
-  value: ImageGenerationModel
-  label: string
-}> = [
-  { value: 'gpt-image-2', label: 'GPT Image' },
-  { value: 'nano-banana-2-lite', label: 'nano-banana-2-lite' },
-  { value: 'nano-banana-2', label: 'nano-banana-2' },
-]
-
 /**
  * 登录用户当天的图片生成额度，由服务端根据有效任务记录计算。
  */
@@ -100,6 +91,14 @@ type DailyGenerationQuota = {
   limit: number
   remaining: number
 }
+
+type PersistedGenerationTask = {
+  requestId: string
+  taskId?: string
+  model: ImageGenerationModel
+}
+
+const ACTIVE_GENERATION_TASK_STORAGE_KEY = 'editor-active-generation-task'
 
 const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   params,
@@ -117,13 +116,10 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 })
   const stageRef = useRef<any>(null)
   const loginRef = useRef<GoogleLoginRef>(null)
-  const [selectedModel, setSelectedModel] = useState<ImageGenerationModel>('gpt-image-2')
+  const [selectedModel, setSelectedModel] = useState<ImageGenerationModel>('nano-banana-2-lite')
   const [promptText, setPromptText] = useState('')
   const [selectedImageSize, setSelectedImageSize] = useState<ImageGenerationSize>('1:1')
-  const [dailyGenerationQuota, setDailyGenerationQuota] = useState<DailyGenerationQuota>({
-    limit: 3,
-    remaining: 3,
-  })
+  const [dailyGenerationQuota, setDailyGenerationQuota] = useState<DailyGenerationQuota | null>(null)
   const [selectedExpandDirection, setSelectedExpandDirection] = useState<
     '16:9' | '9:16' | '1:1'
   >('16:9')
@@ -136,10 +132,6 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
    * @param {ImageGenerationModel} model - 用户当前选择的图像生成模型
    * @returns {void}
    */
-  const handleModelChange = (model: ImageGenerationModel): void => {
-    setSelectedModel(model)
-  }
-
   const [isLoading, setIsLoading] = useState(false)
   const [generatedImages, setGeneratedImages] = useState<string[]>([])
   const [originalImage, setOriginalImage] = useState<HTMLImageElement | null>(
@@ -161,7 +153,9 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     [status],
   )
   const isAuthenticated = useMemo(() => 'authenticated' === status, [status])
-  const dailyQuotaText = `Today: ${dailyGenerationQuota.remaining}/${dailyGenerationQuota.limit} left`
+  const dailyQuotaText = dailyGenerationQuota
+    ? `Today: ${dailyGenerationQuota.remaining}/${dailyGenerationQuota.limit} left`
+    : ''
   // 当前画布显示的图片对应的pathkey
   const [currentImagePath, setCurrentImagePath] = useState<string | null>(null)
   const [hasGeneratedImage, setHasGeneratedImage] = useState(false)
@@ -184,7 +178,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
    */
   const refreshDailyGenerationQuota = useCallback(async () => {
     if (!isAuthenticated) {
-      setDailyGenerationQuota({ limit: 3, remaining: 3 })
+      setDailyGenerationQuota(null)
       return
     }
 
@@ -508,6 +502,100 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
 
 
+  useEffect(() => {
+    if (!isAuthenticated) return
+
+    let isCancelled = false
+
+    const restoreGenerationTask = async () => {
+      const storedTaskText = localStorage.getItem(ACTIVE_GENERATION_TASK_STORAGE_KEY)
+      if (!storedTaskText) return
+
+      try {
+        const persistedTask = JSON.parse(storedTaskText) as PersistedGenerationTask
+        if (!persistedTask?.requestId) {
+          localStorage.removeItem(ACTIVE_GENERATION_TASK_STORAGE_KEY)
+          return
+        }
+
+        setIsLoading(true)
+        setIsProcessing(true)
+        let task = await fetchGet<any>('/api/outpaint', persistedTask.taskId
+          ? { taskId: persistedTask.taskId }
+          : { requestId: persistedTask.requestId })
+
+        if (task?.status === 'PENDING') {
+          // 仅恢复已落库任务的处理，不会重新调用创建/生成接口。
+          await fetchPost('/api/outpaint', {
+            action: 'process',
+            taskId: task.taskId,
+            model: persistedTask.model,
+          })
+        }
+
+        while (!isCancelled && (task?.status === 'PENDING' || task?.status === 'PROCESSING')) {
+          await new Promise((resolve) => setTimeout(resolve, 2000))
+          task = await fetchGet<any>('/api/outpaint', { taskId: task.taskId })
+        }
+
+        if (isCancelled) return
+
+        if (task?.status !== 'SUCCEEDED' || !task.resultUrl) {
+          localStorage.removeItem(ACTIVE_GENERATION_TASK_STORAGE_KEY)
+          msg.error(task?.errorMessage || t`Image processing failed.`)
+          return
+        }
+
+        const restoredImage = new Image()
+        restoredImage.onload = () => {
+          if (isCancelled) return
+
+          const imageAreaHeight = Math.max(120, canvasSize.height - PROMPT_PANEL_RESERVED_HEIGHT)
+          const scale = Math.min(
+            (canvasSize.width - 72) / restoredImage.width,
+            (imageAreaHeight - 72) / restoredImage.height,
+          ) * CANVAS_IMAGE_SCALE_RATIO
+          const width = restoredImage.width * scale
+          const height = restoredImage.height * scale
+
+          setImageProps({
+            width,
+            height,
+            x: (canvasSize.width - width) / 2,
+            y: (imageAreaHeight - height) / 2,
+          })
+          setImage(restoredImage)
+          setOriginalImage(restoredImage)
+          setCurrentImagePath(task.resultUrl)
+          setGeneratedImages((previous) => [...previous, task.resultUrl])
+          setHistoryImages((previous) => [...previous, task.resultUrl])
+          setHasGeneratedImage(true)
+          localStorage.removeItem(ACTIVE_GENERATION_TASK_STORAGE_KEY)
+          setIsLoading(false)
+          setIsProcessing(false)
+        }
+        restoredImage.onerror = () => {
+          console.error('Failed to restore generated image:', task.resultUrl)
+          msg.error(t`Failed to restore generated image.`)
+          setIsLoading(false)
+          setIsProcessing(false)
+        }
+        restoredImage.src = task.resultUrl
+      } catch (error: any) {
+        console.error('Failed to restore image generation task:', error)
+        msg.error(t`Failed to restore image generation task.`)
+        setIsLoading(false)
+        setIsProcessing(false)
+      }
+    }
+
+    void restoreGenerationTask()
+
+    return () => {
+      isCancelled = true
+    }
+  }, [canvasSize.height, canvasSize.width, isAuthenticated, msg])
+
   /**
    * 创建并轮询图片生成任务。
    * @param regenerate 是否基于首次上传的原图重新生成；为 false 时使用当前画布图片。
@@ -526,7 +614,14 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
       }
 
       // 2. 提交扩图任务到队列
+      // 每次用户主动生成均创建独立幂等键；刷新恢复会在后续步骤复用该值。
+      const requestId = crypto.randomUUID()
+      localStorage.setItem(
+        ACTIVE_GENERATION_TASK_STORAGE_KEY,
+        JSON.stringify({ requestId, model: selectedModel }),
+      )
       let task = await fetchPost('/api/outpaint', {
+        requestId,
         imageKey,
         model: selectedModel,
         expandDirection: selectedImageSize,
@@ -537,6 +632,11 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
       if (!task || !task.taskId) {
         throw new Error(t`Failed to submit task.`)
       }
+
+      localStorage.setItem(
+        ACTIVE_GENERATION_TASK_STORAGE_KEY,
+        JSON.stringify({ requestId, taskId: task.taskId, model: selectedModel }),
+      )
 
       await refreshDailyGenerationQuota()
 
@@ -557,9 +657,11 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
       }
 
       if (task.status !== 'SUCCEEDED' || !task.resultUrl) {
+        localStorage.removeItem(ACTIVE_GENERATION_TASK_STORAGE_KEY)
         throw new Error(task.errorMessage || t`Image processing failed.`)
       }
       const resultImageUrl = task.resultUrl
+      localStorage.removeItem(ACTIVE_GENERATION_TASK_STORAGE_KEY)
 
       // 5. 显示在画布上
       const img = new Image()
@@ -863,7 +965,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                       label: (
                         <>
                           <p className="font-semibold">{user?.email ?? ''}</p>
-                          <p className="font-semibold">{dailyQuotaText}</p>
+                          {dailyQuotaText && <p className="font-semibold">{dailyQuotaText}</p>}
                         </>
                       ),
                     },
@@ -880,7 +982,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                   {user?.image && (
                     <User
                       name={user?.name ?? ''}
-                      description={dailyQuotaText}
+                      description={dailyQuotaText || undefined}
                       className="cursor-pointer"
                       avatarProps={{
                         lang: params.lang,
@@ -954,7 +1056,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
             {/* 提示词输入浮层：固定在画布区域底部居中，避免占用顶部工具栏空间。 */}
             <div className="pointer-events-none absolute inset-x-0 bottom-6 z-20 flex justify-center px-4 sm:bottom-8">
                 <div className="pointer-events-auto w-full max-w-5xl rounded-[28px] border border-gray-200 bg-white/95 px-5 py-3 shadow-xl backdrop-blur-sm sm:px-7 sm:py-4">
-                  <div className="mb-2 flex flex-col gap-2 border-b border-gray-100 pb-2 sm:flex-row sm:items-start sm:gap-4">
+                  <div className="mb-2 border-b border-gray-100 pb-2">
                     <label htmlFor="editor-prompt" className="sr-only">
                       {t`Prompt:`}
                     </label>
@@ -966,16 +1068,6 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                       rows={2}
                       className="min-h-[64px] min-w-0 flex-1 resize-none border-0 bg-transparent text-sm leading-6 text-gray-800 outline-none placeholder:text-gray-400 focus:ring-0 sm:text-base"
                     />
-                    <div className="flex shrink-0 items-center gap-2 self-end pt-1 sm:self-auto">
-                      <span className="text-sm font-medium whitespace-nowrap text-gray-700">{t`Model:`}</span>
-                      <Select<ImageGenerationModel>
-                        value={selectedModel}
-                        onChange={handleModelChange}
-                        options={IMAGE_MODEL_OPTIONS}
-                        className="min-w-44"
-                        popupMatchSelectWidth={false}
-                      />
-                    </div>
                   </div>
                   <div className="mt-2 flex flex-wrap items-center justify-between gap-3 pt-2">
                     <div className="order-2 flex flex-wrap items-center gap-2">
