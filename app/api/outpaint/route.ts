@@ -102,7 +102,23 @@ async function uploadResultToS3(key: string, imageBuffer: Buffer, contentType: s
     credentials: { accessKeyId: S3_ACCESS_KEY, secretAccessKey: S3_SECRET_KEY },
   })
   await client.send(new PutObjectCommand({ Bucket: S3_BUCKET, Key: key, Body: imageBuffer, ContentType: contentType }))
-  return `${S3_PUBLIC_PATH}/${key}`
+  return {
+    key,
+    url: `${S3_PUBLIC_PATH}/${key}`,
+  }
+}
+
+/**
+ * 从本站对象存储的公开 URL 中提取对象 Key，外部 URL 一律返回空值。
+ * @param {String} imageUrl - 图片公开地址
+ * @returns {String | null} 可用于后续生成的对象 Key
+ */
+function getStorageKeyFromPublicUrl(imageUrl: string): string | null {
+  const publicPath = S3_PUBLIC_PATH.replace(/\/$/, '')
+  const publicUrlPrefix = `${publicPath}/`
+  if (!imageUrl.startsWith(publicUrlPrefix)) return null
+
+  return decodeURIComponent(imageUrl.slice(publicUrlPrefix.length).split('?')[0]) || null
 }
 
 export async function GET(request: NextRequest) {
@@ -178,6 +194,7 @@ export async function GET(request: NextRequest) {
   return R.ok({
     taskId: task.taskId,
     status: task.status,
+    resultKey: task.resultKey,
     resultUrl: task.resultUrl,
     errorMessage: task.errorMessage,
   })
@@ -206,7 +223,9 @@ export async function POST(request: NextRequest) {
     return processTask(body.taskId, body.model || 'tongyi', userEmail)
   }
 
-  if (!imageKey) return R.bad('imageKey is required')
+  if (typeof imageKey !== 'string' || !imageKey || /^https?:\/\//i.test(imageKey)) {
+    return R.bad('imageKey must be a storage object key.')
+  }
 
   if (typeof requestId !== 'string' || !/^[a-zA-Z0-9-]{16,64}$/.test(requestId)) {
     return R.bad('requestId is required and must be a valid idempotency key.')
@@ -220,6 +239,7 @@ export async function POST(request: NextRequest) {
     return R.ok({
       taskId: existingTask.taskId,
       status: existingTask.status,
+      resultKey: existingTask.resultKey,
       resultUrl: existingTask.resultUrl,
       errorMessage: existingTask.errorMessage,
     })
@@ -351,18 +371,29 @@ export async function POST(request: NextRequest) {
 /** 下载结果图片并保存到 S3，更新任务状态，返回 NextResponse */
 async function saveResult(task: any, taskId: string, resultUrl: string) {
   let finalUrl = resultUrl
-  if (resultUrl.startsWith('http') && !resultUrl.includes(S3_PUBLIC_PATH)) {
+  let resultKey = getStorageKeyFromPublicUrl(resultUrl)
+
+  // 外部服务的结果必须转存到本站对象存储，确保后续生成始终拿到合法 Key。
+  if (!resultKey && resultUrl.startsWith('http')) {
     const imageResp = await fetch(resultUrl)
-    if (imageResp.ok) {
-      const buf = Buffer.from(await imageResp.arrayBuffer())
-      const ct = imageResp.headers.get('content-type') || 'image/png'
-      const ext = ct.includes('jpeg') ? '.jpg' : '.png'
-      const baseName = task.imageKey.replace(/[/\\]/g, '_').replace(/\.[^.]+$/, '')
-      finalUrl = await uploadResultToS3(`output/${Date.now()}_${baseName}${ext}`, buf, ct)
-    }
+    if (!imageResp.ok) throw new Error('Failed to download generated image.')
+
+    const buf = Buffer.from(await imageResp.arrayBuffer())
+    const ct = imageResp.headers.get('content-type') || 'image/png'
+    const ext = ct.includes('jpeg') ? '.jpg' : '.png'
+    const baseName = task.imageKey.replace(/[/\\]/g, '_').replace(/\.[^.]+$/, '')
+    const uploadedResult = await uploadResultToS3(`output/${Date.now()}_${baseName}${ext}`, buf, ct)
+    resultKey = uploadedResult.key
+    finalUrl = uploadedResult.url
   }
-  await prisma.outpaintTask.update({ where: { taskId }, data: { status: 'SUCCEEDED', resultUrl: finalUrl } })
-  return R.ok({ taskId, status: 'SUCCEEDED', resultUrl: finalUrl })
+
+  if (!resultKey) throw new Error('Generated image does not have a valid storage key.')
+
+  await prisma.outpaintTask.update({
+    where: { taskId },
+    data: { status: 'SUCCEEDED', resultKey, resultUrl: finalUrl },
+  })
+  return R.ok({ taskId, status: 'SUCCEEDED', resultKey, resultUrl: finalUrl })
 }
 
 /** GPT-IMAGE-2 模型扩图 */
@@ -416,7 +447,7 @@ async function processTask(taskId: string, model: string = 'tongyi', userEmail: 
   const task = claimResult.task
   if (!task) return R.error(claimResult.errorMessage || 'Task not found')
   if (!claimResult.claimed) {
-    return R.ok({ taskId: task.taskId, status: task.status, resultUrl: task.resultUrl })
+    return R.ok({ taskId: task.taskId, status: task.status, resultKey: task.resultKey, resultUrl: task.resultUrl })
   }
 
   try {

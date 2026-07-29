@@ -158,6 +158,8 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     : ''
   // 当前画布显示的图片对应的pathkey
   const [currentImagePath, setCurrentImagePath] = useState<string | null>(null)
+  // 当前画布图片在对象存储中的 Key，仅用于下一次提交生成接口。
+  const [currentImageKey, setCurrentImageKey] = useState<string | null>(null)
   const [hasGeneratedImage, setHasGeneratedImage] = useState(false)
   const [showOriginalModal, setShowOriginalModal] = useState(false)
   const [showImagePreview, setShowImagePreview] = useState(false)
@@ -328,6 +330,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
   function handleUploadFinish(e: any) {
     setOriginKey(e.extra.key)
+    setCurrentImageKey(e.extra.key)
     loadAndScaleImage(e.extra.key)
     setHistoryImages([]) // 清空历史图片列表，而不是加原始图片
     // 记录上传日志
@@ -340,6 +343,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
   function handleUploadRemove() {
     setOriginKey(null)
+    setCurrentImageKey(null)
     setImage(null)
     setOriginalImage(null)
   }
@@ -540,7 +544,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
         if (isCancelled) return
 
-        if (task?.status !== 'SUCCEEDED' || !task.resultUrl) {
+        if (task?.status !== 'SUCCEEDED' || !task.resultKey || !task.resultUrl) {
           localStorage.removeItem(ACTIVE_GENERATION_TASK_STORAGE_KEY)
           msg.error(task?.errorMessage || t`Image processing failed.`)
           return
@@ -566,6 +570,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
           })
           setImage(restoredImage)
           setOriginalImage(restoredImage)
+          setCurrentImageKey(task.resultKey)
           setCurrentImagePath(task.resultUrl)
           setGeneratedImages((previous) => [...previous, task.resultUrl])
           setHistoryImages((previous) => [...previous, task.resultUrl])
@@ -608,7 +613,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     setIsProcessing(true)
 
     try {
-      const imageKey = regenerate ? originKey : currentImagePath
+      const imageKey = regenerate ? originKey : currentImageKey
       if (!imageKey) {
         throw new Error(t`Please upload an image first.`)
       }
@@ -656,7 +661,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
         task = json.data
       }
 
-      if (task.status !== 'SUCCEEDED' || !task.resultUrl) {
+      if (task.status !== 'SUCCEEDED' || !task.resultKey || !task.resultUrl) {
         localStorage.removeItem(ACTIVE_GENERATION_TASK_STORAGE_KEY)
         throw new Error(task.errorMessage || t`Image processing failed.`)
       }
@@ -669,6 +674,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
       img.onload = () => {
         setGeneratedImages((prev) => [...prev, resultImageUrl])
         setHistoryImages((prev) => [...prev, resultImageUrl])
+        setCurrentImageKey(task.resultKey)
         setCurrentImagePath(resultImageUrl)
         setHasGeneratedImage(true)
 

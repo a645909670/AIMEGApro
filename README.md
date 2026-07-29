@@ -173,6 +173,8 @@ https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/verce
 - 有技术问题欢迎添加微信交流：fafafa-ai
 - 小广告：当前ai-outpainting网站，接受付费提交外链，有需要的朋友可以联系我。
 
+## 限制用户恶意刷新页面调用机制
+- 依靠后端幂等、数据库唯一约束、分布式锁、任务状态机和用户级限流
 
 ## 谷歌授权
 - https://console.cloud.google.com/apis/credentials

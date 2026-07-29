@@ -178,6 +178,8 @@ model OutpaintTask {
   alignment       String   @default("Middle") @db.VarChar(20)
   prompt          String?  @db.VarChar(1000)
   status          String   @default("PENDING") @db.VarChar(20)
+  // 输出图片在对象存储中的 Key；后续继续生成时只能使用该值作为输入源。
+  resultKey       String?  @map("result_key") @db.VarChar(500)
   resultUrl       String?  @db.VarChar(1000)
   errorMessage    String?  @db.VarChar(1000)
   userEmail       String?  @db.VarChar(255)       // 登录用户邮箱
