@@ -1072,7 +1072,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
                       onChange={(e) => setPromptText(e.target.value)}
                       placeholder={t`Describe what you want to generate...`}
                       rows={2}
-                      className="min-h-[64px] min-w-0 flex-1 resize-none border-0 bg-transparent text-sm leading-6 text-gray-800 outline-none placeholder:text-gray-400 focus:ring-0 sm:text-base"
+                      className="min-h-[64px] w-full resize-none border-0 bg-transparent text-sm leading-6 text-gray-800 outline-none placeholder:text-gray-400 focus:ring-0 sm:text-base"
                     />
                   </div>
                   <div className="mt-2 flex flex-wrap items-center justify-between gap-3 pt-2">
