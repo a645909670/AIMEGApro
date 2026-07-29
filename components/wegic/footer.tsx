@@ -8,7 +8,7 @@ const getNavigation = () => {
     { name: t`Home`, href: '/' },
     { name: `Tools`, href: '/tools' },
     // { name: t`Pricing`, href: '/pricing' },//隐藏支付
-    { name: t`Blogs`, href: '/blogs' },
+    // { name: t`Blogs`, href: '/blogs' },//隐藏博客
     { name: `Privacy Policy`, href: '/about/privacy-policy' },
     { name: `Terms of Service`, href: '/about/privacy-policy#terms-of-service' },
     /* { name: t`Explore`, href: '/user-case' }*/
@@ -146,17 +146,9 @@ const Footer = ({ params }: { params?: { lang: AVAILABLE_LOCALES } }) => (
                  title="AI Fill Image">AI Fill Image</a>
             </li>
           </ul> */}
-          <p>
+          {/* <p>
             © 2026 AIMEGApro.com All rights reserved.
-          </p>
-          <p style={{marginTop: '6px'}}>
-            <a
-              href="mailto:erick.couponmega@gmail.com"
-              className="text-gray-500 hover:text-primary-200 duration-150"
-            >
-              Contact: erick.couponmega@gmail.com
-            </a>
-          </p>
+          </p> */}
         </div>
       </div>
     </footer>

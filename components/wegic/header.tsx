@@ -8,7 +8,6 @@ export default function Header({ lang }: { lang?: string }) {
     { title: t`Home`, href: '/', current: false },
     { title: `Tools`, href: '/tools', current: false },
     // { title: t`Pricing`, href: '/pricing', current: false },//隐藏支付渠道
-    { title: t`Blogs`, href: '/blogs', current: false }
     /*{ name: t`Explore`, href: '/user-case' }*/
   ]
   return <Navbar items={navigation as any} locale={lang} />
