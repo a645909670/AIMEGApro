@@ -2,7 +2,7 @@ export type SiteConfig = typeof siteConfig
 import { t } from '@lingui/macro'
 export const siteConfig = {
   name: 'AIMEGApro',
-  slogan: 'Democratizing AI: Easy Access for Everyone',
+  slogan: '',
   showLogin: true,
   r2BaseUrl: 'https://s3.ai-outpainting.com',
   icon: '/favicon.ico',
