@@ -3,10 +3,8 @@ import { activateLocale, AVAILABLE_LOCALES, metadataLanguages } from '@/framewor
 import Hero from '@/components/wegic/hero'
 import Features from '@/components/wegic/features'
 import Gallery from '@/components/wegic/gallery'
-import Blogs from '@/components/wegic/blogs'
 import FAQs from '@/components/wegic/faqs'
 import { Divider } from 'antd'
-import { getBlogPosts } from '@/framework/blogs/blogs'
 import Pricing from '@/components/wegic/pricing'
 import { t } from '@lingui/macro'
 import IndexUploader from '@/components/wegic/index-uploader'
@@ -51,11 +49,6 @@ export default async function Page({
                                    }: {
   params?: { lang: AVAILABLE_LOCALES }
 }) {
-  // 编译期间获取blog数据，避免运行时去调用getBlogPosts方法，导致无法读取blogs目录下的文件
-  let blogs = getBlogPosts().filter((post) => post.lang===params?.lang)
-  // 最新的5篇博客
-  blogs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-  const newBlogs = blogs.slice(0, 5)
   return (
     <>
       <Hero params={params!}/>
@@ -64,7 +57,6 @@ export default async function Page({
       <FAQs />
       <Divider className="bg-gray" />
     {/*  <Pricing />*/}
-      <Blogs params={{ lang: params!.lang }} blogs={newBlogs} />
       <IndexUploader params={params!}/>
     </>
   )

@@ -39,10 +39,10 @@ export default function Hero({params,}: {
         <div className="w-full flex flex-col gap-16 md:gap-4">
           <div className="w-full flex flex-col gap-6">
             <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-50">
-              {t`AIMEGApro: Democratize AI Image Expansion—Power for All, No Expertise Needed`}
+              {t`AIMEGApro: Turn Your Ideas into Images with AI`}
             </h1>
             <h2 className="text-slate-600 dark:text-slate-400">
-              {t`Break AI Barriers with Effortless Outpainting: Expand photos online in clicks, not code. Our generative AI adapts to any style, ratio, or scene—so creators, hobbyists, and businesses alike unlock pro-level visuals, no design degree required.`}
+              {t`Upload an image, describe your vision, and let AI create something new. Transform, remix, and reimagine visuals in seconds—no design skills required.`}
             </h2>
           </div>
           <div className="flex flex-col gap-10 ">
@@ -65,7 +65,7 @@ export default function Hero({params,}: {
               <FaAnglesRight className="text-slate-300" />
               <div className="flex flex-col gap-1"><span
                 className="text-2xl font-extrabold text-slate-900 dark:text-slate-50"> 300K+ </span>
-                <span className="text-slate-600 dark:text-slate-400">{t`Images Outpainting`}</span>
+                <span className="text-slate-600 dark:text-slate-400">{t`Images Created`}</span>
               </div>
 
             </div>
@@ -78,9 +78,10 @@ export default function Hero({params,}: {
               <img
                 // src="https://public-image.fafafa.ai/fa-image/2024/06/dc94c298dbb6498d38ed5a8fc3fb9293.jpeg"
                 src="../images/syd.jpg"
+                alt="Original image"
                 className="object-cover rounded-[2rem] rounded-tl-[2rem] rounded-br-[2rem]" />
               <div className="text-center mt-4">
-                {t`Before Outpainting`}
+                {t`Original Image`}
               </div>
             </div>
             <div className="w-full h-auto flex items-center justify-center mt-6">
@@ -92,9 +93,10 @@ export default function Hero({params,}: {
             <img
               // src="https://public-image.fafafa.ai/fa-image/2024/06/28cf8159d8a7aeb370296993ec380797.png"
               src="../images/syx.jpg"
+              alt="AI-generated result"
               className="object-cover rounded-[2rem] rounded-tl-[2rem] rounded-br-[2rem]" />
             <div className="text-center mt-4">
-              {t`After Outpainting`}
+              {t`AI-Generated Result`}
             </div>
           </div>
 
