@@ -40,6 +40,35 @@ const GENERATED_RESULT_LABELS: Record<AVAILABLE_LOCALES, string> = {
   [AVAILABLE_LOCALES.tr]: 'Yapay Zekâ Tarafından Oluşturulan Sonuç',
 }
 
+const IMAGES_CREATED_LABELS: Record<AVAILABLE_LOCALES, string> = {
+  [AVAILABLE_LOCALES.en]: 'Images Created',
+  [AVAILABLE_LOCALES.cs]: 'Vytvořené obrázky',
+  [AVAILABLE_LOCALES.fr]: 'Images créées',
+  [AVAILABLE_LOCALES.de]: 'Erstellte Bilder',
+  [AVAILABLE_LOCALES.es]: 'Imágenes creadas',
+  [AVAILABLE_LOCALES.it]: 'Immagini create',
+  [AVAILABLE_LOCALES.ja]: '作成された画像',
+  [AVAILABLE_LOCALES.ko]: '생성된 이미지',
+  [AVAILABLE_LOCALES.nl]: 'Gemaakte afbeeldingen',
+  [AVAILABLE_LOCALES.ptBR]: 'Imagens criadas',
+  [AVAILABLE_LOCALES.ru]: 'Созданные изображения',
+  [AVAILABLE_LOCALES.uk]: 'Створені зображення',
+  [AVAILABLE_LOCALES.vi]: 'Hình ảnh đã tạo',
+  [AVAILABLE_LOCALES.zhTW]: '已建立的影像',
+  [AVAILABLE_LOCALES.pt]: 'Imagens criadas',
+  [AVAILABLE_LOCALES.da]: 'Oprettede billeder',
+  [AVAILABLE_LOCALES.el]: 'Εικόνες που δημιουργήθηκαν',
+  [AVAILABLE_LOCALES.no]: 'Opprettede bilder',
+  [AVAILABLE_LOCALES.fi]: 'Luodut kuvat',
+  [AVAILABLE_LOCALES.sv]: 'Skapade bilder',
+  [AVAILABLE_LOCALES.th]: 'รูปภาพที่สร้างขึ้น',
+  [AVAILABLE_LOCALES.id]: 'Gambar yang dibuat',
+  [AVAILABLE_LOCALES.hi]: 'बनाई गई छवियां',
+  [AVAILABLE_LOCALES.bn]: 'তৈরি করা ছবি',
+  [AVAILABLE_LOCALES.ms]: 'Imej yang dicipta',
+  [AVAILABLE_LOCALES.tr]: 'Oluşturulan görseller',
+}
+
 const HERO_TITLE_LABELS: Record<AVAILABLE_LOCALES, string> = {
   [AVAILABLE_LOCALES.en]: 'AIMEGApro: Turn Your Ideas into Images with AI',
   [AVAILABLE_LOCALES.cs]: 'AIMEGApro: Proměňte své nápady v obrázky pomocí AI',
@@ -152,7 +181,9 @@ export default function Hero({params,}: {
               <FaAnglesRight className="text-slate-300" />
               <div className="flex flex-col gap-1"><span
                 className="text-2xl font-extrabold text-slate-900 dark:text-slate-50"> 300K+ </span>
-                <span className="text-slate-600 dark:text-slate-400">{t`Images Created`}</span>
+                <span className="text-slate-600 dark:text-slate-400">
+                  {IMAGES_CREATED_LABELS[params.lang] ?? IMAGES_CREATED_LABELS[AVAILABLE_LOCALES.en]}
+                </span>
               </div>
 
             </div>
