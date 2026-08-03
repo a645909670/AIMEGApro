@@ -131,7 +131,7 @@ export default function BlogPostList({ post, params }: BlogPostListProps) {
                 </div>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', width: '100%' }}>
-                {post.list.map((item: BlogListItem) => (
+                {(Array.isArray(post.list) ? post.list : []).map((item: BlogListItem) => (
                   <div
                     key={item.key}
                     style={{
@@ -203,7 +203,7 @@ export default function BlogPostList({ post, params }: BlogPostListProps) {
                   </div>
 
                   <ul>
-                    {selectedItem?.details2.introduce.map((item: any, index: any) => (
+                    {(selectedItem?.details2?.introduce ?? []).map((item: any, index: any) => (
                       <li key={index} style={{display: 'flex', marginBottom: '24px'}}>
                         <span style={{marginRight: '8px'}}>•</span>
                         <div>
@@ -221,7 +221,7 @@ export default function BlogPostList({ post, params }: BlogPostListProps) {
                   </div>
 
                   <ul>
-                    {selectedItem?.details3.introduce.map((item: any, index: any) => (
+                    {(selectedItem?.details3?.introduce ?? []).map((item: any, index: any) => (
                       <li key={index} style={{display: 'flex', marginBottom: '24px'}}>
                         <span style={{marginRight: '8px'}}>•</span>
                         <div>
@@ -239,7 +239,7 @@ export default function BlogPostList({ post, params }: BlogPostListProps) {
                   </div>
 
                   <ul>
-                    {selectedItem?.details4.introduce.map((item: any, index: any) => (
+                    {(selectedItem?.details4?.introduce ?? []).map((item: any, index: any) => (
                       <li key={index} style={{display: 'flex', marginBottom: '24px'}}>
                         <span style={{marginRight: '8px'}}>•</span>
                         <div>
@@ -257,7 +257,7 @@ export default function BlogPostList({ post, params }: BlogPostListProps) {
                   </div>
 
                   <ul>
-                    {selectedItem?.details5.introduce.map((item: any, index: any) => (
+                    {(selectedItem?.details5?.introduce ?? []).map((item: any, index: any) => (
                       <li key={index} style={{display: 'flex', marginBottom: '24px'}}>
                         <span style={{marginRight: '8px'}}>•</span>
                         <div>

@@ -1,9 +1,7 @@
 import { activateLocale, AVAILABLE_LOCALES, metadataLanguages } from '@/framework/locale/locale'
 import BlogsPageClient from '@/app/[lang]/(public)/(tools)/tools/tools-page-client'
-import { getBlogPosts } from '@/framework/blogs/blogs'
 import { Metadata } from 'next'
 import { siteConfig } from '@/config/site'
-import { t } from '@lingui/macro'
 
 export async function generateMetadata({
                                          params
@@ -25,14 +23,15 @@ export async function generateStaticParams() {
   for (const langDir of Object.values(AVAILABLE_LOCALES)) {
     allLang.push({lang: langDir})
   }
-  console.log('allLang', allLang)
   return allLang
 }
-export default async function ToolsPage(){
-  // const blogs = getBlogPosts().filter((blog)=>blog.lang===params.lang)
+export default async function ToolsPage({
+  params,
+}: {
+  params: { lang: AVAILABLE_LOCALES }
+}) {
   return (
-    // <BlogsPageClient params={params} blogs={blogs} />
-    <BlogsPageClient />
+    <BlogsPageClient locale={params.lang} />
   )
 }
 // export default async function BlogsPage({

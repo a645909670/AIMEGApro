@@ -4,10 +4,6 @@
 import React, { useEffect, useMemo, useRef } from 'react'
 import {
   Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
   Link,
   Navbar,
   NavbarBrand,
@@ -66,6 +62,12 @@ export default function Nav({ items, locale }: NavbarProps) {
   const [pathWithoutLocale, isActive] = useNavigation(pathname)
   const [currentLocale, locales] = useI18nLocale(locale)
   const user = data?.user as SessionUser
+  const [isLocaleOpen, setIsLocaleOpen] = React.useState(false)
+  const [localeMenuTarget, setLocaleMenuTarget] = React.useState<'desktop' | 'mobile'>('desktop')
+  const [localeMenuPosition, setLocaleMenuPosition] = React.useState({ top: 0, left: 12 })
+  const desktopLocaleButtonRef = useRef<HTMLButtonElement | null>(null)
+  const mobileLocaleButtonRef = useRef<HTMLButtonElement | null>(null)
+  const localeMenuRef = useRef<HTMLDivElement | null>(null)
 
   const { isOpen: isRegOpen, onOpen: onRegOpen, onClose: onRegClose } = useDisclosure()
   const [regForm, setRegForm] = React.useState({ email: '', name: '' })
@@ -123,37 +125,97 @@ export default function Nav({ items, locale }: NavbarProps) {
     setRegLoading(false)
   }
 
-  const localDropdown = (
-    <Dropdown>
-      <DropdownTrigger>
-        <Button variant="bordered" startContent={<LuLanguages size={16}/>}>
-          {currentLocale}
-        </Button>
-      </DropdownTrigger>
-      <DropdownMenu
-        selectionMode={"single"}
-        aria-label="change locale"
-        className='dropdown-grid p-2'
-        style={{ width: "auto", minWidth: "200px" }} // 使用 NextUI 的 CSS-in-JS 来控制宽度
-      >
-        {locales.map((item) => (
-          <DropdownItem key={item.key} className="col-span-1 hover:text-primary">
-            <NextLink
-              className={currentLocale === item.key ? 'text-primary-200 w-full' : 'flex items-center gap-2 text-gray-500 hover:text-primary w-full'}
-              replace={true}
-              href={`/${item.key}${pathWithoutLocale}`}
-            >
-              <FaAngleRight />{item.name}
-            </NextLink>
-          </DropdownItem>
-        ))}
-      </DropdownMenu>
-    </Dropdown>
+  const updateLocaleMenuPosition = () => {
+    const trigger = 'mobile' === localeMenuTarget
+      ? mobileLocaleButtonRef.current
+      : desktopLocaleButtonRef.current
+
+    if (!trigger) return
+
+    const rect = trigger.getBoundingClientRect()
+    const menuWidth = Math.min(410, window.innerWidth - 24)
+    const left = Math.max(12, Math.min(rect.right - menuWidth, window.innerWidth - menuWidth - 12))
+
+    setLocaleMenuPosition({
+      top: rect.bottom + 8,
+      left,
+    })
+  }
+
+  const handleLocaleToggle = (target: 'desktop' | 'mobile') => {
+    if (isLocaleOpen && localeMenuTarget === target) {
+      setIsLocaleOpen(false)
+      return
+    }
+
+    setLocaleMenuTarget(target)
+    setIsLocaleOpen(true)
+  }
+
+  useEffect(() => {
+    if (!isLocaleOpen) return
+
+    const handleViewportChange = () => updateLocaleMenuPosition()
+    const handleOutsidePointerDown = (event: MouseEvent) => {
+      const target = event.target as Node
+      const trigger = 'mobile' === localeMenuTarget
+        ? mobileLocaleButtonRef.current
+        : desktopLocaleButtonRef.current
+
+      if (localeMenuRef.current?.contains(target) || trigger?.contains(target)) return
+      setIsLocaleOpen(false)
+    }
+
+    window.requestAnimationFrame(updateLocaleMenuPosition)
+    window.addEventListener('scroll', handleViewportChange, true)
+    window.addEventListener('resize', handleViewportChange)
+    document.addEventListener('mousedown', handleOutsidePointerDown)
+
+    return () => {
+      window.removeEventListener('scroll', handleViewportChange, true)
+      window.removeEventListener('resize', handleViewportChange)
+      document.removeEventListener('mousedown', handleOutsidePointerDown)
+    }
+  }, [isLocaleOpen, localeMenuTarget])
+
+  const renderLocaleTrigger = (target: 'desktop' | 'mobile') => (
+    <Button
+      ref={'mobile' === target ? mobileLocaleButtonRef : desktopLocaleButtonRef}
+      variant="bordered"
+      startContent={<LuLanguages size={16} />}
+      onClick={() => handleLocaleToggle(target)}
+    >
+      {currentLocale}
+    </Button>
   )
+
+  const localeMenu = isLocaleOpen ? (
+    <div
+      ref={localeMenuRef}
+      role="menu"
+      aria-label="change locale"
+      className="fixed z-[1000] grid max-h-[70vh] w-[min(410px,calc(100vw-24px))] grid-cols-2 gap-2 overflow-y-auto rounded-2xl border border-gray-200 bg-white p-2 shadow-xl"
+      style={localeMenuPosition}
+    >
+      {locales.map((item) => (
+        <NextLink
+          key={item.key}
+          role="menuitem"
+          className="flex min-h-10 items-center gap-2 rounded-lg px-3 py-2 text-gray-500 hover:bg-gray-100 hover:text-primary"
+          replace={true}
+          href={`/${item.key}${pathWithoutLocale}`}
+          onClick={() => setIsLocaleOpen(false)}
+        >
+          <FaAngleRight />{item.name}
+        </NextLink>
+      ))}
+    </div>
+  ) : null
 
 
   return (
-    <Navbar maxWidth="xl"
+    <>
+      <Navbar maxWidth="xl"
             classNames={{ item: 'text-white  data-[active=true]:text-white data-[active=true]:px-5 data-[active=true]:py-1 data-[active=true]:text-primary data-[active=true]:bg-primary data-[active=true]:rounded-2xl' }}
             onMenuOpenChange={setIsMenuOpen}>
       <NavbarMenuToggle
@@ -161,17 +223,23 @@ export default function Nav({ items, locale }: NavbarProps) {
         className="sm:hidden"
       />
       <NavbarBrand>
-        <img className="md:ml-3 ml-0 w-auto h-8 md:h-12  object-cover "
-             src="/logo.png"
-             alt="logo" />
-        <div>
-          <p className="ml-2 font-bold text-sm md:text-2xl">{siteConfig.name}</p>
-          {
-            siteConfig.slogan&& (
-              <p className="ml-2 text-xs hidden md:block md:text-sm text-primary">{siteConfig.slogan}</p>
-            )
-          }
-        </div>
+        <NextLink
+          href={locale ? `/${locale}` : '/'}
+          aria-label="Go to homepage"
+          className="flex items-center"
+        >
+          <img className="md:ml-3 ml-0 w-auto h-8 md:h-12 object-cover"
+               src="/logo.png"
+               alt="logo" />
+          <div>
+            <p className="ml-2 font-bold text-sm md:text-2xl">{siteConfig.name}</p>
+            {
+              siteConfig.slogan&& (
+                <p className="ml-2 text-xs hidden md:block md:text-sm text-primary">{siteConfig.slogan}</p>
+              )
+            }
+          </div>
+        </NextLink>
 
       </NavbarBrand>
 
@@ -207,9 +275,7 @@ export default function Nav({ items, locale }: NavbarProps) {
           ))
         }
         <NavbarMenuItem key="locale" className="-ml-4">
-          {
-            localDropdown
-          }
+          {renderLocaleTrigger('mobile')}
         </NavbarMenuItem>
       </NavbarMenu>
 
@@ -267,7 +333,7 @@ export default function Nav({ items, locale }: NavbarProps) {
         }
 
         <div className="hidden sm:block">
-          {localDropdown}
+          {renderLocaleTrigger('desktop')}
         </div>
       </NavbarContent>
     
@@ -304,5 +370,7 @@ export default function Nav({ items, locale }: NavbarProps) {
         </Modal>
 
     </Navbar>
+    {localeMenu}
+    </>
   )
 }
