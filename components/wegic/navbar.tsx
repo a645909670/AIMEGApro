@@ -125,8 +125,8 @@ export default function Nav({ items, locale }: NavbarProps) {
     setRegLoading(false)
   }
 
-  const updateLocaleMenuPosition = () => {
-    const trigger = 'mobile' === localeMenuTarget
+  const updateLocaleMenuPosition = (target: 'desktop' | 'mobile' = localeMenuTarget) => {
+    const trigger = 'mobile' === target
       ? mobileLocaleButtonRef.current
       : desktopLocaleButtonRef.current
 
@@ -148,6 +148,7 @@ export default function Nav({ items, locale }: NavbarProps) {
       return
     }
 
+    updateLocaleMenuPosition(target)
     setLocaleMenuTarget(target)
     setIsLocaleOpen(true)
   }
@@ -155,7 +156,7 @@ export default function Nav({ items, locale }: NavbarProps) {
   useEffect(() => {
     if (!isLocaleOpen) return
 
-    const handleViewportChange = () => updateLocaleMenuPosition()
+    const handleViewportChange = () => updateLocaleMenuPosition(localeMenuTarget)
     const handleOutsidePointerDown = (event: MouseEvent) => {
       const target = event.target as Node
       const trigger = 'mobile' === localeMenuTarget
@@ -166,7 +167,7 @@ export default function Nav({ items, locale }: NavbarProps) {
       setIsLocaleOpen(false)
     }
 
-    window.requestAnimationFrame(updateLocaleMenuPosition)
+    window.requestAnimationFrame(handleViewportChange)
     window.addEventListener('scroll', handleViewportChange, true)
     window.addEventListener('resize', handleViewportChange)
     document.addEventListener('mousedown', handleOutsidePointerDown)
