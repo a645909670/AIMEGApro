@@ -39,10 +39,10 @@ export default function Hero({params,}: {
         <div className="w-full flex flex-col gap-16 md:gap-4">
           <div className="w-full flex flex-col gap-6">
             <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-50">
-              {t`AIMEGApro: Turn Your Ideas into Images with AI`}
+              AIMEGApro: Turn Your Ideas into Images with AI
             </h1>
             <h2 className="text-slate-600 dark:text-slate-400">
-              {t`Upload an image, describe your vision, and let AI create something new. Transform, remix, and reimagine visuals in seconds—no design skills required.`}
+              Upload an image, describe your vision, and let AI create something new. Transform, remix, and reimagine visuals in seconds—no design skills required.
             </h2>
           </div>
           <div className="flex flex-col gap-10 ">

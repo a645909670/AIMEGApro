@@ -179,3 +179,6 @@ https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/verce
 ## 谷歌授权
 - https://console.cloud.google.com/apis/credentials
 - 去申请凭证
+
+## 每次部署需要加上版本号
+- NEXT_PUBLIC_APP_VERSION=2026-08-03-001

@@ -3,6 +3,7 @@ import clsx from 'clsx'
 import './globals.css'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import MicrosoftClarity from '@/framework/components/MicrosoftClarity'
+import CacheGuard from '@/framework/components/CacheGuard'
 
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
@@ -15,6 +16,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
       className={clsx('min-h-screen Roboto,ui-sans-serif, system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"')}
     >
+    <CacheGuard />
     {children}
     {
       /*G-SJ0Z7VPH67 AI-outpainting专属*/

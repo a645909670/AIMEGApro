@@ -24,6 +24,7 @@ function getUploadTraceId(request: NextRequest): string {
  */
 function withUploadTraceId(response: Response, traceId: string): Response {
   response.headers.set('x-upload-trace-id', traceId)
+  response.headers.set('Cache-Control', 'no-store, max-age=0')
   return response
 }
 

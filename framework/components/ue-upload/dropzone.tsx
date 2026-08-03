@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useState } from 'react'
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 import { UeUploadProps, UeUploadRef } from './types'
 import type { UploadFile } from 'antd'
 import { message, Upload } from 'antd'
@@ -18,6 +18,20 @@ export const UeDropzoneUpload = forwardRef<
   const useProviderHook = 'cos' === provider ? useCos : useS34R2
   const uploadConfig = useProviderHook({ ...uploadProps, skipAuth })
   const [fileList, setFileList] = useState<UploadFile[]>([])
+
+  useEffect(() => {
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) {
+        setFileList([])
+      }
+    }
+
+    window.addEventListener('pageshow', handlePageShow)
+
+    return () => {
+      window.removeEventListener('pageshow', handlePageShow)
+    }
+  }, [])
 
   useImperativeHandle(
     ref,
