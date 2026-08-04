@@ -22,6 +22,22 @@ const ALIBABA_API_KEY = process.env.ALIBABA_API_KEY || ''
 const DAILY_GENERATION_LIMIT = 3
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || ''
 
+/**
+ * 将第三方服务返回的进度统一转换为 0 到 100 的整数百分比。
+ * right.codes 可能返回数字、小数比例或带百分号的字符串，统一后便于前端直接展示。
+ */
+function normalizeProgress(value: unknown): number {
+  if (typeof value === 'string') {
+    const parsedValue = Number.parseFloat(value.replace('%', '').trim())
+    if (!Number.isFinite(parsedValue)) return 0
+    value = parsedValue
+  }
+
+  if (typeof value !== 'number' || !Number.isFinite(value)) return 0
+  const percentage = value <= 1 ? value * 100 : value
+  return Math.min(100, Math.max(0, Math.round(percentage)))
+}
+
 function getScaleParams(expandDirection: string) {
   switch (expandDirection) {
     case '16:9': return { x_scale: 1.78, y_scale: 1.0 }
@@ -40,9 +56,9 @@ function nanoid(len = 32) {
 
 /** 获取客户端真实 IP */
 function getClientIp(request: NextRequest): string {
-  const forwarded = request.headers.get('x-forwarded-for')
-  if (forwarded) return forwarded.split(',')[0].trim()
-  return '127.0.0.1'
+  const forwarded = request.headers.get('x-forwarded-for')?.split(',')[0].trim()
+  const realIp = request.headers.get('x-real-ip')?.trim()
+  return forwarded || realIp || 'unknown'
 }
 
 /** 检查当日使用次数是否超限（登录用户5次，匿名用户3次） */
@@ -184,7 +200,11 @@ export async function GET(request: NextRequest) {
         return R.ok({ taskId, status: 'FAILED', errorMessage: pollResult.error?.message || 'GPT 处理失败' })
       }
       // 还在处理中，返回 PROCESSING
-      return R.ok({ taskId, status: 'PROCESSING' })
+      return R.ok({
+        taskId,
+        status: 'PROCESSING',
+        progress: normalizeProgress(pollResult.progress ?? pollResult.data?.progress),
+      })
     } catch (e: any) {
       console.error('GPT 代理查询失败:', e.message)
       return R.ok({ taskId, status: 'PROCESSING' })
@@ -273,7 +293,7 @@ export async function POST(request: NextRequest) {
           prompt: prompt || '',
           status: 'PENDING',
           userEmail,
-          ipAddress: null,
+          ipAddress: ip,
         },
       })
 
@@ -344,7 +364,7 @@ export async function POST(request: NextRequest) {
   const taskId = nanoid()
   try {
     await prisma.outpaintTask.create({
-      data: { taskId, requestId, imageKey, expandDirection: dir, alignment: alignment || 'Middle', prompt: prompt || '', status: 'PENDING', userEmail, ipAddress: userEmail ? null : ip },
+      data: { taskId, requestId, imageKey, expandDirection: dir, alignment: alignment || 'Middle', prompt: prompt || '', status: 'PENDING', userEmail, ipAddress: ip },
     })
     return R.ok({ taskId, status: 'PENDING' })
   } catch (error: any) {

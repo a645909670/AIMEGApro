@@ -171,6 +171,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   const [limitModalMsg, setLimitModalMsg] = useState('')
   const [historyImages, setHistoryImages] = useState<string[]>([])
   const [isProcessing, setIsProcessing] = useState(false)
+  const [generationProgress, setGenerationProgress] = useState(0)
   const [skipAuth, setSkipAuth] = useState(false) // 跳过登录验证开关
   const isLocalAuthBypass = process.env.NODE_ENV === 'development'
   const skipAuthRef = useRef(skipAuth)
@@ -610,6 +611,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
         msg.error(t`Failed to restore image generation task.`)
         setIsLoading(false)
         setIsProcessing(false)
+        setGenerationProgress(0)
       }
     }
 
@@ -626,10 +628,17 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
    * @returns 完成后将结果图片写入画布；未登录或服务端额度不足时不创建任务。
    */
   const handleGenerate = async (regenerate: boolean = false) => {
+    const normalizedPrompt = promptText.trim()
+    if (!normalizedPrompt) {
+      msg.warning(t`Please enter a prompt before starting.`)
+      return
+    }
+
     if (!ensureAuthenticated()) return
 
     setIsLoading(true)
     setIsProcessing(true)
+    setGenerationProgress(0)
 
     try {
       const imageKey = regenerate ? originKey : currentImageKey
@@ -651,7 +660,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
         model: selectedModel,
         expandDirection: selectedImageSize,
         alignment: selectedPosition,
-        prompt: promptText || (process.env.NEXT_PUBLIC_MCP_PROMPT || ''),
+        prompt: normalizedPrompt,
       }) as any
 
       if (!task || !task.taskId) {
@@ -678,7 +687,10 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
         await new Promise(resolve => setTimeout(resolve, 2000))
         const res = await fetch(`/api/outpaint?taskId=${task.taskId}`)
         const json = await res.json()
-        task = json.data
+        task = json.data ?? json
+        if (typeof task?.progress === 'number') {
+          setGenerationProgress(Math.min(100, Math.max(0, task.progress)))
+        }
       }
 
       if (task.status !== 'SUCCEEDED' || !task.resultKey || !task.resultUrl) {
@@ -686,6 +698,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
         throw new Error(task.errorMessage || t`Image processing failed.`)
       }
       const resultImageUrl = task.resultUrl
+      setGenerationProgress(100)
       localStorage.removeItem(ACTIVE_GENERATION_TASK_STORAGE_KEY)
 
       // 5. 显示在画布上
@@ -716,6 +729,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
         setIsLoading(false)
         setIsProcessing(false)
+        setGenerationProgress(0)
       }
 
     } catch (error: any) {
@@ -725,6 +739,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
         setShowLimitModal(true)
         setIsLoading(false)
         setIsProcessing(false)
+        setGenerationProgress(0)
         console.error('Image generation limit reached:', error)
         return
       }
@@ -894,7 +909,39 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   )
 
   return (
-    <Spin spinning={isProcessing} tip={t`Processing...`} size="large">
+    <div className="relative h-screen">
+      {isProcessing && (
+        <div className="absolute inset-0 z-[100] flex items-center justify-center overflow-hidden rounded-[20px] bg-[#080a07]/55">
+          <div
+            className="pointer-events-none absolute inset-0 opacity-40"
+            style={{
+              backgroundImage: 'repeating-linear-gradient(0deg, rgba(190, 255, 0, 0.08) 0, rgba(190, 255, 0, 0.08) 2px, transparent 2px, transparent 6px)',
+            }}
+          />
+          <div className="relative z-10 flex w-64 flex-col items-center text-center">
+            <div className="mb-5 rounded-2xl border-2 border-[#2f9da0] px-6 py-2 text-3xl font-black tracking-wide text-[#2f9da0] shadow-[0_0_18px_rgba(215,255,39,0.35)]">
+              {t`Generating`}
+            </div>
+            <div className="h-3 w-44 overflow-hidden rounded-full border-2 border-[#2f9da0] bg-[#171b0e]">
+              <div
+                className="h-full rounded-full bg-[#2f9da0] shadow-[0_0_10px_rgba(215,255,39,0.9)] transition-[width] duration-500 ease-out"
+                style={{ width: `${generationProgress}%` }}
+              />
+            </div>
+            <div className="mt-2 text-sm font-semibold text-gray-300">
+              {t`Processing...`} {generationProgress}%
+            </div>
+            <div className="mt-5 flex gap-2">
+              {['progress-a', 'progress-b', 'progress-c', 'progress-d', 'progress-e'].map((segment) => (
+                <span
+                  key={segment}
+                  className="h-7 w-5 animate-pulse rounded border border-[#39420f] bg-[#151a0c]"
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
       <div className="h-screen flex flex-col">
         <GoogleLogin ref={loginRef} />
         {msgHolder}
@@ -1224,7 +1271,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
           </ModalContent>
         </Modal>
       </div>
-    </Spin>
+    </div>
   )
 }
 
