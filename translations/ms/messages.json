@@ -18,17 +18,6 @@
       ]
     ]
   },
-  "heWVMD": {
-    "translation": "1 Credit/use, {0} left",
-    "message": "1 Credit/use, {0} left",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        904
-      ]
-    ]
-  },
   "Ukjyf+": {
     "translation": "Benar! AI Photo Extender secara khusus dirancang untuk mempertahankan gaya gambar asli sepanjang proses ekspansi. Algoritma AI photo extender kami dilatih untuk memahami dan meniru karakteristik gambar unik, memastikan konsistensi visual antara konten asli dan diperluas.",
     "message": "Absolutely! AI Photo Extender is specifically designed to preserve the original image style throughout the expansion process. Our AI photo extender's algorithms are trained to understand and replicate unique image characteristics, ensuring visual consistency between the original and expanded content.",
@@ -103,10 +92,6 @@
       [
         "app/[lang]/(public)/playgroundv1/[[...slug]]/views.tsx",
         219
-      ],
-      [
-        "components/wegic/hero.tsx",
-        97
       ]
     ]
   },
@@ -323,17 +308,6 @@
       ]
     ]
   },
-  "qRUxD6": {
-    "translation": "",
-    "message": "AIMEGApro: Democratize AI Image Expansion—Power for All, No Expertise Needed",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/hero.tsx",
-        42
-      ]
-    ]
-  },
   "qqz6Hk": {
     "translation": "",
     "message": "An error occurred while processing the image.",
@@ -341,7 +315,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        490
+        751
       ]
     ]
   },
@@ -352,7 +326,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        953
+        1194
       ]
     ]
   },
@@ -363,7 +337,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        649
+        957
       ]
     ]
   },
@@ -386,10 +360,6 @@
       [
         "app/[lang]/(public)/playgroundv1/[[...slug]]/views.tsx",
         181
-      ],
-      [
-        "components/wegic/hero.tsx",
-        83
       ]
     ]
   },
@@ -420,14 +390,6 @@
       [
         "components/wegic/blogs.tsx",
         20
-      ],
-      [
-        "components/wegic/footer.tsx",
-        13
-      ],
-      [
-        "components/wegic/header.tsx",
-        11
       ]
     ]
   },
@@ -438,18 +400,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        597
-      ]
-    ]
-  },
-  "nLMtvY": {
-    "translation": "",
-    "message": "Break AI Barriers with Effortless Outpainting: Expand photos online in clicks, not code. Our generative AI adapts to any style, ratio, or scene—so creators, hobbyists, and businesses alike unlock pro-level visuals, no design degree required.",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/hero.tsx",
-        45
+        858
       ]
     ]
   },
@@ -570,7 +521,22 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        957
+        1198
+      ]
+    ]
+  },
+  "qEnA05": {
+    "translation": "",
+    "message": "Checking sign-in status. Please try again in a moment.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        288
+      ],
+      [
+        "components/wegic/navbar.tsx",
+        94
       ]
     ]
   },
@@ -581,7 +547,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        873
+        1002
       ]
     ]
   },
@@ -592,15 +558,19 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        984
+        1225
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1006
+        1252
+      ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        1268
       ],
       [
         "framework/components/login/GoogleLogin.tsx",
-        55
+        52
       ]
     ]
   },
@@ -611,7 +581,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        960
+        1201
       ]
     ]
   },
@@ -622,7 +592,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        951
+        1192
       ]
     ]
   },
@@ -652,7 +622,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        899
+        1155
       ]
     ]
   },
@@ -667,29 +637,6 @@
       ]
     ]
   },
-  "mehNeY": {
-    "translation": "Kredit:{0}",
-    "message": "Credit:{0}",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        733
-      ],
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        750
-      ],
-      [
-        "components/wegic/navbar.tsx",
-        204
-      ],
-      [
-        "components/wegic/navbar.tsx",
-        220
-      ]
-    ]
-  },
   "widEIq": {
     "translation": "",
     "message": "Daily limit reached",
@@ -697,7 +644,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        993
+        1260
       ]
     ]
   },
@@ -719,11 +666,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        687
-      ],
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        801
+        1140
       ]
     ]
   },
@@ -756,7 +699,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        913
+        1006
       ]
     ]
   },
@@ -808,18 +751,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        897
-      ]
-    ]
-  },
-  "jU4owd": {
-    "translation": "Arah Pengembangan",
-    "message": "Expansion Direction",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        774
+        1155
       ]
     ]
   },
@@ -830,7 +762,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        655
+        963
       ]
     ]
   },
@@ -841,7 +773,7 @@
     "origin": [
       [
         "app/[lang]/(public)/page.tsx",
-        30
+        28
       ]
     ]
   },
@@ -934,7 +866,29 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        200
+        273
+      ]
+    ]
+  },
+  "j8tS1j": {
+    "translation": "",
+    "message": "Failed to restore generated image.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        596
+      ]
+    ]
+  },
+  "OsekQZ": {
+    "translation": "",
+    "message": "Failed to restore image generation task.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        611
       ]
     ]
   },
@@ -945,7 +899,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        436
+        667
       ]
     ]
   },
@@ -956,7 +910,7 @@
     "origin": [
       [
         "framework/components/ue-upload/useS34R2.ts",
-        23
+        56
       ]
     ]
   },
@@ -978,7 +932,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        209
+        304
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -1026,7 +980,7 @@
     "origin": [
       [
         "app/[lang]/(public)/page.tsx",
-        27
+        25
       ]
     ]
   },
@@ -1050,6 +1004,17 @@
       [
         "components/wegic/faqs.tsx",
         67
+      ]
+    ]
+  },
+  "0uESxc": {
+    "translation": "",
+    "message": "Generating",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        923
       ]
     ]
   },
@@ -1116,7 +1081,7 @@
       ],
       [
         "components/wegic/hero.tsx",
-        56
+        172
       ],
       [
         "components/wegic/index-uploader.tsx",
@@ -1139,14 +1104,14 @@
       ]
     ]
   },
-  "2tJeBV": {
+  "7Z1OIh": {
     "translation": "",
-    "message": "GPT Image",
+    "message": "Google sign-in failed. Please try again.",
     "comments": [],
     "origin": [
       [
-        "app/[lang]/(editor)/editor/view.tsx",
-        677
+        "components/wegic/navbar.tsx",
+        102
       ]
     ]
   },
@@ -1179,10 +1144,6 @@
     "origin": [
       [
         "components/wegic/footer.tsx",
-        10
-      ],
-      [
-        "components/wegic/header.tsx",
         8
       ]
     ]
@@ -1194,11 +1155,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        657
-      ],
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        776
+        965
       ]
     ]
   },
@@ -1308,7 +1265,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        224
+        319
       ]
     ]
   },
@@ -1319,7 +1276,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        219
+        314
       ]
     ]
   },
@@ -1330,7 +1287,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        456
+        560
+      ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        698
       ]
     ]
   },
@@ -1350,10 +1311,6 @@
       [
         "app/[lang]/(public)/generative-fill-ai/views/hero.tsx",
         63
-      ],
-      [
-        "components/wegic/hero.tsx",
-        68
       ]
     ]
   },
@@ -1386,7 +1343,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        592
+        853
       ]
     ]
   },
@@ -1397,7 +1354,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        832
+        1101
       ]
     ]
   },
@@ -1423,11 +1380,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        740
+        1048
       ],
       [
         "components/wegic/navbar.tsx",
-        210
+        315
       ]
     ]
   },
@@ -1438,18 +1395,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        590
-      ]
-    ]
-  },
-  "hDkkvu": {
-    "translation": "",
-    "message": "Model:",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        664
+        851
       ]
     ]
   },
@@ -1460,18 +1406,7 @@
     "origin": [
       [
         "framework/components/ue-upload/useS34R2.ts",
-        27
-      ]
-    ]
-  },
-  "ko93eb": {
-    "translation": "Pengguna baru yang log masuk akan menerima 2 kredit",
-    "message": "New users who log in will receive 2 credits",
-    "comments": [],
-    "origin": [
-      [
-        "framework/components/login/GoogleLogin.tsx",
-        38
+        60
       ]
     ]
   },
@@ -1515,18 +1450,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        973
-      ]
-    ]
-  },
-  "shdsCc": {
-    "translation": "Posisi Gambar Asli",
-    "message": "Original Image Position",
-    "comments": [],
-    "origin": [
+        1214
+      ],
       [
-        "app/[lang]/(editor)/editor/view.tsx",
-        782
+        "components/wegic/hero.tsx",
+        202
       ]
     ]
   },
@@ -1537,7 +1465,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        693
+        972
       ]
     ]
   },
@@ -1603,11 +1531,22 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        851
+        1121
       ],
       [
         "components/wegic/painting-uploader.tsx",
         105
+      ]
+    ]
+  },
+  "XzsITF": {
+    "translation": "",
+    "message": "Please enter a prompt before starting.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        633
       ]
     ]
   },
@@ -1617,8 +1556,12 @@
     "comments": [],
     "origin": [
       [
+        "app/[lang]/(editor)/editor/view.tsx",
+        294
+      ],
+      [
         "framework/components/login/GoogleLogin.tsx",
-        37
+        38
       ]
     ]
   },
@@ -1640,7 +1583,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        423
+        646
       ]
     ]
   },
@@ -1684,7 +1627,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        636
+        932
       ]
     ]
   },
@@ -1695,11 +1638,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        682
-      ],
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        796
+        1134
       ]
     ]
   },
@@ -1743,7 +1682,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        884
+        1150
       ],
       [
         "app/[lang]/(public)/playgroundv1/[[...slug]]/views.tsx",
@@ -1769,7 +1708,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        594
+        855
       ]
     ]
   },
@@ -1780,11 +1719,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        719
+        1027
       ],
       [
         "components/wegic/navbar.tsx",
-        192
+        298
       ]
     ]
   },
@@ -1795,15 +1734,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        711
-      ],
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        1003
+        1019
       ],
       [
         "components/wegic/navbar.tsx",
-        189
+        295
       ],
       [
         "components/wegic/pricing.tsx",
@@ -1811,18 +1746,7 @@
       ],
       [
         "framework/components/login/GoogleLogin.tsx",
-        49
-      ]
-    ]
-  },
-  "M75fzb": {
-    "translation": "",
-    "message": "Sign in with Google to get 5 uses per day.",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        997
+        46
       ]
     ]
   },
@@ -1833,22 +1757,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        659
-      ],
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        778
-      ]
-    ]
-  },
-  "FKsmFn": {
-    "translation": "Mulai Mengekspansi",
-    "message": "Start Expanding",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        900
+        967
       ]
     ]
   },
@@ -1919,17 +1828,6 @@
       ]
     ]
   },
-  "3jxGQW": {
-    "translation": "",
-    "message": "Tongyi",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        671
-      ]
-    ]
-  },
   "WWy8TN": {
     "translation": "Atas",
     "message": "Top",
@@ -1937,7 +1835,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        596
+        857
       ]
     ]
   },
@@ -1971,6 +1869,17 @@
       [
         "components/payment/paypal.tsx",
         63
+      ]
+    ]
+  },
+  "fmJXjq": {
+    "translation": "",
+    "message": "Unable to check sign-in status. Please try again.",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/navbar.tsx",
+        83
       ]
     ]
   },
@@ -2040,7 +1949,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        832
+        1101
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -2067,7 +1976,7 @@
       ],
       [
         "components/wegic/hero.tsx",
-        63
+        179
       ]
     ]
   },
@@ -2078,11 +1987,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        658
-      ],
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        777
+        966
       ]
     ]
   },
