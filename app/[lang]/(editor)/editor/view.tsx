@@ -128,6 +128,12 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     y: 0,
   })
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 })
+  /**
+   * 仅在画布尺寸初始化完成后恢复历史生成任务，避免尺寸变化取消图片加载回调。
+   */
+  const isCanvasReady = canvasSize.width > 0 && canvasSize.height > 0
+  const canvasSizeRef = useRef(canvasSize)
+  canvasSizeRef.current = canvasSize
   const stageRef = useRef<any>(null)
   const loginRef = useRef<GoogleLoginRef>(null)
   const [selectedModel, setSelectedModel] = useState<ImageGenerationModel>('nano-banana-2-lite')
@@ -527,6 +533,8 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
 
   useEffect(() => {
+    if (!isCanvasReady) return
+
     if (!isAuthenticated && !isLocalAuthBypass) {
       hasRestoredTaskRef.current = false
       return
@@ -555,7 +563,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
         const taskStatus = String(task?.status ?? '').toUpperCase()
 
         if (taskStatus === 'PENDING' || taskStatus === 'PROCESSING') {
-          const taskDeadline = persistedTask.createdAt + MAX_TASK_WAIT_DURATION
+          const taskDeadline = persistedTask.createdAt + MAX_TASK_RESTORE_DURATION
           if (Date.now() >= taskDeadline) {
             setIsGenerationTimedOut(true)
             setIsLoading(false)
@@ -578,7 +586,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
         let consecutivePollFailures = 0
         while (!isCancelled && (String(task?.status ?? '').toUpperCase() === 'PENDING' || String(task?.status ?? '').toUpperCase() === 'PROCESSING')) {
-          if (Date.now() >= persistedTask.createdAt + MAX_TASK_WAIT_DURATION) {
+          if (Date.now() >= persistedTask.createdAt + MAX_TASK_RESTORE_DURATION) {
             setIsGenerationTimedOut(true)
             setIsLoading(false)
             setIsProcessing(false)
@@ -620,9 +628,10 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
         restoredImage.onload = () => {
           if (isCancelled) return
 
-          const imageAreaHeight = Math.max(120, canvasSize.height - PROMPT_PANEL_RESERVED_HEIGHT)
+          const { width: canvasWidth, height: canvasHeight } = canvasSizeRef.current
+          const imageAreaHeight = Math.max(120, canvasHeight - PROMPT_PANEL_RESERVED_HEIGHT)
           const scale = Math.min(
-            (canvasSize.width - 72) / restoredImage.width,
+            (canvasWidth - 72) / restoredImage.width,
             (imageAreaHeight - 72) / restoredImage.height,
           ) * CANVAS_IMAGE_SCALE_RATIO
           const width = restoredImage.width * scale
@@ -631,7 +640,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
           setImageProps({
             width,
             height,
-            x: (canvasSize.width - width) / 2,
+            x: (canvasWidth - width) / 2,
             y: (imageAreaHeight - height) / 2,
           })
           setImage(restoredImage)
@@ -676,7 +685,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     return () => {
       isCancelled = true
     }
-  }, [canvasSize.height, canvasSize.width, isAuthenticated, isLocalAuthBypass, msg, skipAuth])
+  }, [isAuthenticated, isCanvasReady, isLocalAuthBypass, msg, skipAuth])
 
   /**
    * 创建并轮询图片生成任务。
