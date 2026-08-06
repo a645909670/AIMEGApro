@@ -40,17 +40,6 @@
       ]
     ]
   },
-  "PVrmDs": {
-    "translation": "Absolut! Neben der Erweiterung des Inhalts des Bildes bietet AI Outpainting auch die Möglichkeit, die Pixelabmessungen der hochgeladenen Bilder zu erhöhen. Dies ermöglicht es den Benutzern, die Gesamtauflösung und Qualität ihrer Bilder zu verbessern.",
-    "message": "Absolutely! In addition to expanding the content of the image, AI Outpainting also provides the option to increase the pixel dimensions of the uploaded images. This allows users to enhance the overall resolution and quality of their images.",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/faqs.tsx",
-        48
-      ]
-    ]
-  },
   "zLNTkq": {
     "translation": "Natürlich! Unser generatives Auffüll-AI ist speziell darauf ausgelegt, den ursprünglichen Bildstil während des Erweiterungsprozesses zu bewahren. Die Algorithmen, die diese generative Auffüll-AI-Technologie antreiben, sind darauf trainiert, einzigartige Bildmerkmale zu verstehen und zu replizieren, um eine visuelle Konsistenz zwischen dem Original und dem erweiterten Inhalt sicherzustellen.",
     "message": "Absolutely! Our generative fill AI is specifically designed to preserve the original image style throughout the expansion process. The algorithms powering this generative fill AI technology are trained to understand and replicate unique image characteristics, ensuring visual consistency between the original and expanded content.",
@@ -69,7 +58,7 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/hero.tsx",
-        90
+        94
       ]
     ]
   },
@@ -102,11 +91,11 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-photo-extender/views/hero.tsx",
-        90
+        94
       ],
       [
         "app/[lang]/(public)/generative-fill-ai/views/hero.tsx",
-        90
+        106
       ]
     ]
   },
@@ -161,51 +150,7 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/hero.tsx",
-        37
-      ]
-    ]
-  },
-  "zHYI2s": {
-    "translation": "",
-    "message": "AI Outpainting allows users to simultaneously expand up to five images. This multi-image expansion feature enables users to conveniently enhance multiple images in a time-efficient manner.",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/faqs.tsx",
-        56
-      ]
-    ]
-  },
-  "TuDjpa": {
-    "translation": "AI Outpainting verwendet hochmoderne KI-Algorithmen, um die hochgeladenen Bilder zu analysieren und zusätzliche Inhalte basierend auf den vorhandenen Bilddaten zu generieren. Durch den Einsatz eines Deep-Learning-Modells ist die KI-Technologie in der Lage, den Bildinhalt nahtlos auf eine Weise zu erweitern, die mit dem ursprünglichen Stil konsistent bleibt.",
-    "message": "AI Outpainting employs cutting-edge AI algorithms to analyze the uploaded images and generate additional content based on the existing image data. By utilizing a deep learning model, the AI technology is able to seamlessly expand the image content in a way that remains consistent with the original style.",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/faqs.tsx",
-        34
-      ]
-    ]
-  },
-  "Oiqc2y": {
-    "translation": "",
-    "message": "AI Outpainting Examples: Democratize Creative Expansion Ideas",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/gallery.tsx",
-        42
-      ]
-    ]
-  },
-  "iTf+zF": {
-    "translation": "AI Outpainting ist eine Website, die fortschrittliche KI-Technologie nutzt, um Bilder, die von Benutzern hochgeladen wurden, zu erweitern und zu verbessern. Es kann den Inhalt von Bildern in vier Richtungen (oben, unten, links und rechts) erweitern, während der ursprüngliche Stil des Bildes beibehalten wird. Es hat auch die Fähigkeit, die Pixelabmessungen der Bilder zu erhöhen und gleichzeitig bis zu vier Bilder zu erweitern.",
-    "message": "AI Outpainting is a website that utilizes advanced AI technology to expand and enhance images uploaded by users. It can extend the content of images in four directions (up, down, left, and right), while maintaining the original style of the image. It also has the capability to increase the pixel dimensions of the images and simultaneously expand up to four images.",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/faqs.tsx",
-        28
+        41
       ]
     ]
   },
@@ -282,13 +227,13 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-photo-extender/views/hero.tsx",
-        37
+        41
       ]
     ]
   },
-  "bxL1Ly": {
-    "translation": "",
-    "message": "AI Understands Your Vision",
+  "F4HXsC": {
+    "translation": "KI, die Ihr Bild versteht",
+    "message": "AI That Understands Your Image",
     "comments": [],
     "origin": [
       [
@@ -308,6 +253,54 @@
       ]
     ]
   },
+  "AIOuR8": {
+    "translation": "AIMEGApro analysiert Motiv, Komposition, Beleuchtung, Farben und visuellen Stil Ihres hochgeladenen Bildes. Anschließend verwendet es Ihre Anweisungen, um neue Inhalte zu erzeugen, die sich natürlich in das Original einfügen.",
+    "message": "AIMEGApro analyzes the subject, composition, lighting, colors, and visual style of your uploaded image. It then uses your instructions to generate new content that blends naturally with the original.",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/faqs.tsx",
+        34
+      ]
+    ]
+  },
+  "vYr3lr": {
+    "translation": "AIMEGApro analysiert Motiv, Beleuchtung, Farben, Perspektive und visuellen Stil, um Ergebnisse zu erzeugen, die sich natürlich in Ihr Originalbild einfügen.",
+    "message": "AIMEGApro analyzes the subject, lighting, colors, perspective, and visual style to create results that blend naturally with your original image.",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/features.tsx",
+        25
+      ],
+      [
+        "components/wegic/features.tsx",
+        34
+      ]
+    ]
+  },
+  "p6tZNX": {
+    "translation": "AIMEGApro verarbeitet derzeit jeweils ein Bild, damit sich die KI auf ein konsistenteres und detaillierteres Ergebnis konzentrieren kann.",
+    "message": "AIMEGApro currently processes one image at a time, helping the AI focus on generating a more consistent and detailed result.",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/faqs.tsx",
+        55
+      ]
+    ]
+  },
+  "9Ksm3j": {
+    "translation": "AIMEGApro ist ein KI-gestütztes Bildtransformationstool, mit dem Sie Bilder erweitern, bearbeiten und neu gestalten können. Laden Sie einfach ein Bild hoch, beschreiben Sie das gewünschte Ergebnis und lassen Sie die KI in Sekunden eine neue Version erstellen.",
+    "message": "AIMEGApro is an AI-powered image transformation tool that helps you expand, edit, and reimagine images. Simply upload an image, describe the result you want, and let AI generate a new version in seconds.",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/faqs.tsx",
+        28
+      ]
+    ]
+  },
   "qqz6Hk": {
     "translation": "",
     "message": "An error occurred while processing the image.",
@@ -315,7 +308,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        751
+        852
       ]
     ]
   },
@@ -326,7 +319,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1194
+        1313
       ]
     ]
   },
@@ -337,7 +330,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        957
+        1076
       ]
     ]
   },
@@ -348,7 +341,7 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/hero.tsx",
-        77
+        81
       ]
     ]
   },
@@ -370,11 +363,11 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-photo-extender/views/hero.tsx",
-        77
+        81
       ],
       [
         "app/[lang]/(public)/generative-fill-ai/views/hero.tsx",
-        77
+        93
       ]
     ]
   },
@@ -400,7 +393,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        858
+        959
       ]
     ]
   },
@@ -437,17 +430,6 @@
       ]
     ]
   },
-  "68P0qo": {
-    "translation": "",
-    "message": "Browse Democratized AI Outpainting Magic—No Expertise Required.See how everyday creators (not just pros) stretch artworks into new worlds. Every example proves AI’s power to unlock limitless expansion—no design degree needed.",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/gallery.tsx",
-        47
-      ]
-    ]
-  },
   "EWY1qg": {
     "translation": "Kann der AI-Bildverlängerer die Pixelabmessungen eines Bildes vergrößern?",
     "message": "Can AI Image Extender increase the pixel dimensions of an image?",
@@ -470,28 +452,6 @@
       ]
     ]
   },
-  "1Fpd2D": {
-    "translation": "Kann AI Outpainting die Pixelabmessungen eines Bildes erhöhen?",
-    "message": "Can AI Outpainting increase the pixel dimensions of an image?",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/faqs.tsx",
-        46
-      ]
-    ]
-  },
-  "OTPxHN": {
-    "translation": "Kann AI Outpainting den Stil des Originalbildes beim Erweitern beibehalten?",
-    "message": "Can AI Outpainting maintain the style of the original image while expanding it?",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/faqs.tsx",
-        39
-      ]
-    ]
-  },
   "6+I5pv": {
     "translation": "Kann der AI-Fotoverlängerer den ursprünglichen Bildstil beibehalten?",
     "message": "Can AI Photo Extender maintain the original image style?",
@@ -500,6 +460,17 @@
       [
         "app/[lang]/(public)/ai-photo-extender/views/faqs.tsx",
         33
+      ]
+    ]
+  },
+  "9gVd24": {
+    "translation": "Kann AIMEGApro den Stil des Originalbildes bewahren?",
+    "message": "Can AIMEGApro preserve the original image style?",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/faqs.tsx",
+        39
       ]
     ]
   },
@@ -514,6 +485,17 @@
       ]
     ]
   },
+  "LaEKfS": {
+    "translation": "Kann ich ein Bild über seinen ursprünglichen Rahmen hinaus erweitern?",
+    "message": "Can I expand an image beyond its original frame?",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/faqs.tsx",
+        46
+      ]
+    ]
+  },
   "dEgA5A": {
     "translation": "Abbrechen",
     "message": "Cancel",
@@ -521,7 +503,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1198
+        1317
       ]
     ]
   },
@@ -532,7 +514,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        288
+        310
       ],
       [
         "components/wegic/navbar.tsx",
@@ -547,7 +529,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1002
+        1121
       ]
     ]
   },
@@ -558,15 +540,15 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1225
+        1344
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1252
+        1371
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1268
+        1387
       ],
       [
         "framework/components/login/GoogleLogin.tsx",
@@ -581,7 +563,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1201
+        1320
       ]
     ]
   },
@@ -592,7 +574,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1192
+        1311
       ]
     ]
   },
@@ -622,7 +604,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1155
+        1274
       ]
     ]
   },
@@ -644,18 +626,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1260
-      ]
-    ]
-  },
-  "nMuTxY": {
-    "translation": "",
-    "message": "Democratize your creativity—start with 3 free image expansions, no credit card or expertise needed.",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/features.tsx",
-        14
+        1379
       ]
     ]
   },
@@ -666,7 +637,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1140
+        1259
       ]
     ]
   },
@@ -699,7 +670,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1006
+        1125
       ]
     ]
   },
@@ -733,14 +704,14 @@
       ]
     ]
   },
-  "i0wn8o": {
-    "translation": "",
-    "message": "Every Gallery Piece Proves AI’s Democratizing Power.Watch how AI reshapes photos into polished projects—for bloggers, small biz, and hobbyists alike. No “pro tools” barriers—just creativity, amplified.",
+  "Z3iTBd": {
+    "translation": "Über den Rahmen hinaus  Erweitern Sie Hintergründe, zeigen Sie mehr von der Szene und verwandeln Sie zugeschnittene Bilder in vollständige Kompositionen.",
+    "message": "Expand Beyond the Frame  Extend backgrounds, reveal more of the scene, and turn cropped images into complete compositions.",
     "comments": [],
     "origin": [
       [
         "components/wegic/gallery.tsx",
-        50
+        47
       ]
     ]
   },
@@ -751,7 +722,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1155
+        1274
       ]
     ]
   },
@@ -762,7 +733,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        963
+        1082
       ]
     ]
   },
@@ -784,7 +755,7 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/hero.tsx",
-        40
+        44
       ]
     ]
   },
@@ -795,7 +766,7 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-photo-extender/views/hero.tsx",
-        40
+        44
       ]
     ]
   },
@@ -806,7 +777,7 @@
     "origin": [
       [
         "app/[lang]/(public)/generative-fill-ai/views/hero.tsx",
-        40
+        56
       ]
     ]
   },
@@ -825,17 +796,6 @@
       ],
       [
         "app/[lang]/(public)/generative-fill-ai/views/features.tsx",
-        32
-      ]
-    ]
-  },
-  "g/JO+h": {
-    "translation": "",
-    "message": "Extend, Refine, Repeat—No Limits",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/features.tsx",
         32
       ]
     ]
@@ -866,7 +826,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        273
+        295
+      ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        801
       ]
     ]
   },
@@ -877,7 +841,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        596
+        661
       ]
     ]
   },
@@ -888,7 +852,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        611
+        676
       ]
     ]
   },
@@ -899,7 +863,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        667
+        729
       ]
     ]
   },
@@ -932,7 +896,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        304
+        326
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -1003,7 +967,7 @@
       ],
       [
         "components/wegic/faqs.tsx",
-        67
+        66
       ]
     ]
   },
@@ -1014,7 +978,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        923
+        1024
       ]
     ]
   },
@@ -1058,7 +1022,7 @@
     "origin": [
       [
         "app/[lang]/(public)/generative-fill-ai/views/hero.tsx",
-        37
+        53
       ]
     ]
   },
@@ -1069,19 +1033,19 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/hero.tsx",
-        51
+        55
       ],
       [
         "app/[lang]/(public)/ai-photo-extender/views/hero.tsx",
-        51
+        55
       ],
       [
         "app/[lang]/(public)/generative-fill-ai/views/hero.tsx",
-        51
+        67
       ],
       [
         "components/wegic/hero.tsx",
-        172
+        213
       ],
       [
         "components/wegic/index-uploader.tsx",
@@ -1155,7 +1119,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        965
+        1084
       ]
     ]
   },
@@ -1181,9 +1145,9 @@
       ]
     ]
   },
-  "NYWdBf": {
-    "translation": "Wie funktioniert AI Outpainting?",
-    "message": "How does AI Outpainting work?",
+  "tRoycx": {
+    "translation": "Wie funktioniert die KI-Bildtransformation?",
+    "message": "How does AI image transformation work?",
     "comments": [],
     "origin": [
       [
@@ -1247,14 +1211,14 @@
       ]
     ]
   },
-  "c8UM3u": {
-    "translation": "Wie viele Bilder kann ich gleichzeitig mit AI Outpainting erweitern?",
-    "message": "How many images can I expand at once using AI Outpainting?",
+  "nWb5tv": {
+    "translation": "Wie viele Bilder kann ich gleichzeitig transformieren?",
+    "message": "How many images can I transform at once?",
     "comments": [],
     "origin": [
       [
         "components/wegic/faqs.tsx",
-        54
+        53
       ]
     ]
   },
@@ -1265,7 +1229,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        319
+        341
       ]
     ]
   },
@@ -1276,7 +1240,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        314
+        336
       ]
     ]
   },
@@ -1287,11 +1251,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        560
+        623
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        698
+        791
       ]
     ]
   },
@@ -1302,15 +1266,15 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/hero.tsx",
-        63
+        67
       ],
       [
         "app/[lang]/(public)/ai-photo-extender/views/hero.tsx",
-        63
+        67
       ],
       [
         "app/[lang]/(public)/generative-fill-ai/views/hero.tsx",
-        63
+        79
       ]
     ]
   },
@@ -1343,7 +1307,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        853
+        954
       ]
     ]
   },
@@ -1354,7 +1318,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1101
+        1220
       ]
     ]
   },
@@ -1380,7 +1344,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1048
+        1167
       ],
       [
         "components/wegic/navbar.tsx",
@@ -1395,7 +1359,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        851
+        952
       ]
     ]
   },
@@ -1432,17 +1396,6 @@
       ]
     ]
   },
-  "Hg/3rC": {
-    "translation": "",
-    "message": "No-Cost AI Outpainting",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/features.tsx",
-        12
-      ]
-    ]
-  },
   "8HI10O": {
     "translation": "Ursprüngliches Bild",
     "message": "Original Image",
@@ -1450,11 +1403,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1214
-      ],
-      [
-        "components/wegic/hero.tsx",
-        202
+        1333
       ]
     ]
   },
@@ -1465,18 +1414,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        972
-      ]
-    ]
-  },
-  "qCCbK/": {
-    "translation": "",
-    "message": "Our AI analyzes image context—lighting, style, even hidden details—automatically. Get pro-level expansions, no design skills required.",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/features.tsx",
-        25
+        1091
       ]
     ]
   },
@@ -1531,7 +1469,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1121
+        1240
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -1546,7 +1484,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        633
+        698
       ]
     ]
   },
@@ -1557,7 +1495,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        294
+        316
       ],
       [
         "framework/components/login/GoogleLogin.tsx",
@@ -1583,7 +1521,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        646
+        712
       ]
     ]
   },
@@ -1627,7 +1565,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        932
+        1033
       ]
     ]
   },
@@ -1638,7 +1576,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1134
+        1253
       ]
     ]
   },
@@ -1675,6 +1613,17 @@
       ]
     ]
   },
+  "SabG0Y": {
+    "translation": "Verfeinern Sie es, bis es sich richtig anfühlt",
+    "message": "Refine Until It Feels Right",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/features.tsx",
+        32
+      ]
+    ]
+  },
   "6exX+8": {
     "translation": "Regenerieren",
     "message": "Regenerate",
@@ -1682,11 +1631,22 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1150
+        1269
       ],
       [
         "app/[lang]/(public)/playgroundv1/[[...slug]]/views.tsx",
         208
+      ]
+    ]
+  },
+  "UhSRh5": {
+    "translation": "Gestalten Sie jedes Detail neu\nÄndern Sie Umgebungen, ersetzen Sie Objekte, passen Sie Stile an und erkunden Sie neue kreative Richtungen mit einfachen Textanweisungen.",
+    "message": "Reimagine Every Detail\nChange environments, replace objects, adjust styles, and explore new creative directions with simple text instructions.",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/gallery.tsx",
+        50
       ]
     ]
   },
@@ -1701,6 +1661,17 @@
       ]
     ]
   },
+  "M9Q7DY": {
+    "translation": "",
+    "message": "Return Home",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        1060
+      ]
+    ]
+  },
   "nOPbWJ": {
     "translation": "Rechts",
     "message": "Right",
@@ -1708,7 +1679,18 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        855
+        956
+      ]
+    ]
+  },
+  "JmZhVt": {
+    "translation": "Sehen Sie, was Sie mit AIMEGApro erstellen können",
+    "message": "See What You Can Create with AIMEGApro",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/gallery.tsx",
+        42
       ]
     ]
   },
@@ -1719,7 +1701,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1027
+        1146
       ],
       [
         "components/wegic/navbar.tsx",
@@ -1734,7 +1716,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1019
+        1138
       ],
       [
         "components/wegic/navbar.tsx",
@@ -1757,7 +1739,18 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        967
+        1086
+      ]
+    ]
+  },
+  "0a0KzY": {
+    "translation": "Kostenlos kreativ werden",
+    "message": "Start Creating for Free",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/features.tsx",
+        12
       ]
     ]
   },
@@ -1828,6 +1821,17 @@
       ]
     ]
   },
+  "NqVZTj": {
+    "translation": "",
+    "message": "This image is still being generated in the background. You can leave now and check back later.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        1049
+      ]
+    ]
+  },
   "WWy8TN": {
     "translation": "Oben",
     "message": "Top",
@@ -1835,7 +1839,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        857
+        958
       ]
     ]
   },
@@ -1869,6 +1873,17 @@
       [
         "components/payment/paypal.tsx",
         63
+      ]
+    ]
+  },
+  "5WeM+I": {
+    "translation": "Testen Sie bis zu 3 kostenlose Bildtransformationen. Keine Kreditkarte, Softwareinstallation oder Designerfahrung erforderlich.",
+    "message": "Try up to 3 free image transformations. No credit card, software installation, or design experience required.",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/features.tsx",
+        14
       ]
     ]
   },
@@ -1949,34 +1964,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1101
+        1220
       ],
       [
         "components/wegic/painting-uploader.tsx",
         88
-      ]
-    ]
-  },
-  "Sxm8rQ": {
-    "translation": "Benutzer",
-    "message": "Users",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(public)/ai-image-extender/views/hero.tsx",
-        58
-      ],
-      [
-        "app/[lang]/(public)/ai-photo-extender/views/hero.tsx",
-        58
-      ],
-      [
-        "app/[lang]/(public)/generative-fill-ai/views/hero.tsx",
-        58
-      ],
-      [
-        "components/wegic/hero.tsx",
-        179
       ]
     ]
   },
@@ -1987,7 +1979,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        966
+        1085
       ]
     ]
   },
@@ -2013,17 +2005,6 @@
       ]
     ]
   },
-  "hBTR82": {
-    "translation": "Was ist AI Outpainting?",
-    "message": "What is AI Outpainting?",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/faqs.tsx",
-        26
-      ]
-    ]
-  },
   "e40dkT": {
     "translation": "Was ist der AI Foto Erweiterer?",
     "message": "What is AI Photo Extender?",
@@ -2032,6 +2013,17 @@
       [
         "app/[lang]/(public)/ai-photo-extender/views/faqs.tsx",
         25
+      ]
+    ]
+  },
+  "a1owm3": {
+    "translation": "Was ist AIMEGApro?",
+    "message": "What is AIMEGApro?",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/faqs.tsx",
+        26
       ]
     ]
   },
@@ -2053,17 +2045,6 @@
     "origin": [
       [
         "app/[lang]/(public)/ai-image-extender/views/faqs.tsx",
-        41
-      ]
-    ]
-  },
-  "6kC20h": {
-    "translation": "Ja, AI Outpainting ist darauf ausgelegt, den Stil des Originalbildes während des gesamten Erweiterungsprozesses zu erhalten. Die KI-Algorithmen sind darauf trainiert, die einzigartigen Eigenschaften des Bildes zu verstehen und zu replizieren, so dass der erweiterte Inhalt visuell konsistent mit dem Original bleibt.",
-    "message": "Yes, AI Outpainting is designed to preserve the style of the original image throughout the expansion process. The AI algorithms are trained to understand and replicate the unique characteristics of the image, ensuring that the expanded content remains visually consistent with the original.",
-    "comments": [],
-    "origin": [
-      [
-        "components/wegic/faqs.tsx",
         41
       ]
     ]
@@ -2090,14 +2071,25 @@
       ]
     ]
   },
-  "79fdpj": {
-    "translation": "",
-    "message": "Your creative process, democratized: Expand results again and again, tweaking details until it’s perfect. No “pro mode” barriers—just keep creating.",
+  "aSKLXF": {
+    "translation": "Ja. AIMEGApro wurde entwickelt, um den Gesamtstil, die Beleuchtung, Farben und Perspektive Ihres Originalbildes beizubehalten. Beschreiben Sie die gewünschten Änderungen für optimale Ergebnisse so klar wie möglich.",
+    "message": "Yes. AIMEGApro is designed to maintain the overall style, lighting, colors, and perspective of your original image. For the best results, describe the changes you want as clearly as possible.",
     "comments": [],
     "origin": [
       [
-        "components/wegic/features.tsx",
-        34
+        "components/wegic/faqs.tsx",
+        41
+      ]
+    ]
+  },
+  "i1ofpK": {
+    "translation": "Ja. Sie können ein Bild nach oben, unten, links oder rechts erweitern, um mehr von der Szene zu zeigen, das Seitenverhältnis zu ändern oder zusätzlichen Raum um das Motiv zu schaffen.",
+    "message": "Yes. You can extend an image upward, downward, left, or right to reveal more of the scene, change its aspect ratio, or create additional space around the subject.",
+    "comments": [],
+    "origin": [
+      [
+        "components/wegic/faqs.tsx",
+        48
       ]
     ]
   },

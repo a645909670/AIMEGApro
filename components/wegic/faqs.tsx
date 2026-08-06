@@ -23,37 +23,36 @@ const FAQs = () => {
   const items: FAQItem[] = [
     {
       'question':
-        t`What is AI Outpainting?`,
+        t`What is AIMEGApro?`,
       'answer':
-        t`AI Outpainting is a website that utilizes advanced AI technology to expand and enhance images uploaded by users. It can extend the content of images in four directions (up, down, left, and right), while maintaining the original style of the image. It also has the capability to increase the pixel dimensions of the images and simultaneously expand up to four images.`
+        t`AIMEGApro is an AI-powered image transformation tool that helps you expand, edit, and reimagine images. Simply upload an image, describe the result you want, and let AI generate a new version in seconds.`
     }
     ,
     {
-      'question': t`How does AI Outpainting work?`,
+      'question': t`How does AI image transformation work?`,
       'answer':
-        t`AI Outpainting employs cutting-edge AI algorithms to analyze the uploaded images and generate additional content based on the existing image data. By utilizing a deep learning model, the AI technology is able to seamlessly expand the image content in a way that remains consistent with the original style.`
-    }
-    ,
-    {
-      'question':
-        t`Can AI Outpainting maintain the style of the original image while expanding it?`,
-      'answer':
-        t`Yes, AI Outpainting is designed to preserve the style of the original image throughout the expansion process. The AI algorithms are trained to understand and replicate the unique characteristics of the image, ensuring that the expanded content remains visually consistent with the original.`
+        t`AIMEGApro analyzes the subject, composition, lighting, colors, and visual style of your uploaded image. It then uses your instructions to generate new content that blends naturally with the original.`
     }
     ,
     {
       'question':
-        t`Can AI Outpainting increase the pixel dimensions of an image?`,
+        t`Can AIMEGApro preserve the original image style?`,
       'answer':
-        t`
-Absolutely! In addition to expanding the content of the image, AI Outpainting also provides the option to increase the pixel dimensions of the uploaded images. This allows users to enhance the overall resolution and quality of their images.`
+        t`Yes. AIMEGApro is designed to maintain the overall style, lighting, colors, and perspective of your original image. For the best results, describe the changes you want as clearly as possible.`
     }
     ,
     {
       'question':
-        t`How many images can I expand at once using AI Outpainting?`,
+        t`Can I expand an image beyond its original frame?`,
       'answer':
-        t`AI Outpainting allows users to simultaneously expand up to five images. This multi-image expansion feature enables users to conveniently enhance multiple images in a time-efficient manner.`
+        t`Yes. You can extend an image upward, downward, left, or right to reveal more of the scene, change its aspect ratio, or create additional space around the subject.`
+    }
+    ,
+    {
+      'question':
+        t`How many images can I transform at once?`,
+      'answer':
+        t`AIMEGApro currently processes one image at a time, helping the AI focus on generating a more consistent and detailed result.`
     }
   ]
 

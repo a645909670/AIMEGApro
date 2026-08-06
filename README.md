@@ -181,4 +181,4 @@ https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/verce
 - 去申请凭证
 
 ## 每次部署需要加上版本号
-- NEXT_PUBLIC_APP_VERSION=2026-08-06-001
+- NEXT_PUBLIC_APP_VERSION=2026-08-06-003

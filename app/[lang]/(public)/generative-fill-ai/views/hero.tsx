@@ -8,6 +8,22 @@ import { GoogleLoginRef } from '@/framework/components/login/types'
 import GoogleLogin from '@/framework/components/login/GoogleLogin'
 import { Button } from '@nextui-org/react'
 
+const CREATIVE_USERS_LABELS: Record<AVAILABLE_LOCALES, string> = {
+  [AVAILABLE_LOCALES.en]: 'Creative Users', [AVAILABLE_LOCALES.cs]: 'Kreativní uživatelé',
+  [AVAILABLE_LOCALES.fr]: 'Utilisateurs créatifs', [AVAILABLE_LOCALES.de]: 'Kreative Nutzer',
+  [AVAILABLE_LOCALES.es]: 'Usuarios creativos', [AVAILABLE_LOCALES.it]: 'Utenti creativi',
+  [AVAILABLE_LOCALES.ja]: 'クリエイティブユーザー', [AVAILABLE_LOCALES.ko]: '크리에이티브 사용자',
+  [AVAILABLE_LOCALES.nl]: 'Creatieve gebruikers', [AVAILABLE_LOCALES.ptBR]: 'Usuários criativos',
+  [AVAILABLE_LOCALES.ru]: 'Творческие пользователи', [AVAILABLE_LOCALES.uk]: 'Творчі користувачі',
+  [AVAILABLE_LOCALES.vi]: 'Người dùng sáng tạo', [AVAILABLE_LOCALES.zhTW]: '創意使用者',
+  [AVAILABLE_LOCALES.pt]: 'Utilizadores criativos', [AVAILABLE_LOCALES.da]: 'Kreative brugere',
+  [AVAILABLE_LOCALES.el]: 'Δημιουργικοί χρήστες', [AVAILABLE_LOCALES.no]: 'Kreative brukere',
+  [AVAILABLE_LOCALES.fi]: 'Luovat käyttäjät', [AVAILABLE_LOCALES.sv]: 'Kreativa användare',
+  [AVAILABLE_LOCALES.th]: 'ผู้ใช้สายสร้างสรรค์', [AVAILABLE_LOCALES.id]: 'Pengguna kreatif',
+  [AVAILABLE_LOCALES.hi]: 'क्रिएटिव उपयोगकर्ता', [AVAILABLE_LOCALES.bn]: 'সৃজনশীল ব্যবহারকারী',
+  [AVAILABLE_LOCALES.ms]: 'Pengguna kreatif', [AVAILABLE_LOCALES.tr]: 'Yaratıcı kullanıcılar',
+}
+
 export default function Hero({ params, }: {
   params: { lang: AVAILABLE_LOCALES }
 }) {
@@ -55,7 +71,7 @@ export default function Hero({ params, }: {
             <div className="w-full flex items-center gap-6">
               <div className="flex flex-col gap-1"><span
                 className="text-2xl font-extrabold text-slate-900 dark:text-slate-50"> 100K+</span>
-                <span className="text-slate-600 dark:text-slate-400"> {t`Users`}</span>
+                <span className="text-slate-600 dark:text-slate-400">{CREATIVE_USERS_LABELS[params.lang] ?? CREATIVE_USERS_LABELS[AVAILABLE_LOCALES.en]}</span>
               </div>
               <FaAnglesRight className="text-slate-300" />
               <div className="flex flex-col gap-1"><span
