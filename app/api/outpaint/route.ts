@@ -21,6 +21,11 @@ const ALIBABA_API_KEY = process.env.ALIBABA_API_KEY || ''
  */
 const DAILY_GENERATION_LIMIT = 3
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || ''
+const IS_LOCAL_DEVELOPMENT = process.env.NODE_ENV === 'development' && !process.env.VERCEL
+/**
+ * rightapi 图片生成服务的基础地址，仅在服务端读取环境变量。
+ */
+const RIGHT_API_BASE_URL = (process.env.RIGHT_API_BASE_URL || 'https://www.rightapi.ai').replace(/\/+$/, '')
 
 /**
  * 将第三方服务返回的进度统一转换为 0 到 100 的整数百分比。
@@ -59,6 +64,24 @@ function getClientIp(request: NextRequest): string {
   const forwarded = request.headers.get('x-forwarded-for')?.split(',')[0].trim()
   const realIp = request.headers.get('x-real-ip')?.trim()
   return forwarded || realIp || 'unknown'
+}
+
+/**
+ * 生成本地未登录测试任务的内部身份标识。
+ * @param {String} ipAddress - 当前请求的客户端 IP 地址
+ * @returns {String} 用于任务归属和额度统计的本地测试身份
+ */
+function getLocalTestIdentity(ipAddress: string): string {
+  return `local-test:${ipAddress}`
+}
+
+/**
+ * 为本地测试请求增加可识别前缀，便于在数据库中区分测试数据。
+ * @param {String} requestId - 客户端生成的原始幂等请求 ID
+ * @returns {String} 带本地测试标识或保持原值的请求 ID
+ */
+function normalizeRequestId(requestId: string): string {
+  return IS_LOCAL_DEVELOPMENT ? `local-test-${requestId}` : requestId
 }
 
 /** 检查当日使用次数是否超限（登录用户5次，匿名用户3次） */
@@ -141,9 +164,12 @@ export async function GET(request: NextRequest) {
   if (request.nextUrl.searchParams.get('quota') === '1') {
     try {
       const authUser = await getAuthUser()
-      if (!authUser?.email) return R.bad('Please sign in before generating images.')
+      const userEmail = authUser?.email || (IS_LOCAL_DEVELOPMENT
+        ? getLocalTestIdentity(getClientIp(request))
+        : null)
+      if (!userEmail) return R.bad('Please sign in before generating images.')
 
-      return R.ok(await checkDailyLimit(authUser.email))
+      return R.ok(await checkDailyLimit(userEmail))
     } catch (error: any) {
       console.error('Failed to load daily generation quota:', error)
       return R.error('Failed to load daily generation quota.')
@@ -154,34 +180,46 @@ export async function GET(request: NextRequest) {
   const requestId = request.nextUrl.searchParams.get('requestId')
   if (!taskId && !requestId) return R.bad('taskId or requestId is required')
 
+  const ipAddress = getClientIp(request)
   let userEmail: string | null = null
   try {
     const authUser = await getAuthUser()
-    userEmail = authUser?.email ?? null
+    userEmail = authUser?.email || (IS_LOCAL_DEVELOPMENT
+      ? getLocalTestIdentity(ipAddress)
+      : null)
   } catch (error: any) {
     console.error('Failed to verify task query user:', error)
-    return R.error('Failed to verify task owner.')
+    if (IS_LOCAL_DEVELOPMENT) {
+      userEmail = getLocalTestIdentity(ipAddress)
+    } else {
+      return R.error('Failed to verify task owner.')
+    }
   }
   if (!userEmail) return R.bad('Please sign in before querying image tasks.')
 
   const task = taskId
     ? await prisma.outpaintTask.findUnique({ where: { taskId } })
     : await prisma.outpaintTask.findUnique({
-      where: { userEmail_requestId: { userEmail: userEmail as string, requestId: requestId as string } },
+      where: {
+        userEmail_requestId: {
+          userEmail: userEmail as string,
+          requestId: normalizeRequestId(requestId as string),
+        },
+      },
     })
   if (!task || task.userEmail !== userEmail) return R.error('Task not found')
 
   // GPT 模型（taskId 以 task_ 开头）：代理查询 right.codes 实时状态
   if (task.providerTaskId && task.status === 'PROCESSING') {
     try {
-      const pollResp = await fetch('https://www.right.codes/v1/tasks/' + task.providerTaskId, {
+      const pollResp = await fetch(`${RIGHT_API_BASE_URL}/v1/tasks/${task.providerTaskId}`, {
         headers: { 'Authorization': 'Bearer ' + GPT_IMAGE2_KEY },
       })
       const pollResult = await pollResp.json()
-      const rtStatus = pollResult.status || pollResult.data?.status || ''
+      const rtStatus = String(pollResult.status || pollResult.data?.status || '').toLowerCase()
       // right.codes 完成后可能不返回 status，直接返回 data 数组
       const hasDataUrl = pollResult.data?.[0]?.url || pollResult.data?.[0]?.b64_json || pollResult.data?.url || pollResult.url || pollResult.result
-      const isCompleted = rtStatus === 'succeeded' || rtStatus === 'completed' || rtStatus === 'success' || rtStatus === 'SUCCEEDED' || hasDataUrl
+      const isCompleted = rtStatus === 'succeeded' || rtStatus === 'completed' || rtStatus === 'success' || hasDataUrl
 
       if (isCompleted) {
         const imageUrl = pollResult.data?.[0]?.url || pollResult.data?.[0]?.b64_json || pollResult.data?.output?.[0] || pollResult.output?.[0] ||
@@ -195,7 +233,7 @@ export async function GET(request: NextRequest) {
         }
         return R.ok({ taskId, status: 'FAILED', errorMessage: 'GPT 任务成功但未找到图片URL' })
       }
-      if (rtStatus === 'failed' || rtStatus === 'FAILED') {
+      if (rtStatus === 'failed') {
         await prisma.outpaintTask.update({ where: { taskId: task.taskId }, data: { status: 'FAILED', errorMessage: pollResult.error?.message || 'GPT 处理失败' } })
         return R.ok({ taskId, status: 'FAILED', errorMessage: pollResult.error?.message || 'GPT 处理失败' })
       }
@@ -227,14 +265,20 @@ export async function POST(request: NextRequest) {
 
   const dir = expandDirection || '16:9'
   const useModel = model || 'tongyi'
+  const ip = getClientIp(request)
 
   // 获取登录用户信息（未登录则用 IP）
   let userEmail: string | null = null
   try {
     const authUser = await getAuthUser()
-    userEmail = authUser?.email || null
+    userEmail = authUser?.email || (IS_LOCAL_DEVELOPMENT
+      ? getLocalTestIdentity(ip)
+      : null)
   } catch (error: any) {
     console.error('Failed to verify image generation user:', error)
+    if (IS_LOCAL_DEVELOPMENT) {
+      userEmail = getLocalTestIdentity(ip)
+    }
   }
 
   if (!userEmail) return R.bad('Please sign in before generating images.')
@@ -251,9 +295,14 @@ export async function POST(request: NextRequest) {
     return R.bad('requestId is required and must be a valid idempotency key.')
   }
 
+  const normalizedRequestId = normalizeRequestId(requestId)
+  if (normalizedRequestId.length > 64) {
+    return R.bad('requestId is too long after applying the environment marker.')
+  }
+
   // 同一用户重复提交同一幂等键时，直接复用任务，避免重复占用额度和调用第三方服务。
   const existingTask = await prisma.outpaintTask.findUnique({
-    where: { userEmail_requestId: { userEmail, requestId } },
+    where: { userEmail_requestId: { userEmail, requestId: normalizedRequestId } },
   })
   if (existingTask) {
     return R.ok({
@@ -264,8 +313,6 @@ export async function POST(request: NextRequest) {
       errorMessage: existingTask.errorMessage,
     })
   }
-
-  const ip = getClientIp(request)
 
   try {
     const quota = await checkDailyLimit(userEmail)
@@ -286,7 +333,7 @@ export async function POST(request: NextRequest) {
       await prisma.outpaintTask.create({
         data: {
           taskId,
-          requestId,
+          requestId: normalizedRequestId,
           imageKey,
           expandDirection: dir,
           alignment: alignment || 'Middle',
@@ -307,7 +354,7 @@ export async function POST(request: NextRequest) {
       const base64 = buf.toString('base64')
       const mime = imageResp.headers.get('content-type') || 'image/png'
 
-      const apiResp = await fetch('https://www.right.codes/draw/v1/images/generations', {
+      const apiResp = await fetch(`${RIGHT_API_BASE_URL}/draw/v1/images/generations`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${GPT_IMAGE2_KEY}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -332,7 +379,7 @@ export async function POST(request: NextRequest) {
     } catch (err: any) {
       if (err?.code === 'P2002') {
         const duplicateTask = await prisma.outpaintTask.findUnique({
-          where: { userEmail_requestId: { userEmail, requestId } },
+          where: { userEmail_requestId: { userEmail, requestId: normalizedRequestId } },
         })
         if (duplicateTask) {
           return R.ok({ taskId: duplicateTask.taskId, status: duplicateTask.status })
@@ -364,13 +411,13 @@ export async function POST(request: NextRequest) {
   const taskId = nanoid()
   try {
     await prisma.outpaintTask.create({
-      data: { taskId, requestId, imageKey, expandDirection: dir, alignment: alignment || 'Middle', prompt: prompt || '', status: 'PENDING', userEmail, ipAddress: ip },
+      data: { taskId, requestId: normalizedRequestId, imageKey, expandDirection: dir, alignment: alignment || 'Middle', prompt: prompt || '', status: 'PENDING', userEmail, ipAddress: ip },
     })
     return R.ok({ taskId, status: 'PENDING' })
   } catch (error: any) {
     if (error?.code === 'P2002') {
       const duplicateTask = await prisma.outpaintTask.findUnique({
-        where: { userEmail_requestId: { userEmail, requestId } },
+        where: { userEmail_requestId: { userEmail, requestId: normalizedRequestId } },
       })
       if (duplicateTask) {
         return R.ok({ taskId: duplicateTask.taskId, status: duplicateTask.status })

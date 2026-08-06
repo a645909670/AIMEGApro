@@ -29,6 +29,14 @@ const nextConfig = {
         contextRegExp: /konva/
       })
     )
+    config.watchOptions = {
+      ...config.watchOptions,
+      ignored: [
+        '**/node_modules/**',
+        '**/.git/**',
+        '**/System Volume Information/**'
+      ]
+    }
     return config
   },
   redirects() {

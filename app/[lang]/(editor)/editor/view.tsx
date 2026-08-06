@@ -100,7 +100,19 @@ type PersistedGenerationTask = {
 }
 
 const ACTIVE_GENERATION_TASK_STORAGE_KEY = 'editor-active-generation-task'
+/**
+ * 生成任务在当前页面最多持续等待的时间，超时后停止遮罩但保留后台任务。
+ */
+const MAX_TASK_WAIT_DURATION = 5 * 60 * 1000
 const MAX_TASK_RESTORE_DURATION = 30 * 60 * 1000
+/**
+ * 任务状态正常轮询间隔，使用异步定时器避免阻塞页面交互。
+ */
+const TASK_POLL_INTERVAL = 2000
+/**
+ * 轮询请求异常时允许的最大退避间隔。
+ */
+const MAX_TASK_POLL_RETRY_INTERVAL = 8000
 
 const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   params,
@@ -172,6 +184,10 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
   const [historyImages, setHistoryImages] = useState<string[]>([])
   const [isProcessing, setIsProcessing] = useState(false)
   const [generationProgress, setGenerationProgress] = useState(0)
+  /**
+   * 标记任务是否因前端等待超时，避免页面继续显示不可操作的生成遮罩。
+   */
+  const [isGenerationTimedOut, setIsGenerationTimedOut] = useState(false)
   const [skipAuth, setSkipAuth] = useState(false) // 跳过登录验证开关
   const isLocalAuthBypass = process.env.NODE_ENV === 'development'
   const skipAuthRef = useRef(skipAuth)
@@ -511,7 +527,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isAuthenticated && !isLocalAuthBypass) {
       hasRestoredTaskRef.current = false
       return
     }
@@ -533,13 +549,25 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
           return
         }
 
-        setIsLoading(true)
-        setIsProcessing(true)
         let task = await fetchGet<any>('/api/outpaint', persistedTask.taskId
           ? { taskId: persistedTask.taskId }
           : { requestId: persistedTask.requestId })
+        const taskStatus = String(task?.status ?? '').toUpperCase()
 
-        if (task?.status === 'PENDING') {
+        if (taskStatus === 'PENDING' || taskStatus === 'PROCESSING') {
+          const taskDeadline = persistedTask.createdAt + MAX_TASK_WAIT_DURATION
+          if (Date.now() >= taskDeadline) {
+            setIsGenerationTimedOut(true)
+            setIsLoading(false)
+            setIsProcessing(false)
+            return
+          }
+
+          setIsLoading(true)
+          setIsProcessing(true)
+        }
+
+        if (taskStatus === 'PENDING') {
           // 仅恢复已落库任务的处理，不会重新调用创建/生成接口。
           await fetchPost('/api/outpaint', {
             action: 'process',
@@ -548,15 +576,42 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
           })
         }
 
-        while (!isCancelled && (task?.status === 'PENDING' || task?.status === 'PROCESSING')) {
-          await new Promise((resolve) => setTimeout(resolve, 2000))
-          task = await fetchGet<any>('/api/outpaint', { taskId: task.taskId })
+        let consecutivePollFailures = 0
+        while (!isCancelled && (String(task?.status ?? '').toUpperCase() === 'PENDING' || String(task?.status ?? '').toUpperCase() === 'PROCESSING')) {
+          if (Date.now() >= persistedTask.createdAt + MAX_TASK_WAIT_DURATION) {
+            setIsGenerationTimedOut(true)
+            setIsLoading(false)
+            setIsProcessing(false)
+            return
+          }
+
+          const pollDelay = Math.min(
+            TASK_POLL_INTERVAL * (2 ** Math.min(consecutivePollFailures, 2)),
+            MAX_TASK_POLL_RETRY_INTERVAL,
+          )
+          await new Promise((resolve) => setTimeout(resolve, pollDelay))
+
+          try {
+            task = await fetchGet<any>('/api/outpaint', { taskId: task.taskId })
+            consecutivePollFailures = 0
+            if (typeof task?.progress === 'number') {
+              setGenerationProgress(Math.min(100, Math.max(0, task.progress)))
+            }
+          } catch (error) {
+            consecutivePollFailures += 1
+            console.error('Failed to poll restored image generation task:', error)
+          }
         }
 
         if (isCancelled) return
 
-        if (task?.status !== 'SUCCEEDED' || !task.resultKey || !task.resultUrl) {
+        const restoredTaskStatus = String(task?.status ?? '').toUpperCase()
+        if (restoredTaskStatus !== 'SUCCEEDED' || !task.resultKey || !task.resultUrl) {
           localStorage.removeItem(ACTIVE_GENERATION_TASK_STORAGE_KEY)
+          setIsLoading(false)
+          setIsProcessing(false)
+          setIsGenerationTimedOut(false)
+          setGenerationProgress(0)
           msg.error(task?.errorMessage || t`Image processing failed.`)
           return
         }
@@ -582,10 +637,11 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
           setImage(restoredImage)
           setOriginalImage(restoredImage)
           setCurrentImageKey(task.resultKey)
-          setCurrentImagePath(task.resultUrl)
-          setGeneratedImages((previous) => [...previous, task.resultUrl])
-          setHistoryImages((previous) => [...previous, task.resultUrl])
+          setCurrentImagePath(task.resultKey)
+          setGeneratedImages((previous) => [...previous, task.resultKey])
+          setHistoryImages((previous) => [...previous, task.resultKey])
           setHasGeneratedImage(true)
+          setIsGenerationTimedOut(false)
           localStorage.removeItem(ACTIVE_GENERATION_TASK_STORAGE_KEY)
           setIsLoading(false)
           setIsProcessing(false)
@@ -597,7 +653,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
           setIsLoading(false)
           setIsProcessing(false)
         }
-        restoredImage.src = task.resultUrl
+        restoredImage.src = `/api/image-proxy?key=${encodeURIComponent(task.resultKey)}`
       } catch (error: any) {
         const errorMessage = typeof error === 'string' ? error : error?.message ?? ''
         if (errorMessage.includes('Task not found')) {
@@ -620,7 +676,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
     return () => {
       isCancelled = true
     }
-  }, [canvasSize.height, canvasSize.width, isAuthenticated, msg])
+  }, [canvasSize.height, canvasSize.width, isAuthenticated, isLocalAuthBypass, msg, skipAuth])
 
   /**
    * 创建并轮询图片生成任务。
@@ -638,6 +694,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
     setIsLoading(true)
     setIsProcessing(true)
+    setIsGenerationTimedOut(false)
     setGenerationProgress(0)
 
     try {
@@ -650,10 +707,6 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
       // 每次用户主动生成均创建独立幂等键；刷新恢复会在后续步骤复用该值。
       const requestId = crypto.randomUUID()
       const taskCreatedAt = Date.now()
-      localStorage.setItem(
-        ACTIVE_GENERATION_TASK_STORAGE_KEY,
-        JSON.stringify({ requestId, model: selectedModel, createdAt: taskCreatedAt }),
-      )
       let task = await fetchPost('/api/outpaint', {
         requestId,
         imageKey,
@@ -667,6 +720,9 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
         throw new Error(t`Failed to submit task.`)
       }
 
+      /**
+       * 只有服务端成功创建任务并返回 taskId 后，才持久化恢复信息，避免失败请求留下无效缓存。
+       */
       localStorage.setItem(
         ACTIVE_GENERATION_TASK_STORAGE_KEY,
         JSON.stringify({ requestId, taskId: task.taskId, model: selectedModel, createdAt: taskCreatedAt }),
@@ -683,54 +739,90 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
 
       // 4. 轮询等待结果
       task = task as any
-      while (task?.status === 'PENDING' || task?.status === 'PROCESSING') {
-        await new Promise(resolve => setTimeout(resolve, 2000))
-        const res = await fetch(`/api/outpaint?taskId=${task.taskId}`)
-        const json = await res.json()
-        task = json.data ?? json
-        if (typeof task?.progress === 'number') {
-          setGenerationProgress(Math.min(100, Math.max(0, task.progress)))
+      const taskDeadline = taskCreatedAt + MAX_TASK_WAIT_DURATION
+      let consecutivePollFailures = 0
+      while (String(task?.status ?? '').toUpperCase() === 'PENDING' || String(task?.status ?? '').toUpperCase() === 'PROCESSING') {
+        if (Date.now() >= taskDeadline) {
+          setIsLoading(false)
+          setIsProcessing(false)
+          setIsGenerationTimedOut(true)
+          return
+        }
+        const pollDelay = Math.min(
+          TASK_POLL_INTERVAL * (2 ** Math.min(consecutivePollFailures, 2)),
+          MAX_TASK_POLL_RETRY_INTERVAL,
+        )
+        await new Promise(resolve => setTimeout(resolve, pollDelay))
+        if (Date.now() >= taskDeadline) {
+          setIsLoading(false)
+          setIsProcessing(false)
+          setIsGenerationTimedOut(true)
+          return
+        }
+        try {
+          const res = await fetch(`/api/outpaint?taskId=${task.taskId}`)
+          if (!res.ok) {
+            throw new Error(`Task polling failed with status ${res.status}`)
+          }
+          const json = await res.json()
+          task = json.data ?? json
+          consecutivePollFailures = 0
+          if (typeof task?.progress === 'number') {
+            setGenerationProgress(Math.min(100, Math.max(0, task.progress)))
+          }
+        } catch (error) {
+          consecutivePollFailures += 1
+          console.error('Failed to poll image generation task:', error)
         }
       }
 
-      if (task.status !== 'SUCCEEDED' || !task.resultKey || !task.resultUrl) {
+      const taskStatus = String(task.status ?? '').toUpperCase()
+      if (taskStatus !== 'SUCCEEDED' || !task.resultKey || !task.resultUrl) {
         localStorage.removeItem(ACTIVE_GENERATION_TASK_STORAGE_KEY)
         throw new Error(task.errorMessage || t`Image processing failed.`)
       }
-      const resultImageUrl = task.resultUrl
+      const resultImageKey = task.resultKey
+      const resultImageUrl = `/api/image-proxy?key=${encodeURIComponent(resultImageKey)}`
       setGenerationProgress(100)
-      localStorage.removeItem(ACTIVE_GENERATION_TASK_STORAGE_KEY)
 
       // 5. 显示在画布上
-      const img = new Image()
-      img.src = resultImageUrl
-      img.onload = () => {
-        setGeneratedImages((prev) => [...prev, resultImageUrl])
-        setHistoryImages((prev) => [...prev, resultImageUrl])
-        setCurrentImageKey(task.resultKey)
-        setCurrentImagePath(resultImageUrl)
-        setHasGeneratedImage(true)
+      const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+        const nextImage = new Image()
+        nextImage.onload = () => resolve(nextImage)
+        nextImage.onerror = () => reject(new Error(t`Failed to load image. The image URL may be invalid or blocked by CORS.`))
+        nextImage.src = resultImageUrl
+      })
 
-        const imageAreaHeight = Math.max(
-          120,
-          canvasSize.height - PROMPT_PANEL_RESERVED_HEIGHT,
-        )
-        const scale = Math.min(
-          (canvasSize.width - 72) / img.width,
-          (imageAreaHeight - 72) / img.height,
-        ) * CANVAS_IMAGE_SCALE_RATIO
-        const width = img.width * scale
-        const height = img.height * scale
-        const x = (canvasSize.width - width) / 2
-        const y = (imageAreaHeight - height) / 2
-        setImageProps({ width, height, x, y })
-        setImage(img)
-        setOriginalImage(img)
+      setGeneratedImages((prev) => [...prev, resultImageKey])
+      setHistoryImages((prev) => [...prev, resultImageKey])
+      setCurrentImageKey(resultImageKey)
+      setCurrentImagePath(resultImageKey)
+      setHasGeneratedImage(true)
 
-        setIsLoading(false)
-        setIsProcessing(false)
-        setGenerationProgress(0)
-      }
+      const imageAreaHeight = Math.max(
+        120,
+        canvasSize.height - PROMPT_PANEL_RESERVED_HEIGHT,
+      )
+      const scale = Math.min(
+        (canvasSize.width - 72) / img.width,
+        (imageAreaHeight - 72) / img.height,
+      ) * CANVAS_IMAGE_SCALE_RATIO
+      const width = img.width * scale
+      const height = img.height * scale
+      const x = (canvasSize.width - width) / 2
+      const y = (imageAreaHeight - height) / 2
+      setImageProps({ width, height, x, y })
+      setImage(img)
+      setOriginalImage(img)
+      /**
+       * 图片已成功加载并写入画布后，再清理任务缓存，保证断网时仍可刷新恢复。
+       */
+      localStorage.removeItem(ACTIVE_GENERATION_TASK_STORAGE_KEY)
+
+      setIsLoading(false)
+      setIsProcessing(false)
+      setIsGenerationTimedOut(false)
+      setGenerationProgress(0)
 
     } catch (error: any) {
       const msgText = typeof error === 'string' ? error : (error?.message || '')
@@ -940,6 +1032,24 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
               ))}
             </div>
           </div>
+        </div>
+      )}
+      {isGenerationTimedOut && !isProcessing && (
+        <div className="absolute left-1/2 top-20 z-[90] w-[min(92vw,520px)] -translate-x-1/2 rounded-xl border border-[#2f9da0]/70 bg-[#101510] px-4 py-3 text-center shadow-lg">
+          <p className="text-sm text-gray-200">
+            {t`This image is still being generated in the background. You can leave now and check back later.`}
+          </p>
+          <Button
+            as={Link}
+            href={`/${params.lang}/`}
+            size="sm"
+            color="primary"
+            variant="flat"
+            className="mt-3"
+            startContent={<ArrowLeft size={16} />}
+          >
+            {t`Return Home`}
+          </Button>
         </div>
       )}
       <div className="h-screen flex flex-col">
