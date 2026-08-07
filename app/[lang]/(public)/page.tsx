@@ -22,10 +22,10 @@ export async function generateMetadata({
 ): Promise<Metadata> {
   // 必须主动激活一下当前语言，否则t函数不生效
   await activateLocale(params.lang)
-  const title = t`Free Online Tool For AI Image Expanding `+`-${siteConfig.name}`
+  const title = t`Turn One Image into Endless Possibilities`+`-${siteConfig.name}`
   return {
     title,
-    description:t`Explore AIMEGApro, A Free Online Tool For Expanding and Enhancing Images Effortlessly`,
+    description:t`Upload an image and describe your idea. AIMEGApro helps you extend, edit, and reimagine it in seconds.`,
     alternates: {
       languages:metadataLanguages('/')
     },

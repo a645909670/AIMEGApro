@@ -737,17 +737,6 @@
       ]
     ]
   },
-  "8Wv2hB": {
-    "translation": "探索AIMEGApro，一個免費的線上工具，用於輕鬆擴展和增强影像",
-    "message": "Explore AIMEGApro, A Free Online Tool For Expanding and Enhancing Images Effortlessly",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(public)/page.tsx",
-        28
-      ]
-    ]
-  },
   "nkhTSO": {
     "translation": "使用先進的 AI 技術超越框架，在線輕鬆擴展您的照片，確保在所有影像比例下都能保持高品質的視覺效果。",
     "message": "Explore Beyond the Frame with AI Image Extender: Seamlessly expand your photos online using advanced generative AI, ensuring high-quality visuals are maintained across all image ratios.",
@@ -934,17 +923,6 @@
       [
         "app/[lang]/(public)/generative-fill-ai/views/features.tsx",
         12
-      ]
-    ]
-  },
-  "fDIFV3": {
-    "translation": "免费在线工具，用于AI图像扩展",
-    "message": "Free Online Tool For AI Image Expanding",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(public)/page.tsx",
-        25
       ]
     ]
   },
@@ -1887,6 +1865,17 @@
       ]
     ]
   },
+  "hamlBK": {
+    "translation": "將一張圖片變成無限可能",
+    "message": "Turn One Image into Endless Possibilities",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(public)/page.tsx",
+        25
+      ]
+    ]
+  },
   "fmJXjq": {
     "translation": "",
     "message": "Unable to check sign-in status. Please try again.",
@@ -1906,6 +1895,17 @@
       [
         "framework/components/ue-upload/button.tsx",
         44
+      ]
+    ]
+  },
+  "mmF30t": {
+    "translation": "上傳圖片並描述您的想法。AIMEGApro 能在幾秒鐘內協助您擴展、編輯並重新構想圖片。",
+    "message": "Upload an image and describe your idea. AIMEGApro helps you extend, edit, and reimagine it in seconds.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(public)/page.tsx",
+        28
       ]
     ]
   },

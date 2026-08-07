@@ -737,17 +737,6 @@
       ]
     ]
   },
-  "8Wv2hB": {
-    "translation": "",
-    "message": "Explore AIMEGApro, A Free Online Tool For Expanding and Enhancing Images Effortlessly",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(public)/page.tsx",
-        28
-      ]
-    ]
-  },
   "nkhTSO": {
     "translation": "Lebih Luas dari Bingkai dengan AI Image Extender: Perluas foto Anda secara online dengan menggunakan AI generatif tingkat lanjut, memastikan visual berkualitas tinggi dipertahankan di semua rasio gambar.",
     "message": "Explore Beyond the Frame with AI Image Extender: Seamlessly expand your photos online using advanced generative AI, ensuring high-quality visuals are maintained across all image ratios.",
@@ -934,17 +923,6 @@
       [
         "app/[lang]/(public)/generative-fill-ai/views/features.tsx",
         12
-      ]
-    ]
-  },
-  "fDIFV3": {
-    "translation": "Alat dalam talian percuma untuk memperluaskan imej AI",
-    "message": "Free Online Tool For AI Image Expanding",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(public)/page.tsx",
-        25
       ]
     ]
   },
@@ -1887,6 +1865,17 @@
       ]
     ]
   },
+  "hamlBK": {
+    "translation": "Tukarkan satu imej kepada kemungkinan tanpa batas",
+    "message": "Turn One Image into Endless Possibilities",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(public)/page.tsx",
+        25
+      ]
+    ]
+  },
   "fmJXjq": {
     "translation": "",
     "message": "Unable to check sign-in status. Please try again.",
@@ -1906,6 +1895,17 @@
       [
         "framework/components/ue-upload/button.tsx",
         44
+      ]
+    ]
+  },
+  "mmF30t": {
+    "translation": "Muat naik imej dan terangkan idea anda. AIMEGApro membantu anda mengembangkan, mengedit dan membayangkan semula imej dalam beberapa saat.",
+    "message": "Upload an image and describe your idea. AIMEGApro helps you extend, edit, and reimagine it in seconds.",
+    "comments": [],
+    "origin": [
+      [
+        "app/[lang]/(public)/page.tsx",
+        28
       ]
     ]
   },
