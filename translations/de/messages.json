@@ -308,7 +308,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        852
+        894
       ]
     ]
   },
@@ -319,7 +319,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1313
+        1346
       ]
     ]
   },
@@ -330,7 +330,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1076
+        1113
       ]
     ]
   },
@@ -393,7 +393,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        959
+        1001
       ]
     ]
   },
@@ -503,7 +503,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1317
+        1350
       ]
     ]
   },
@@ -514,7 +514,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        310
+        351
       ],
       [
         "components/wegic/navbar.tsx",
@@ -529,7 +529,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1121
+        1158
       ]
     ]
   },
@@ -540,15 +540,15 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1344
+        1377
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1371
+        1404
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1387
+        1420
       ],
       [
         "framework/components/login/GoogleLogin.tsx",
@@ -563,7 +563,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1320
+        1353
       ]
     ]
   },
@@ -574,7 +574,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1311
+        1344
       ]
     ]
   },
@@ -604,7 +604,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1274
+        1307
       ]
     ]
   },
@@ -626,7 +626,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1379
+        1412
       ]
     ]
   },
@@ -637,7 +637,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1259
+        1296
       ]
     ]
   },
@@ -670,7 +670,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1125
+        1162
       ]
     ]
   },
@@ -715,17 +715,6 @@
       ]
     ]
   },
-  "Q+x/E4": {
-    "translation": "Erweiterung",
-    "message": "Expanding",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        1274
-      ]
-    ]
-  },
   "kNSTBA": {
     "translation": "Erweiterungsrichtung:",
     "message": "Expansion Direction:",
@@ -733,7 +722,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1082
+        1119
       ]
     ]
   },
@@ -815,11 +804,11 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        295
+        336
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        801
+        842
       ]
     ]
   },
@@ -830,7 +819,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        661
+        704
       ]
     ]
   },
@@ -841,7 +830,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        676
+        717
       ]
     ]
   },
@@ -852,7 +841,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        729
+        768
       ]
     ]
   },
@@ -885,7 +874,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        326
+        367
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -956,7 +945,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1024
+        1066
       ]
     ]
   },
@@ -1086,7 +1075,7 @@
     "origin": [
       [
         "components/wegic/footer.tsx",
-        8
+        9
       ]
     ]
   },
@@ -1097,7 +1086,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1084
+        1121
       ]
     ]
   },
@@ -1207,7 +1196,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        341
+        382
       ]
     ]
   },
@@ -1218,7 +1207,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        336
+        377
       ]
     ]
   },
@@ -1229,11 +1218,19 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        623
+        655
       ],
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        791
+        666
+      ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        823
+      ],
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        832
       ]
     ]
   },
@@ -1285,7 +1282,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        954
+        996
       ]
     ]
   },
@@ -1296,7 +1293,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1220
+        1257
       ]
     ]
   },
@@ -1305,6 +1302,10 @@
     "message": "Loading...",
     "comments": [],
     "origin": [
+      [
+        "app/[lang]/(editor)/editor/view.tsx",
+        1069
+      ],
       [
         "app/[lang]/(public)/loading.tsx",
         8
@@ -1322,7 +1323,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1167
+        1204
       ],
       [
         "components/wegic/navbar.tsx",
@@ -1337,7 +1338,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        952
+        994
       ]
     ]
   },
@@ -1381,7 +1382,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1333
+        1366
       ]
     ]
   },
@@ -1392,7 +1393,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1091
+        1128
       ]
     ]
   },
@@ -1447,7 +1448,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1240
+        1277
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -1462,7 +1463,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        698
+        736
       ]
     ]
   },
@@ -1473,7 +1474,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        316
+        357
       ],
       [
         "framework/components/login/GoogleLogin.tsx",
@@ -1499,7 +1500,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        712
+        751
       ]
     ]
   },
@@ -1536,17 +1537,6 @@
       ]
     ]
   },
-  "k1ifdL": {
-    "translation": "Verarbeitung...",
-    "message": "Processing...",
-    "comments": [],
-    "origin": [
-      [
-        "app/[lang]/(editor)/editor/view.tsx",
-        1033
-      ]
-    ]
-  },
   "o73FAt": {
     "translation": "",
     "message": "Prompt:",
@@ -1554,7 +1544,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1253
+        1290
       ]
     ]
   },
@@ -1608,10 +1598,6 @@
     "comments": [],
     "origin": [
       [
-        "app/[lang]/(editor)/editor/view.tsx",
-        1269
-      ],
-      [
         "app/[lang]/(public)/playgroundv1/[[...slug]]/views.tsx",
         208
       ]
@@ -1646,7 +1632,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1060
+        1097
       ]
     ]
   },
@@ -1657,7 +1643,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        956
+        998
       ]
     ]
   },
@@ -1679,7 +1665,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1146
+        1183
       ],
       [
         "components/wegic/navbar.tsx",
@@ -1694,7 +1680,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1138
+        1175
       ],
       [
         "components/wegic/navbar.tsx",
@@ -1717,7 +1703,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1086
+        1123
       ]
     ]
   },
@@ -1806,7 +1792,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1049
+        1086
       ]
     ]
   },
@@ -1817,7 +1803,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        958
+        1000
       ]
     ]
   },
@@ -1964,7 +1950,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1220
+        1257
       ],
       [
         "components/wegic/painting-uploader.tsx",
@@ -1979,7 +1965,7 @@
     "origin": [
       [
         "app/[lang]/(editor)/editor/view.tsx",
-        1085
+        1122
       ]
     ]
   },

@@ -1066,7 +1066,7 @@ const EditorView: React.FC<{ params: { lang: AVAILABLE_LOCALES } }> = ({
               {t`Generating`}
             </div>
             <div className="mt-2 text-sm font-semibold text-gray-300" aria-live="polite">
-              加载中...
+              {t`Loading...`}
             </div>
             <div className="mt-5 flex gap-2" aria-hidden="true">
               {['progress-a', 'progress-b', 'progress-c', 'progress-d', 'progress-e'].map((segment, index) => (
