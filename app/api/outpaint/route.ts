@@ -26,6 +26,7 @@ const IS_LOCAL_DEVELOPMENT = process.env.NODE_ENV === 'development' && !process.
  * rightapi 图片生成服务的基础地址，仅在服务端读取环境变量。
  */
 const RIGHT_API_BASE_URL = (process.env.RIGHT_API_BASE_URL || 'https://www.rightapi.ai').replace(/\/+$/, '')
+const TASK_RECOVERY_TIMEOUT_MS = 30 * 60 * 1000
 
 /**
  * 将第三方服务返回的进度统一转换为 0 到 100 的整数百分比。
@@ -82,6 +83,41 @@ function getLocalTestIdentity(ipAddress: string): string {
  */
 function normalizeRequestId(requestId: string): string {
   return IS_LOCAL_DEVELOPMENT ? `local-test-${requestId}` : requestId
+}
+
+/**
+ * 标记当前用户尚未结束的图片生成任务为失败，避免失效任务阻塞后续生成。
+ * @param {String} taskId - 图片生成任务 ID
+ * @param {String} userEmail - 任务所属用户
+ * @param {String} errorMessage - 失败原因
+ * @returns {Promise<Boolean>} 是否更新到任务记录
+ */
+async function failActiveTask(taskId: string, userEmail: string, errorMessage: string): Promise<boolean> {
+  const result = await prisma.outpaintTask.updateMany({
+    where: { taskId, userEmail, status: { in: ['PENDING', 'PROCESSING'] } },
+    data: { status: 'FAILED', errorMessage },
+  })
+  return result.count === 1
+}
+
+/**
+ * 回收超过恢复窗口仍未结束的任务，避免历史脏数据影响后续任务创建。
+ * @param {String} userEmail - 任务所属用户
+ * @returns {Promise<void>}
+ */
+async function recoverExpiredActiveTasks(userEmail: string): Promise<void> {
+  const expiredAt = new Date(Date.now() - TASK_RECOVERY_TIMEOUT_MS)
+  await prisma.outpaintTask.updateMany({
+    where: {
+      userEmail,
+      status: { in: ['PENDING', 'PROCESSING'] },
+      createdAt: { lt: expiredAt },
+    },
+    data: {
+      status: 'FAILED',
+      errorMessage: 'Image generation task expired before completion.',
+    },
+  })
 }
 
 /** 检查当日使用次数是否超限（登录用户5次，匿名用户3次） */
@@ -283,6 +319,23 @@ export async function POST(request: NextRequest) {
 
   if (!userEmail) return R.bad('Please sign in before generating images.')
 
+  if (action === 'fail') {
+    if (typeof body.taskId !== 'string' || !body.taskId) return R.bad('taskId is required')
+    try {
+      const updated = await failActiveTask(
+        body.taskId,
+        userEmail,
+        typeof body.errorMessage === 'string' && body.errorMessage
+          ? body.errorMessage.slice(0, 1000)
+          : 'Image generation task failed before completion.',
+      )
+      return R.ok({ taskId: body.taskId, status: updated ? 'FAILED' : 'NOT_ACTIVE' })
+    } catch (error: any) {
+      console.error('Failed to terminate image generation task:', error)
+      return R.error('Failed to terminate image generation task.')
+    }
+  }
+
   if (action === 'process') {
     return processTask(body.taskId, body.model || 'tongyi', userEmail)
   }
@@ -298,6 +351,13 @@ export async function POST(request: NextRequest) {
   const normalizedRequestId = normalizeRequestId(requestId)
   if (normalizedRequestId.length > 64) {
     return R.bad('requestId is too long after applying the environment marker.')
+  }
+
+  try {
+    await recoverExpiredActiveTasks(userEmail)
+  } catch (error: any) {
+    console.error('Failed to recover expired image generation tasks:', error)
+    return R.error('Failed to recover expired image generation tasks.')
   }
 
   // 同一用户重复提交同一幂等键时，直接复用任务，避免重复占用额度和调用第三方服务。
@@ -480,8 +540,10 @@ async function processWithOpenAI(task: any, taskId: string) {
  * @returns {Promise<{task: any, claimed: Boolean, errorMessage?: String}>} 抢占结果
  */
 async function claimPendingTask(taskId: string, userEmail: string) {
+  let task: any = null
+
   try {
-    const task = await prisma.outpaintTask.findUnique({ where: { taskId } })
+    task = await prisma.outpaintTask.findUnique({ where: { taskId } })
     if (!task || task.userEmail !== userEmail) {
       return { task: null, claimed: false, errorMessage: 'Task not found' }
     }
@@ -503,6 +565,12 @@ async function claimPendingTask(taskId: string, userEmail: string) {
     return { task: latestTask, claimed: false }
   } catch (error: any) {
     console.error('Failed to claim image generation task:', error)
+    await prisma.outpaintTask.updateMany({
+      where: { taskId, userEmail, status: 'PENDING' },
+      data: { status: 'FAILED', errorMessage: 'Failed to start image generation task.' },
+    }).catch((updateError) => {
+      console.error('Failed to mark unstarted image generation task as failed:', updateError)
+    })
     return { task: null, claimed: false, errorMessage: 'Failed to start image generation task.' }
   }
 }

@@ -2,11 +2,11 @@
 import Link from 'next/link'
 import { AVAILABLE_LOCALES } from '@/framework/locale/locale'
 import { t } from '@lingui/macro'
+import { siteConfig } from '@/config/site'
 
 const getNavigation = () => {
   return [
     { name: t`Home`, href: '/' },
-    { name: `Tools`, href: '/tools' },
     // { name: t`Pricing`, href: '/pricing' },//隐藏支付
     // { name: t`Blogs`, href: '/blogs' },//隐藏博客
     { name: `Privacy Policy`, href: '/about/privacy-policy' },
@@ -39,13 +39,15 @@ const Footer = ({ params }: { params?: { lang: AVAILABLE_LOCALES } }) => (
               <Link href="/" className="inline-block">
                 <div className="w-full h-full flex items-center justify-start">
                   <img
-                    className="w-auto h-14 object-cover"
-                    src="/logo2.png"
-                    alt="logo"
+                    className="ml-0 h-8 w-auto object-cover md:ml-3 md:h-12"
+                    src="/logo.png"
+                    alt={siteConfig.name}
                   />
-                  <div style={{marginLeft: '8px'}}>
-                    <div style={{fontSize: '21px'}}>AIMEGApro</div>
-                    <div style={{fontSize: '10px', color: '#5961F9'}}>Democratizing AI: Easy Access for Everyone</div>
+                  <div>
+                    <p className="ml-2 text-sm font-bold md:text-2xl">{siteConfig.name}</p>
+                    {siteConfig.slogan && (
+                      <p className="ml-2 hidden text-xs text-primary md:block md:text-sm">{siteConfig.slogan}</p>
+                    )}
                   </div>
                 </div>
               </Link>
